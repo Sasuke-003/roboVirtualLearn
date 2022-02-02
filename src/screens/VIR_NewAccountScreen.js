@@ -1,11 +1,18 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
-import {images, strings} from '../assets';
+import {images, strings, fonts, colors} from '../assets';
 
 const VIR_NewAccountScreen = () => {
   return (
     <View>
-      <Text>{strings.onBoardingPage.title}</Text>
+      <Text
+        style={{
+          marginTop: 50,
+          fontFamily: fonts.bikoRegular,
+          fontSize: 30,
+        }}>
+        {strings.onBoardingPage.title}
+      </Text>
       <Image
         source={images.newAccountScreen.googleIcon}
         style={{width: 20, height: 20}}

@@ -11,9 +11,24 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2B8ED1D9D304412C84D27724 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2CC8F67C83945CA8F6F99AF /* Montserrat-Medium.ttf */; };
+		2C4BF5C7451F429E9F3ED968 /* Cabin-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F87C7CBADB6D4AA293633AC4 /* Cabin-Bold.ttf */; };
+		424E16214A9B470A825CDFF1 /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A5872B3FDA70480B9AE503B9 /* Montserrat-Black.ttf */; };
+		4EE10A8F714243019A7E121F /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E82CB3D9649845FAA41852C5 /* Montserrat-Regular.ttf */; };
 		5347B06E15C9D36009789A17 /* libPods-roboVirtualLearn-roboVirtualLearnTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E2AA60516EA7B1C1406BAD /* libPods-roboVirtualLearn-roboVirtualLearnTests.a */; };
+		7E538C186DB94E7BB59ECBBD /* Cabin-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B832F372A2C448B29A783B52 /* Cabin-Medium.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A622053DD108F08B5B72309A /* libPods-roboVirtualLearn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3825EC2ACE6D55ED5118FB1 /* libPods-roboVirtualLearn.a */; };
+		B3D4EAA831044019AAA05E37 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D46E3817A9B4135ABB282CF /* Montserrat-Light.ttf */; };
+		C96AD8F637E1448C9F4F41B1 /* Cabin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 238EAB09B4C740709A4754F0 /* Cabin-Regular.ttf */; };
+		CA4B79AA38364632A5E4D417 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D45A66916B08425A82C357D8 /* Montserrat-Bold.ttf */; };
+		F6907D7927AB1086004347C7 /* NunitoSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F8DE03C8F9246A5B9E76461 /* NunitoSans-Black.ttf */; };
+		F6907D7A27AB1086004347C7 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4731A19CAAE41C58EB6A600 /* NunitoSans-Bold.ttf */; };
+		F6907D7B27AB1086004347C7 /* NunitoSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C224AA4A804465686D2839F /* NunitoSans-Light.ttf */; };
+		F6907D7C27AB1086004347C7 /* NunitoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 340119FE735643DBB0ACC9E2 /* NunitoSans-Regular.ttf */; };
+		F6907D7D27AB13A9004347C7 /* biko-black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F9C001C81E54EBC889E36F2 /* biko-black.otf */; };
+		F6907D7E27AB13A9004347C7 /* biko-bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 457A4995E74B4563B9B21906 /* biko-bold.otf */; };
+		F6907D7F27AB13A9004347C7 /* biko-regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = AA10515E53B74BE996DE8EC4 /* biko-regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,19 +46,53 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* roboVirtualLearnTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = roboVirtualLearnTests.m; sourceTree = "<group>"; };
 		02DFC5D17BCF1530428FB775 /* Pods-roboVirtualLearn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roboVirtualLearn.debug.xcconfig"; path = "Target Support Files/Pods-roboVirtualLearn/Pods-roboVirtualLearn.debug.xcconfig"; sourceTree = "<group>"; };
+		0F8DE03C8F9246A5B9E76461 /* NunitoSans-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NunitoSans-Black.ttf"; path = "../src/assets/fonts/NunitoSans-Black.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* roboVirtualLearn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = roboVirtualLearn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = roboVirtualLearn/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = roboVirtualLearn/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = roboVirtualLearn/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = roboVirtualLearn/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = roboVirtualLearn/main.m; sourceTree = "<group>"; };
+		18E4C4D20F4846C9831698D9 /* biko_regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = biko_regular.otf; path = ../src/assets/fonts/biko_regular.otf; sourceTree = "<group>"; };
+		1C1E18736AB149DA9E9E19E8 /* biko regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "biko regular.otf"; path = "../src/assets/fonts/biko regular.otf"; sourceTree = "<group>"; };
+		238EAB09B4C740709A4754F0 /* Cabin-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-Regular.ttf"; path = "../src/assets/fonts/Cabin-Regular.ttf"; sourceTree = "<group>"; };
+		26DCEE41114C4A0184DB7509 /* sfns_display_regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = sfns_display_regular.ttf; path = ../src/assets/fonts/sfns_display_regular.ttf; sourceTree = "<group>"; };
 		28E2AA60516EA7B1C1406BAD /* libPods-roboVirtualLearn-roboVirtualLearnTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-roboVirtualLearn-roboVirtualLearnTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		340119FE735643DBB0ACC9E2 /* NunitoSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NunitoSans-Regular.ttf"; path = "../src/assets/fonts/NunitoSans-Regular.ttf"; sourceTree = "<group>"; };
+		3A36B92C63CA4CE9A9A223DD /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "ProximaNova-Regular.otf"; path = "../src/assets/fonts/ProximaNova-Regular.otf"; sourceTree = "<group>"; };
+		42DC9F09B4354849AAC57E7B /* Biko_Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Biko_Bold.otf; path = ../src/assets/fonts/Biko_Bold.otf; sourceTree = "<group>"; };
+		457A4995E74B4563B9B21906 /* biko-bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "biko-bold.otf"; path = "../src/assets/fonts/biko-bold.otf"; sourceTree = "<group>"; };
 		4D82B6AD87E879FAC3CCC7CA /* Pods-roboVirtualLearn-roboVirtualLearnTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roboVirtualLearn-roboVirtualLearnTests.release.xcconfig"; path = "Target Support Files/Pods-roboVirtualLearn-roboVirtualLearnTests/Pods-roboVirtualLearn-roboVirtualLearnTests.release.xcconfig"; sourceTree = "<group>"; };
+		4F9C001C81E54EBC889E36F2 /* biko-black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "biko-black.otf"; path = "../src/assets/fonts/biko-black.otf"; sourceTree = "<group>"; };
+		507CB7AFBA7F495C8C45FD60 /* biko_bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = biko_bold.otf; path = ../src/assets/fonts/biko_bold.otf; sourceTree = "<group>"; };
+		5273211E0BB34DB1867A23DF /* Biko_Light-Restricted.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Biko_Light-Restricted.otf"; path = "../src/assets/fonts/Biko_Light-Restricted.otf"; sourceTree = "<group>"; };
+		5C224AA4A804465686D2839F /* NunitoSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NunitoSans-Light.ttf"; path = "../src/assets/fonts/NunitoSans-Light.ttf"; sourceTree = "<group>"; };
+		689E966E213E421E95CA0531 /* display-regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "display-regular.ttf"; path = "../src/assets/fonts/display-regular.ttf"; sourceTree = "<group>"; };
+		7D46E3817A9B4135ABB282CF /* Montserrat-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Light.ttf"; path = "../src/assets/fonts/Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		7E19A55C7F2949D2A25020CA /* proxima.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = proxima.otf; path = ../src/assets/fonts/proxima.otf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = roboVirtualLearn/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		861FF570AD4E43D3BCAAA38D /* Biko_Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Biko_Regular.otf; path = ../src/assets/fonts/Biko_Regular.otf; sourceTree = "<group>"; };
+		8D28CCCCE4DA4CCB9ECDA79F /* proxima-nova.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "proxima-nova.ttf"; path = "../src/assets/fonts/proxima-nova.ttf"; sourceTree = "<group>"; };
 		A3825EC2ACE6D55ED5118FB1 /* libPods-roboVirtualLearn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-roboVirtualLearn.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A459F04EAA3841DAB4070FA1 /* proxima-nova.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "proxima-nova.otf"; path = "../src/assets/fonts/proxima-nova.otf"; sourceTree = "<group>"; };
+		A5872B3FDA70480B9AE503B9 /* Montserrat-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Black.ttf"; path = "../src/assets/fonts/Montserrat-Black.ttf"; sourceTree = "<group>"; };
 		A60A9BDC708A5ACF887C90E1 /* Pods-roboVirtualLearn-roboVirtualLearnTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roboVirtualLearn-roboVirtualLearnTests.debug.xcconfig"; path = "Target Support Files/Pods-roboVirtualLearn-roboVirtualLearnTests/Pods-roboVirtualLearn-roboVirtualLearnTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AA10515E53B74BE996DE8EC4 /* biko-regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "biko-regular.otf"; path = "../src/assets/fonts/biko-regular.otf"; sourceTree = "<group>"; };
+		B832F372A2C448B29A783B52 /* Cabin-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-Medium.ttf"; path = "../src/assets/fonts/Cabin-Medium.ttf"; sourceTree = "<group>"; };
+		C4731A19CAAE41C58EB6A600 /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NunitoSans-Bold.ttf"; path = "../src/assets/fonts/NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
 		C5ED6D5D11661B1E67606F06 /* Pods-roboVirtualLearn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roboVirtualLearn.release.xcconfig"; path = "Target Support Files/Pods-roboVirtualLearn/Pods-roboVirtualLearn.release.xcconfig"; sourceTree = "<group>"; };
+		C6E4677459094E939D9C9510 /* Biko_Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Biko_Black.otf; path = ../src/assets/fonts/Biko_Black.otf; sourceTree = "<group>"; };
+		C76FEB57986C4FB19EEC70F7 /* biko_black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = biko_black.otf; path = ../src/assets/fonts/biko_black.otf; sourceTree = "<group>"; };
+		D051BD9BB0F94CC9A6B92973 /* proximaNova.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = proximaNova.otf; path = ../src/assets/fonts/proximaNova.otf; sourceTree = "<group>"; };
+		D45A66916B08425A82C357D8 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../src/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		E82CB3D9649845FAA41852C5 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../src/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		E9EE81DECBF54B7592C0C0D4 /* proximanova.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = proximanova.otf; path = ../src/assets/fonts/proximanova.otf; sourceTree = "<group>"; };
+		EBBE7EE4DCE5492AAA1DDDD5 /* proxima_nova.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = proxima_nova.ttf; path = ../src/assets/fonts/proxima_nova.ttf; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EF9D7CA9FCF0479C8E24F295 /* sfns-display-regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "sfns-display-regular.ttf"; path = "../src/assets/fonts/sfns-display-regular.ttf"; sourceTree = "<group>"; };
+		F2CC8F67C83945CA8F6F99AF /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../src/assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		F87C7CBADB6D4AA293633AC4 /* Cabin-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-Bold.ttf"; path = "../src/assets/fonts/Cabin-Bold.ttf"; sourceTree = "<group>"; };
+		FE25A57C5EA045C3B26E70BB /* Proxima Nova Font.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Proxima Nova Font.otf"; path = "../src/assets/fonts/Proxima Nova Font.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +140,6 @@
 				A60A9BDC708A5ACF887C90E1 /* Pods-roboVirtualLearn-roboVirtualLearnTests.debug.xcconfig */,
 				4D82B6AD87E879FAC3CCC7CA /* Pods-roboVirtualLearn-roboVirtualLearnTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -118,6 +166,47 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		656B95D58AAE43059008554E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C6E4677459094E939D9C9510 /* Biko_Black.otf */,
+				42DC9F09B4354849AAC57E7B /* Biko_Bold.otf */,
+				5273211E0BB34DB1867A23DF /* Biko_Light-Restricted.otf */,
+				861FF570AD4E43D3BCAAA38D /* Biko_Regular.otf */,
+				FE25A57C5EA045C3B26E70BB /* Proxima Nova Font.otf */,
+				C76FEB57986C4FB19EEC70F7 /* biko_black.otf */,
+				1C1E18736AB149DA9E9E19E8 /* biko regular.otf */,
+				507CB7AFBA7F495C8C45FD60 /* biko_bold.otf */,
+				18E4C4D20F4846C9831698D9 /* biko_regular.otf */,
+				4F9C001C81E54EBC889E36F2 /* biko-black.otf */,
+				457A4995E74B4563B9B21906 /* biko-bold.otf */,
+				AA10515E53B74BE996DE8EC4 /* biko-regular.otf */,
+				D051BD9BB0F94CC9A6B92973 /* proximaNova.otf */,
+				E9EE81DECBF54B7592C0C0D4 /* proximanova.otf */,
+				A459F04EAA3841DAB4070FA1 /* proxima-nova.otf */,
+				3A36B92C63CA4CE9A9A223DD /* ProximaNova-Regular.otf */,
+				7E19A55C7F2949D2A25020CA /* proxima.otf */,
+				8D28CCCCE4DA4CCB9ECDA79F /* proxima-nova.ttf */,
+				EBBE7EE4DCE5492AAA1DDDD5 /* proxima_nova.ttf */,
+				26DCEE41114C4A0184DB7509 /* sfns_display_regular.ttf */,
+				EF9D7CA9FCF0479C8E24F295 /* sfns-display-regular.ttf */,
+				689E966E213E421E95CA0531 /* display-regular.ttf */,
+				0F8DE03C8F9246A5B9E76461 /* NunitoSans-Black.ttf */,
+				C4731A19CAAE41C58EB6A600 /* NunitoSans-Bold.ttf */,
+				5C224AA4A804465686D2839F /* NunitoSans-Light.ttf */,
+				340119FE735643DBB0ACC9E2 /* NunitoSans-Regular.ttf */,
+				F87C7CBADB6D4AA293633AC4 /* Cabin-Bold.ttf */,
+				B832F372A2C448B29A783B52 /* Cabin-Medium.ttf */,
+				238EAB09B4C740709A4754F0 /* Cabin-Regular.ttf */,
+				A5872B3FDA70480B9AE503B9 /* Montserrat-Black.ttf */,
+				D45A66916B08425A82C357D8 /* Montserrat-Bold.ttf */,
+				7D46E3817A9B4135ABB282CF /* Montserrat-Light.ttf */,
+				F2CC8F67C83945CA8F6F99AF /* Montserrat-Medium.ttf */,
+				E82CB3D9649845FAA41852C5 /* Montserrat-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +223,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				0DA73B5B992FCEBA8A039C81 /* Pods */,
+				656B95D58AAE43059008554E /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -243,8 +333,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6907D7D27AB13A9004347C7 /* biko-black.otf in Resources */,
+				F6907D7E27AB13A9004347C7 /* biko-bold.otf in Resources */,
+				F6907D7F27AB13A9004347C7 /* biko-regular.otf in Resources */,
+				F6907D7927AB1086004347C7 /* NunitoSans-Black.ttf in Resources */,
+				F6907D7A27AB1086004347C7 /* NunitoSans-Bold.ttf in Resources */,
+				F6907D7B27AB1086004347C7 /* NunitoSans-Light.ttf in Resources */,
+				F6907D7C27AB1086004347C7 /* NunitoSans-Regular.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				2C4BF5C7451F429E9F3ED968 /* Cabin-Bold.ttf in Resources */,
+				7E538C186DB94E7BB59ECBBD /* Cabin-Medium.ttf in Resources */,
+				C96AD8F637E1448C9F4F41B1 /* Cabin-Regular.ttf in Resources */,
+				424E16214A9B470A825CDFF1 /* Montserrat-Black.ttf in Resources */,
+				CA4B79AA38364632A5E4D417 /* Montserrat-Bold.ttf in Resources */,
+				B3D4EAA831044019AAA05E37 /* Montserrat-Light.ttf in Resources */,
+				2B8ED1D9D304412C84D27724 /* Montserrat-Medium.ttf in Resources */,
+				4EE10A8F714243019A7E121F /* Montserrat-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
