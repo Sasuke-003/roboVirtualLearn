@@ -1,6 +1,10 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {VIR_OnBoardingScreen, VIR_NewAccountScreen} from '../screens';
+import {
+  VIR_OnBoardingScreen,
+  VIR_NewAccountScreen,
+  VIR_VerifyAccountScreen,
+} from '../screens';
 import {NAVIGATION_ROUTES} from '../constants';
 
 const Stack = createNativeStackNavigator();
@@ -21,6 +25,13 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.NEW_ACCOUNT_SCREEN}
         component={VIR_NewAccountScreen}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN}
+        component={VIR_VerifyAccountScreen}
+        initialParams={{
+          afterVerifyGoto: NAVIGATION_ROUTES.PERSONNEL_DETAILS_SCREEN,
+        }}
       />
     </Stack.Navigator>
   );

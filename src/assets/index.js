@@ -19,5 +19,6 @@ export const fonts = {
 export const images = {
   newAccountScreen: {
     googleIcon: require('./images/googleIcon3x.png'),
+    facebookIcon: require('./images/facebook3x.png'),
   },
 };
