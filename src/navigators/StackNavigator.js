@@ -4,6 +4,7 @@ import {
   VIR_OnBoardingScreen,
   VIR_NewAccountScreen,
   VIR_VerifyAccountScreen,
+  VIR_PersonnelDetailsScreen,
 } from '../screens';
 import {NAVIGATION_ROUTES} from '../constants';
 
@@ -29,8 +30,17 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN}
         component={VIR_VerifyAccountScreen}
+        options={{gestureEnabled: false}}
         initialParams={{
           afterVerifyGoto: NAVIGATION_ROUTES.PERSONNEL_DETAILS_SCREEN,
+          phoneNumber: '',
+        }}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.PERSONNEL_DETAILS_SCREEN}
+        component={VIR_PersonnelDetailsScreen}
+        initialParams={{
+          phoneNumber: '',
         }}
       />
     </Stack.Navigator>

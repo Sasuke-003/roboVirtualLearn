@@ -7,4 +7,6 @@ export const colors = {
   inputBorderBottomColor: '#7A7A7A60',
   phoneNumberActive: '#042C5C',
   googleButtonBorder: '#77869E30',
+  errorColor: '#E92020',
+  successColor: '#12A73B',
 };

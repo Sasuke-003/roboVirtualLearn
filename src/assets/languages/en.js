@@ -7,10 +7,12 @@ export default en = {
     title: 'New Account',
     description:
       'Create a new account to get access to all courses by entering your mobile number.',
+    phoneNumberLabelText: 'Mobile number',
     phoneInputHelperText: 'Enter your mobile number',
     buttonText: 'Continue',
     haveAccountText: 'Already have an account? ',
     loginText: 'Login',
+    phoneNumberError: 'Invalid phone number',
   },
   verifyAccountPage: {
     title1: 'Verify Account',
@@ -21,5 +23,7 @@ export default en = {
     resend: 'Resend',
     buttonText1: 'Verify',
     buttonText2: 'Submit',
+    codeNotValid: 'Invalid verification code, please try again',
+    codeLengthNotValid: 'Incomplete verification code',
   },
 };

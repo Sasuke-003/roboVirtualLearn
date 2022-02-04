@@ -14,6 +14,8 @@ import {images, strings, fonts, colors} from '../assets';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NAVIGATION_ROUTES} from '../constants';
 
+import {utils} from '../utils';
+
 const facebookAndGoogleLogin = () => (
   <View style={[styles().fbGoogleContainer]}>
     <TouchableOpacity style={styles().fbGoogleTouchableContainer}>
@@ -44,8 +46,13 @@ const VIR_NewAccountScreen = ({navigation}) => {
     setPhoneNumber(text.replace(/[^0-9]/g, ''));
   };
   const goToVerifyScreen = () => {
+    if (phoneNumber.length < 10) {
+      utils.showErrorMessage(strings.newAccountPage.phoneNumberError);
+      return;
+    }
     navigation.navigate(NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN, {
       afterVerifyGoto: NAVIGATION_ROUTES.PERSONNEL_DETAILS_SCREEN,
+      phoneNumber,
     });
   };
   const goToLoginScreen = () => {};
@@ -63,25 +70,30 @@ const VIR_NewAccountScreen = ({navigation}) => {
   );
 
   const phoneInput = () => (
-    <View
-      style={[
-        styles(isLandscape).inputContainer,
-        isInputActive && {
-          borderBottomColor: colors.phoneNumberActive,
-        },
-      ]}>
-      <Text style={styles().countryCode}>+91</Text>
-      <TextInput
-        keyboardType="numeric"
-        maxLength={10}
-        style={styles().input}
-        onChangeText={onChangeText}
-        value={phoneNumber}
-        placeholder={strings.newAccountPage.phoneInputHelperText}
-        onFocus={() => setIsInputActive(true)}
-        onBlur={() => setIsInputActive(false)}
-      />
-    </View>
+    <>
+      <Text style={styles().phonNumberLabel}>
+        {phoneNumber.length > 0 && strings.newAccountPage.phoneNumberLabelText}
+      </Text>
+      <View
+        style={[
+          styles(isLandscape).inputContainer,
+          isInputActive && {
+            borderBottomColor: colors.phoneNumberActive,
+          },
+        ]}>
+        <Text style={styles().countryCode}>+91</Text>
+        <TextInput
+          keyboardType="numeric"
+          maxLength={10}
+          style={styles().input}
+          onChangeText={onChangeText}
+          value={phoneNumber}
+          placeholder={strings.newAccountPage.phoneInputHelperText}
+          onFocus={() => setIsInputActive(true)}
+          onBlur={() => setIsInputActive(false)}
+        />
+      </View>
+    </>
   );
 
   const button = () => (
@@ -111,8 +123,8 @@ const VIR_NewAccountScreen = ({navigation}) => {
     <SafeAreaView style={{backgroundColor: colors.background}}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={[styles().container, {height: window.height}]}
-        scrollEnabled={true}>
+        style={styles().container}
+        scrollEnabled={isLandscape}>
         <View
           style={{
             // height: !isLandscape ? window.height - 90 : window.height - 30,
@@ -141,7 +153,6 @@ const styles = (isLandscape = false) =>
       paddingHorizontal: 24,
       backgroundColor: colors.background,
       height: '100%',
-
       margin: 5,
     },
     newAccountContainer: {
@@ -161,6 +172,15 @@ const styles = (isLandscape = false) =>
       fontSize: 15,
       lineHeight: 20,
       marginBottom: isLandscape ? '5%' : '16%',
+    },
+    phonNumberLabel: {
+      color: colors.secondaryText,
+      fontFamily: fonts.proximaNovaRegular,
+      fontSize: 14,
+      letterSpacing: 0.29,
+      // lineHeight: 17,
+      height: 20,
+      // marginBottom: '1%',
     },
     inputContainer: {
       borderBottomWidth: 0.5,
