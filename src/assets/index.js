@@ -17,8 +17,13 @@ export const fonts = {
   sFnSDisplayMedium: 'Cabin-Medium',
 };
 export const images = {
+  errorIcon: require('./images/errorIcon3x.png'),
   newAccountScreen: {
     googleIcon: require('./images/googleIcon3x.png'),
+    facebookIcon: require('./images/facebook3x.png'),
+  },
+  verifyAccountScreen: {
+    backIcon: require('./images/backIcon3x.png'),
   },
   onboardScreen: {
     onboardLogo: require('./images/onboarding/logo3x.png'),
