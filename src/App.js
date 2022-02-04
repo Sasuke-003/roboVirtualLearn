@@ -1,3 +1,9 @@
+import {LogBox} from 'react-native';
+
+LogBox.ignoreLogs([
+  'RCTBridge required dispatch_sync to load RNGestureHandlerModule. This may lead to deadlocks',
+]);
+
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {StackNavigator} from './navigators';
