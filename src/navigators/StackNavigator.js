@@ -53,6 +53,9 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.FORGOT_PASSWORD}
         component={VIR_ForgotPassword}
+      />
+
+      <Stack.Screen
         name={NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN}
         component={VIR_VerifyAccountScreen}
         options={{gestureEnabled: false}}
