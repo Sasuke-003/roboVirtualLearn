@@ -25,11 +25,11 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={screenOptions}
-      initialRouteName={NAVIGATION_ROUTES.LOGIN_SCREEN}>
-      initialRouteName=
-      {newUser
-        ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
-        : NAVIGATION_ROUTES.LANDING_SCREEN}
+      initialRouteName={
+        newUser
+          ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
+          : NAVIGATION_ROUTES.LANDING_SCREEN
+      }>
       <Stack.Screen
         name={NAVIGATION_ROUTES.ON_BOARDING_SCREEN}
         component={VIR_OnBoardingScreen}
