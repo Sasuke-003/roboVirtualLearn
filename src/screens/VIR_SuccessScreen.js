@@ -9,28 +9,22 @@ import {
 import React from 'react';
 import {images, strings, fonts, colors} from '../assets';
 
-const VIR_SuccessScreen = props => {
+const VIR_SuccessScreen = ({navigation, route}) => {
+  const {image, title, message, buttonName, onPressButton} = route.params;
   const renderContent = () => {
     return (
       <View style={styles.innerContainer}>
-        <Image
-          source={images.successScreen.registerSuccess}
-          style={styles.image}
-        />
-        <Text style={styles.title}>{strings.registerSuccessScreen.title}</Text>
-        <Text style={styles.message}>
-          {strings.registerSuccessScreen.message}
-        </Text>
+        <Image source={image} style={styles.image} />
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.message}>{message}</Text>
       </View>
     );
   };
   const renderButton = () => {
     return (
       <View style={styles.buttonContainer}>
-        <TouchableOpacity>
-          <Text style={styles.buttonText}>
-            {strings.registerSuccessScreen.buttonName}
-          </Text>
+        <TouchableOpacity onPress={onPressButton}>
+          <Text style={styles.buttonText}>{buttonName}</Text>
         </TouchableOpacity>
       </View>
     );
