@@ -8,9 +8,14 @@ export const colors = {
   inputBorderBottomColor: '#7A7A7A60',
   phoneNumberActive: '#042C5C',
   googleButtonBorder: '#77869E30',
+
+  inputTextRightBorder: '#12A73B',
+  inputTextWrongBorder: '#EA2626',
+
   skipLabel: '#373737',
   swipeDot: '#D8D8D8',
   privacy: '#2BB5F4',
   errorColor: '#E92020',
   successColor: '#12A73B',
+
 };

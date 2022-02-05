@@ -13,15 +13,19 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2B8ED1D9D304412C84D27724 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2CC8F67C83945CA8F6F99AF /* Montserrat-Medium.ttf */; };
 		2C4BF5C7451F429E9F3ED968 /* Cabin-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F87C7CBADB6D4AA293633AC4 /* Cabin-Bold.ttf */; };
+		383203EA88C54615B06A0DE3 /* Biko_Light-Restricted.otf in Resources */ = {isa = PBXBuildFile; fileRef = 20E756EFD142431D922D175F /* Biko_Light-Restricted.otf */; };
 		424E16214A9B470A825CDFF1 /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A5872B3FDA70480B9AE503B9 /* Montserrat-Black.ttf */; };
 		4EE10A8F714243019A7E121F /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E82CB3D9649845FAA41852C5 /* Montserrat-Regular.ttf */; };
 		5347B06E15C9D36009789A17 /* libPods-roboVirtualLearn-roboVirtualLearnTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E2AA60516EA7B1C1406BAD /* libPods-roboVirtualLearn-roboVirtualLearnTests.a */; };
+		6BA2C90626D84814B60736E8 /* Biko_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4184E672B50C40DA95B84B14 /* Biko_Regular.otf */; };
 		7E538C186DB94E7BB59ECBBD /* Cabin-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B832F372A2C448B29A783B52 /* Cabin-Medium.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		93C24AD6E2164266B0D72349 /* Biko_Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = D38950B6B4E14D1DBE189EC3 /* Biko_Black.otf */; };
 		A622053DD108F08B5B72309A /* libPods-roboVirtualLearn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3825EC2ACE6D55ED5118FB1 /* libPods-roboVirtualLearn.a */; };
 		B3D4EAA831044019AAA05E37 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D46E3817A9B4135ABB282CF /* Montserrat-Light.ttf */; };
 		C96AD8F637E1448C9F4F41B1 /* Cabin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 238EAB09B4C740709A4754F0 /* Cabin-Regular.ttf */; };
 		CA4B79AA38364632A5E4D417 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D45A66916B08425A82C357D8 /* Montserrat-Bold.ttf */; };
+		DDDC5FB6620340E3B8039163 /* Biko_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E3D42C4F45F54D76BE5E92F5 /* Biko_Bold.otf */; };
 		F6907D7927AB1086004347C7 /* NunitoSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F8DE03C8F9246A5B9E76461 /* NunitoSans-Black.ttf */; };
 		F6907D7A27AB1086004347C7 /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4731A19CAAE41C58EB6A600 /* NunitoSans-Bold.ttf */; };
 		F6907D7B27AB1086004347C7 /* NunitoSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C224AA4A804465686D2839F /* NunitoSans-Light.ttf */; };
@@ -55,11 +59,13 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = roboVirtualLearn/main.m; sourceTree = "<group>"; };
 		18E4C4D20F4846C9831698D9 /* biko_regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = biko_regular.otf; path = ../src/assets/fonts/biko_regular.otf; sourceTree = "<group>"; };
 		1C1E18736AB149DA9E9E19E8 /* biko regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "biko regular.otf"; path = "../src/assets/fonts/biko regular.otf"; sourceTree = "<group>"; };
+		20E756EFD142431D922D175F /* Biko_Light-Restricted.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Biko_Light-Restricted.otf"; path = "../src/assets/fonts/biko/Biko_Light-Restricted.otf"; sourceTree = "<group>"; };
 		238EAB09B4C740709A4754F0 /* Cabin-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-Regular.ttf"; path = "../src/assets/fonts/Cabin-Regular.ttf"; sourceTree = "<group>"; };
 		26DCEE41114C4A0184DB7509 /* sfns_display_regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = sfns_display_regular.ttf; path = ../src/assets/fonts/sfns_display_regular.ttf; sourceTree = "<group>"; };
 		28E2AA60516EA7B1C1406BAD /* libPods-roboVirtualLearn-roboVirtualLearnTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-roboVirtualLearn-roboVirtualLearnTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		340119FE735643DBB0ACC9E2 /* NunitoSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NunitoSans-Regular.ttf"; path = "../src/assets/fonts/NunitoSans-Regular.ttf"; sourceTree = "<group>"; };
 		3A36B92C63CA4CE9A9A223DD /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "ProximaNova-Regular.otf"; path = "../src/assets/fonts/ProximaNova-Regular.otf"; sourceTree = "<group>"; };
+		4184E672B50C40DA95B84B14 /* Biko_Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Biko_Regular.otf; path = ../src/assets/fonts/biko/Biko_Regular.otf; sourceTree = "<group>"; };
 		42DC9F09B4354849AAC57E7B /* Biko_Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Biko_Bold.otf; path = ../src/assets/fonts/Biko_Bold.otf; sourceTree = "<group>"; };
 		457A4995E74B4563B9B21906 /* biko-bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "biko-bold.otf"; path = "../src/assets/fonts/biko-bold.otf"; sourceTree = "<group>"; };
 		4D82B6AD87E879FAC3CCC7CA /* Pods-roboVirtualLearn-roboVirtualLearnTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-roboVirtualLearn-roboVirtualLearnTests.release.xcconfig"; path = "Target Support Files/Pods-roboVirtualLearn-roboVirtualLearnTests/Pods-roboVirtualLearn-roboVirtualLearnTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -84,7 +90,9 @@
 		C6E4677459094E939D9C9510 /* Biko_Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Biko_Black.otf; path = ../src/assets/fonts/Biko_Black.otf; sourceTree = "<group>"; };
 		C76FEB57986C4FB19EEC70F7 /* biko_black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = biko_black.otf; path = ../src/assets/fonts/biko_black.otf; sourceTree = "<group>"; };
 		D051BD9BB0F94CC9A6B92973 /* proximaNova.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = proximaNova.otf; path = ../src/assets/fonts/proximaNova.otf; sourceTree = "<group>"; };
+		D38950B6B4E14D1DBE189EC3 /* Biko_Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Biko_Black.otf; path = ../src/assets/fonts/biko/Biko_Black.otf; sourceTree = "<group>"; };
 		D45A66916B08425A82C357D8 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../src/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		E3D42C4F45F54D76BE5E92F5 /* Biko_Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Biko_Bold.otf; path = ../src/assets/fonts/biko/Biko_Bold.otf; sourceTree = "<group>"; };
 		E82CB3D9649845FAA41852C5 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../src/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		E9EE81DECBF54B7592C0C0D4 /* proximanova.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = proximanova.otf; path = ../src/assets/fonts/proximanova.otf; sourceTree = "<group>"; };
 		EBBE7EE4DCE5492AAA1DDDD5 /* proxima_nova.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = proxima_nova.ttf; path = ../src/assets/fonts/proxima_nova.ttf; sourceTree = "<group>"; };
@@ -203,6 +211,10 @@
 				7D46E3817A9B4135ABB282CF /* Montserrat-Light.ttf */,
 				F2CC8F67C83945CA8F6F99AF /* Montserrat-Medium.ttf */,
 				E82CB3D9649845FAA41852C5 /* Montserrat-Regular.ttf */,
+				D38950B6B4E14D1DBE189EC3 /* Biko_Black.otf */,
+				E3D42C4F45F54D76BE5E92F5 /* Biko_Bold.otf */,
+				20E756EFD142431D922D175F /* Biko_Light-Restricted.otf */,
+				4184E672B50C40DA95B84B14 /* Biko_Regular.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -350,6 +362,10 @@
 				B3D4EAA831044019AAA05E37 /* Montserrat-Light.ttf in Resources */,
 				2B8ED1D9D304412C84D27724 /* Montserrat-Medium.ttf in Resources */,
 				4EE10A8F714243019A7E121F /* Montserrat-Regular.ttf in Resources */,
+				93C24AD6E2164266B0D72349 /* Biko_Black.otf in Resources */,
+				DDDC5FB6620340E3B8039163 /* Biko_Bold.otf in Resources */,
+				383203EA88C54615B06A0DE3 /* Biko_Light-Restricted.otf in Resources */,
+				6BA2C90626D84814B60736E8 /* Biko_Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
