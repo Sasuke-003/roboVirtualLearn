@@ -5,4 +5,6 @@ export const NAVIGATION_ROUTES = {
   LOGIN_SCREEN: 'loginScreen',
   VERIFY_ACCOUNT_SCREEN: 'verifyAccountScreen',
   PERSONNEL_DETAILS_SCREEN: 'personnelDetailsScreen',
+  CREATE_NEW_PASSWORD_SCREEN: 'createNewPasswordScreen',
+  SUCCESS_SCREEN: 'successScreen',
 };

@@ -13,4 +13,5 @@ export const colors = {
   privacy: '#2BB5F4',
   errorColor: '#E92020',
   successColor: '#12A73B',
+  shadow: 'rgba(37,51,75)',
 };

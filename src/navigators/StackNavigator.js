@@ -6,6 +6,7 @@ import {
   VIR_NewAccountScreen,
   VIR_VerifyAccountScreen,
   VIR_PersonnelDetailsScreen,
+  VIR_CreateNewPasswordScreen,
 } from '../screens';
 import {NAVIGATION_ROUTES} from '../constants';
 
@@ -22,9 +23,10 @@ const StackNavigator = () => {
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={
-        newUser
-          ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
-          : NAVIGATION_ROUTES.LANDING_SCREEN
+        NAVIGATION_ROUTES.CREATE_NEW_PASSWORD_SCREEN
+        // newUser
+        //   ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
+        //   : NAVIGATION_ROUTES.LANDING_SCREEN
       }>
       <Stack.Screen
         name={NAVIGATION_ROUTES.ON_BOARDING_SCREEN}
@@ -37,6 +39,10 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.NEW_ACCOUNT_SCREEN}
         component={VIR_NewAccountScreen}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.CREATE_NEW_PASSWORD_SCREEN}
+        component={VIR_CreateNewPasswordScreen}
       />
       <Stack.Screen
         name={NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN}

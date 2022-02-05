@@ -50,14 +50,14 @@ const VIR_LandingScreen = ({navigation}) => {
     return (
       <View style={styles.buttonContainer(portrait, height)}>
         <RectangleButton
-          name="Login"
+          name={strings.landingPage.loginBtn}
           btnStyles={styles.btnStyles}
           textStyles={styles.textStyles}
           onPress={onLoginPress}
         />
         <Text style={styles.orText}>{strings.landingPage.or}</Text>
         <RectangleButton
-          name="Register"
+          name={strings.landingPage.regBtn}
           btnStyles={styles.regBtn}
           textStyles={styles.regText}
           onPress={onRegisterPress}
