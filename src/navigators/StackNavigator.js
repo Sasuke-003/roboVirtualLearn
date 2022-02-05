@@ -7,7 +7,6 @@ import {
   VIR_ForgotPassword,
   VIR_SuccessScreen,
   VIR_LandingScreen,
-  VIR_NewAccountScreen,
   VIR_VerifyAccountScreen,
   VIR_PersonnelDetailsScreen,
 } from '../screens';
