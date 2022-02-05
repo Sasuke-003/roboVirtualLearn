@@ -17,6 +17,8 @@ export default en = {
     policy: 'By creating new account, you agree to our',
     terms: ' Terms of Service ',
     privacy: ' Privacy Policy',
+    loginBtn: 'Login',
+    regBtn: 'Register',
   },
   newAccountPage: {
     title: 'New Account',
@@ -65,5 +67,17 @@ export default en = {
     title: 'Success!',
     message: 'Your VirtualLearn account has been successfully created!',
     buttonName: 'Lets Get Started',
+  },
+  createNewPassPage: {
+    title: 'Create New Password',
+    description: 'Your password must have at least 6 or more characters',
+    plaaceholder1: 'New Password',
+    plaaceholder2: 'Confirm New Password',
+    resetBtn: 'Reset Password',
+    passwordError: 'Invalid Password! Please Check the Requirement ',
+    passwdNotMatch: 'Password Not Matching! ',
+    requirementTitle: 'Our minimum Requirement',
+    requirementDesc:
+      'At least 6 characters long with one number, one uppercase letter, and one lowercase letter',
   },
 };

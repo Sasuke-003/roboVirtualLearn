@@ -18,4 +18,5 @@ export const colors = {
   errorColor: '#E92020',
   successColor: '#12A73B',
 
+  shadow: 'rgba(37,51,75)',
 };

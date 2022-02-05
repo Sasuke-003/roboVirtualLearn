@@ -9,6 +9,7 @@ import {
   VIR_LandingScreen,
   VIR_VerifyAccountScreen,
   VIR_PersonnelDetailsScreen,
+  VIR_CreateNewPasswordScreen,
 } from '../screens';
 import {NAVIGATION_ROUTES} from '../constants';
 
@@ -54,6 +55,10 @@ const StackNavigator = () => {
         component={VIR_ForgotPassword}
       />
 
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.CREATE_NEW_PASSWORD_SCREEN}
+        component={VIR_CreateNewPasswordScreen}
+      />
       <Stack.Screen
         name={NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN}
         component={VIR_VerifyAccountScreen}

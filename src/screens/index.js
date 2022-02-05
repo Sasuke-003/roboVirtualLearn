@@ -8,3 +8,4 @@ export {default as VIR_SuccessScreen} from './VIR_SuccessScreen';
 export {default as VIR_VerifyAccountScreen} from './VIR_VerifyAccountScreen';
 export {default as VIR_PersonnelDetailsScreen} from './VIR_PersonnelDetailsScreen';
 
+export {default as VIR_CreateNewPasswordScreen} from './VIR_CreateNewPasswordScreen';
