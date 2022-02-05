@@ -1,6 +1,7 @@
 package com.robovirtuallearn;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
+import org.devio.rn.splashscreen.SplashScreen; //added for splash screen
 
 public class MainActivity extends ReactActivity {
 
@@ -10,6 +11,7 @@ public class MainActivity extends ReactActivity {
    */
    @Override
 protected void onCreate(Bundle savedInstanceState) {
+  SplashScreen.show(this); //added for splash screen
   super.onCreate(null);
 }
   @Override
