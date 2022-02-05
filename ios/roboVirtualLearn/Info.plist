@@ -73,6 +73,10 @@
 		<string>Montserrat-Light.ttf</string>
 		<string>Montserrat-Medium.ttf</string>
 		<string>Montserrat-Regular.ttf</string>
+		<string>Biko_Black.otf</string>
+		<string>Biko_Bold.otf</string>
+		<string>Biko_Light-Restricted.otf</string>
+		<string>Biko_Regular.otf</string>
 	</array>
 </dict>
 </plist>
