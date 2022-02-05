@@ -19,8 +19,24 @@ export const fonts = {
   sFnSDisplayMedium: 'Cabin-Medium',
 };
 export const images = {
+  errorIcon: require('./images/errorIcon3x.png'),
   newAccountScreen: {
     googleIcon: require('./images/googleIcon3x.png'),
+    facebookIcon: require('./images/facebook3x.png'),
+  },
+  verifyAccountScreen: {
+    backIcon: require('./images/backIcon3x.png'),
+  },
+  onboardScreen: {
+    onboardLogo: require('./images/onboarding/logo3x.png'),
+    illustrationFirst: require('./images/onboarding/illustrationFirst3x.png'),
+    illustrationSecond: require('./images/onboarding/illustrationSecond3x.png'),
+    illustrationThird: require('./images/onboarding/illustrationThird3x.png'),
+    nxtBtn: require('./images/onboarding/btn_next3x.png'),
+    doneBtn: require('./images/onboarding/btn_done3x.png'),
+  },
+  landingScreen: {
+    landing: require('./images/landingPage/landing3x.png'),
   },
   loginScreen: {
     facebookIcon: require('./images/facebookIcon3x.png'),
