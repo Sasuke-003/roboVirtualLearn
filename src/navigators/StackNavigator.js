@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   VIR_OnBoardingScreen,
-
   VIR_NewAccountScreen,
   VIR_LoginScreen,
   VIR_ForgotPassword,
@@ -26,15 +25,11 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={screenOptions}
-
       initialRouteName={NAVIGATION_ROUTES.LOGIN_SCREEN}>
-
-      initialRouteName={
-        newUser
-          ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
-          : NAVIGATION_ROUTES.LANDING_SCREEN
-      }>
-
+      initialRouteName=
+      {newUser
+        ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
+        : NAVIGATION_ROUTES.LANDING_SCREEN}
       <Stack.Screen
         name={NAVIGATION_ROUTES.ON_BOARDING_SCREEN}
         component={VIR_OnBoardingScreen}
@@ -48,7 +43,6 @@ const StackNavigator = () => {
         component={VIR_NewAccountScreen}
       />
       <Stack.Screen
-
         name={NAVIGATION_ROUTES.SUCCESS_SCREEN}
         component={VIR_SuccessScreen}
       />
@@ -73,7 +67,6 @@ const StackNavigator = () => {
         initialParams={{
           phoneNumber: '',
         }}
-
       />
     </Stack.Navigator>
   );
