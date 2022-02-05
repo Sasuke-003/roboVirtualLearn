@@ -9,11 +9,12 @@ import {
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import RectangleButton from '../components/Buttons/RectangleButton';
-import {colors, fonts, strings} from '../assets';
+import {colors, fonts, strings, images} from '../assets';
 import {utils} from '../utils';
 import PasswordRequirement from '../components/PasswordRequirement';
+import {NAVIGATION_ROUTES} from '../constants';
 
-const VIR_CreateNewPasswordScreen = () => {
+const VIR_CreateNewPasswordScreen = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showRequirement, setShowRequirement] = useState(false);
@@ -43,7 +44,15 @@ const VIR_CreateNewPasswordScreen = () => {
   const onResetPress = () => {
     if (isValidPassword(password)) {
       if (confirmPassword === password) {
-        console.log('LoginSucss');
+        navigation.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, {
+          image: images.successScreen.passwordChangeSuccess,
+          title: strings.passwordChangeSuccess.title,
+          message: strings.passwordChangeSuccess.message,
+          buttonName: strings.passwordChangeSuccess.buttonName,
+          onPressButton: () => {
+            navigation.pop(4);
+          },
+        });
       } else {
         utils.showErrorMessage(strings.createNewPassPage.passwdNotMatch);
       }
@@ -195,9 +204,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     width: '100%',
   },
-  confirmPass: {
-    // marginTop: 40,
-  },
+
   buttonContainer: {
     justifyContent: 'center',
     alignItems: 'center',

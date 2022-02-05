@@ -80,4 +80,10 @@ export default en = {
     requirementDesc:
       'At least 6 characters long with one number, one uppercase letter, and one lowercase letter',
   },
+  passwordChangeSuccess: {
+    title: 'Password Changed!',
+    message:
+      'Your password has been successfully changed. You can now Login with your new password',
+    buttonName: 'Login',
+  },
 };

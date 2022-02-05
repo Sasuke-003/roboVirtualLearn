@@ -45,5 +45,6 @@ export const images = {
   },
   successScreen: {
     registerSuccess: require('./images/img_Register_success.png'),
+    passwordChangeSuccess: require('./images/password_change_sucess3x.png'),
   },
 };
