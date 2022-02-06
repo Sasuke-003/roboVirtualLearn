@@ -16,7 +16,7 @@ const VIR_LoginButton = () => {
   const onPressForgot = () => {
     navigation.navigate(NAVIGATION_ROUTES.FORGOT_PASSWORD);
   };
-  onPressRegister = () => {
+  const onPressRegister = () => {
     navigation.navigate(NAVIGATION_ROUTES.NEW_ACCOUNT_SCREEN);
   };
 
@@ -31,12 +31,10 @@ const VIR_LoginButton = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.registerAccount}>
+        <Text style={styles.noAccount}>{strings.loginScreen.noAccount}</Text>
         <TouchableOpacity onPress={onPressRegister}>
-          <Text style={styles.noAccount}>
-            {strings.loginScreen.noAccount}
-            <Text style={[styles.noAccount, styles.register]}>
-              {strings.loginScreen.register}
-            </Text>
+          <Text style={[styles.noAccount, styles.register]}>
+            {strings.loginScreen.register}
           </Text>
         </TouchableOpacity>
       </View>
@@ -81,6 +79,8 @@ const styles = StyleSheet.create({
   },
   registerAccount: {
     marginTop: 30,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   noAccount: {
     color: colors.secondaryText,

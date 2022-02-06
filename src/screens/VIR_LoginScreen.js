@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Dimensions, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import React from 'react';
 import {
   VIR_LoginButton,
@@ -6,10 +13,11 @@ import {
   VIR_TextInput,
 } from '../components';
 import {strings, fonts, colors} from '../assets';
-
-const paddingTop = Dimensions.get('window').height < 700 ? 60 : 130;
+import {useDimension} from '../hooks';
 
 const VIR_LoginScreen = ({navigation}) => {
+  const {height, width, isPortrait} = useDimension();
+
   const renderTitle = () => {
     return (
       <View>
@@ -22,11 +30,13 @@ const VIR_LoginScreen = ({navigation}) => {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {renderTitle()}
-      <VIR_SocialMediaLogin />
-      <VIR_TextInput />
-      <VIR_LoginButton />
+    <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+      <View style={styles.container(width, height, isPortrait)}>
+        {renderTitle()}
+        <VIR_SocialMediaLogin />
+        <VIR_TextInput />
+        <VIR_LoginButton />
+      </View>
     </ScrollView>
   );
 };
@@ -34,11 +44,11 @@ const VIR_LoginScreen = ({navigation}) => {
 export default VIR_LoginScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  container: (width, height, isPortrait) => ({
     flex: 1,
-    marginTop: paddingTop,
+    marginTop: isPortrait ? height / 7 : height / 4,
     paddingHorizontal: Dimensions.get('window').width < 450 ? 35 : 60,
-  },
+  }),
 
   title: {
     color: colors.primaryText,

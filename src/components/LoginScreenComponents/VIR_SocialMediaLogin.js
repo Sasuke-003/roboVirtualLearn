@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     padding: 20,
     height: 45,
-    width: width / 2.6,
+    width: isPortrait ? width / 2.6 : width / 2.5,
     paddingVertical: 15,
     alignItems: 'center',
     justifyContent: 'center',

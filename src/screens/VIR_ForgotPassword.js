@@ -7,16 +7,20 @@ import {
   TextInput,
   Image,
   ScrollView,
+  Button,
 } from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {images, strings, fonts, colors} from '../assets';
 import {NAVIGATION_ROUTES} from '../constants';
 import {utils} from '../utils';
+import {useDimension} from '../hooks';
 Icon.loadFont().then();
 
 const VIR_ForgotPassword = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const {height, width, isPortrait} = useDimension();
+
   const borderColor =
     phoneNumber === ''
       ? colors.secondaryText
@@ -71,16 +75,19 @@ const VIR_ForgotPassword = ({navigation}) => {
     return (
       <View style={[styles.inputContainer, {borderColor: borderColor}]}>
         <Text style={styles.prefix}>+91</Text>
-        <TextInput
-          value={phoneNumber}
-          onChangeText={input => mobileCheck(input)}
-          maxLength={10}
-          keyboardType="numeric"
-          placeholder={strings.forgotPasswordScreen.placeholder}
-          placeholderTextColor={colors.secondaryText}
-          style={[styles.prefix, styles.input]}
-        />
-        {phoneNumber !== '' && <Image source={icon} style={styles.icon} />}
+        <View style={styles.innerContainer}>
+          <TextInput
+            value={phoneNumber}
+            onChangeText={input => mobileCheck(input)}
+            maxLength={10}
+            keyboardType="numeric"
+            placeholder={strings.forgotPasswordScreen.placeholder}
+            placeholderTextColor={colors.secondaryText}
+            style={[styles.prefix, styles.input(isPortrait, width, height)]}
+          />
+
+          {phoneNumber !== '' && <Image source={icon} style={styles.icon} />}
+        </View>
       </View>
     );
   };
@@ -93,18 +100,7 @@ const VIR_ForgotPassword = ({navigation}) => {
       </TouchableOpacity>
     );
   };
-  const renderError = () => {
-    return (
-      <View style={styles.errorView}>
-        <View style={styles.exclamation}>
-          <Text style={styles.symbol}>!</Text>
-        </View>
-        <Text style={styles.errorMessage}>
-          {strings.forgotPasswordScreen.invalidPhoneNumber}
-        </Text>
-      </View>
-    );
-  };
+
   const renderTextMobile = () => {
     return (
       <View>
@@ -128,9 +124,6 @@ const VIR_ForgotPassword = ({navigation}) => {
           {renderButton()}
         </View>
       </ScrollView>
-      <View>
-        {phoneNumber.length < 10 && phoneNumber !== '' && renderError()}
-      </View>
     </>
   );
 };
@@ -142,6 +135,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Dimensions.get('window').height < 700 ? 50 : 70,
     paddingHorizontal: Dimensions.get('window').width < 450 ? 25 : 40,
+    background: colors.background,
   },
 
   title: {
@@ -170,8 +164,12 @@ const styles = StyleSheet.create({
     borderColor: colors.secondaryText,
     borderBottomWidth: 1,
     paddingVertical: Platform.OS === 'ios' ? 15 : null,
-
     color: colors.phoneNumberActive,
+  },
+  innerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   prefix: {
     color: colors.phoneNumberActive,
@@ -181,11 +179,11 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     paddingRight: 18,
   },
-  input: {
-    width: 270,
+  input: (isPortrait, width, height) => ({
+    width: isPortrait ? 275 : '90%',
     fontSize: 18,
     lineHeight: 20,
-  },
+  }),
   mobileNumber: {
     marginTop: 40,
     color: colors.secondaryText,
@@ -194,7 +192,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.29,
     lineHeight: 17,
   },
-  buttonContainer: {
+  buttonContainer: isPortrait => ({
     height: 46,
     width: 327,
     backgroundColor: colors.buttonBackground,
@@ -203,8 +201,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    marginBottom: 20,
-  },
+    marginBottom: isPortrait ? 0 : 40,
+  }),
   send: {
     color: colors.background,
     fontFamily: fonts.proximaNovaBold,
@@ -216,34 +214,5 @@ const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
-  },
-  errorView: {
-    flexDirection: 'row',
-    height: 54,
-    width: '100%',
-    backgroundColor: colors.inputTextWrongBorder,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 15,
-  },
-  errorMessage: {
-    color: colors.background,
-    fontFamily: fonts.proximaNovaRegular,
-    fontSize: 16,
-    letterSpacing: 0.4,
-    lineHeight: 20,
-    paddingLeft: 10,
-  },
-  exclamation: {
-    height: 25,
-    width: 25,
-    backgroundColor: colors.background,
-
-    borderRadius: 12.5,
-  },
-  symbol: {
-    color: colors.inputTextWrongBorder,
-    fontSize: 18,
-    textAlign: 'center',
   },
 });
