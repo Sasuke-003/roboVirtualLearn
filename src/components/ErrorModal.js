@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.errorColor,
     height: '10%',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     flexDirection: 'row',
   },
@@ -52,11 +52,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     letterSpacing: 0.4,
     lineHeight: 20,
+    width: '80%',
   },
   icon: {
-    marginRight: 10,
-    // height: 20,
-    width: 20,
+    marginRight: 0,
+    height: '30%',
+    // width: 20,
     resizeMode: 'contain',
   },
 });

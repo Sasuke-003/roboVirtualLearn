@@ -20,6 +20,7 @@ export const fonts = {
 };
 export const images = {
   errorIcon: require('./images/errorIcon3x.png'),
+  infoIconGolden: require('./images/infoIconGolden3x.png'),
   newAccountScreen: {
     googleIcon: require('./images/googleIcon3x.png'),
     facebookIcon: require('./images/facebook3x.png'),

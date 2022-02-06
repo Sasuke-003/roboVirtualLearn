@@ -8,8 +8,9 @@ import {
   VIR_SuccessScreen,
   VIR_LandingScreen,
   VIR_VerifyAccountScreen,
-  VIR_PersonnelDetailsScreen,
+  VIR_PersonalDetailsScreen,
   VIR_CreateNewPasswordScreen,
+  VIR_HomeScreen,
 } from '../screens';
 import {NAVIGATION_ROUTES} from '../constants';
 
@@ -69,11 +70,15 @@ const StackNavigator = () => {
         }}
       />
       <Stack.Screen
-        name={NAVIGATION_ROUTES.PERSONNEL_DETAILS_SCREEN}
-        component={VIR_PersonnelDetailsScreen}
+        name={NAVIGATION_ROUTES.PERSONAL_DETAILS_SCREEN}
+        component={VIR_PersonalDetailsScreen}
         initialParams={{
           phoneNumber: '',
         }}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.HOME_SCREEN}
+        component={VIR_HomeScreen}
       />
     </Stack.Navigator>
   );

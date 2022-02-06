@@ -16,6 +16,9 @@ const VIR_LoginButton = () => {
   const onPressForgot = () => {
     navigation.navigate(NAVIGATION_ROUTES.FORGOT_PASSWORD);
   };
+  onPressRegister = () => {
+    navigation.navigate(NAVIGATION_ROUTES.NEW_ACCOUNT_SCREEN);
+  };
 
   return (
     <View style={styles.buttons}>
@@ -28,7 +31,7 @@ const VIR_LoginButton = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.registerAccount}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPressRegister}>
           <Text style={styles.noAccount}>
             {strings.loginScreen.noAccount}
             <Text style={[styles.noAccount, styles.register]}>

@@ -8,7 +8,9 @@ export const NAVIGATION_ROUTES = {
   SUCCESS_SCREEN: 'successScreen',
 
   VERIFY_ACCOUNT_SCREEN: 'verifyAccountScreen',
-  PERSONNEL_DETAILS_SCREEN: 'personnelDetailsScreen',
+  PERSONAL_DETAILS_SCREEN: 'personalDetailsScreen',
   CREATE_NEW_PASSWORD_SCREEN: 'createNewPasswordScreen',
   SUCCESS_SCREEN: 'successScreen',
+
+  HOME_SCREEN: 'homeScreen',
 };

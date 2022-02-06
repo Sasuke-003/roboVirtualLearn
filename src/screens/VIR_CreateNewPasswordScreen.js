@@ -50,7 +50,7 @@ const VIR_CreateNewPasswordScreen = ({navigation}) => {
           message: strings.passwordChangeSuccess.message,
           buttonName: strings.passwordChangeSuccess.buttonName,
           onPressButton: () => {
-            navigation.pop(4);
+            navigation.pop(2);
           },
         });
       } else {

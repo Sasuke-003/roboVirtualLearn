@@ -29,7 +29,7 @@ export default en = {
     buttonText: 'Continue',
     haveAccountText: 'Already have an account? ',
     loginText: 'Login',
-    phoneNumberError: 'Invalid phone number',
+    phoneNumberError: 'Invalid phone number, please try again',
   },
   verifyAccountPage: {
     title1: 'Verify Account',
@@ -42,6 +42,25 @@ export default en = {
     buttonText2: 'Submit',
     codeNotValid: 'Invalid verification code, please try again',
     codeLengthNotValid: 'Incomplete verification code',
+  },
+  personalDetailsScreen: {
+    title: 'Personal Details',
+    description:
+      'Please fill out the fields below so we can learn some information about you.',
+    mobileNoLabel: 'Mobile number',
+    fullNameLabel: 'Full name',
+    userNameLabel: 'Username',
+    emailLabel: 'Email',
+    passwordLabel: 'Password',
+    confirmPasswordLabel: 'Confirm password',
+    registerButtonText: 'Register',
+    fullNameLengthNotValid: 'Full name must be at least 3 characters long!',
+    userNameLengthNotValid: 'Username must be at least 3 characters long!',
+    userNameNotValid: 'Username must contain only letters, numbers, -, . and _',
+    emailNotValid: 'Invalid email id!',
+    passwordNotValid:
+      'Password must be at least 6 characters long with one number, one uppercase letter, and one lowercase letter',
+    passwordNotSame: 'Both passwords must be same!',
   },
   loginScreen: {
     title: 'Welcome Back!',
@@ -85,5 +104,10 @@ export default en = {
     message:
       'Your password has been successfully changed. You can now Login with your new password',
     buttonName: 'Login',
+  },
+  registerSuccess: {
+    title: 'Success!',
+    message: 'Your VirtualLearn account has been successfully created!',
+    buttonName: 'Lets Get Started',
   },
 };

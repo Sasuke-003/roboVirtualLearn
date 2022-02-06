@@ -12,6 +12,7 @@ import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {images, strings, fonts, colors} from '../assets';
 import {NAVIGATION_ROUTES} from '../constants';
+import {utils} from '../utils';
 Icon.loadFont().then();
 
 const VIR_ForgotPassword = ({navigation}) => {
@@ -32,6 +33,16 @@ const VIR_ForgotPassword = ({navigation}) => {
   };
   const onPressBack = () => {
     navigation.navigate(NAVIGATION_ROUTES.LOGIN_SCREEN);
+  };
+  const onPressSend = () => {
+    if (phoneNumber.length < 10) {
+      utils.showErrorMessage(strings.forgotPasswordScreen.invalidPhoneNumber);
+      return;
+    }
+    navigation.navigate(NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN, {
+      afterVerifyGoto: NAVIGATION_ROUTES.CREATE_NEW_PASSWORD_SCREEN,
+      phoneNumber,
+    });
   };
   const renderIcon = () => {
     return (
@@ -75,11 +86,11 @@ const VIR_ForgotPassword = ({navigation}) => {
   };
   const renderButton = () => {
     return (
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity>
+      <TouchableOpacity onPress={onPressSend}>
+        <View style={styles.buttonContainer}>
           <Text style={styles.send}>{strings.forgotPasswordScreen.send}</Text>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
     );
   };
   const renderError = () => {

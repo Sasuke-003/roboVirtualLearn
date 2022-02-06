@@ -51,11 +51,13 @@ const VIR_NewAccountScreen = ({navigation}) => {
       return;
     }
     navigation.navigate(NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN, {
-      afterVerifyGoto: NAVIGATION_ROUTES.PERSONNEL_DETAILS_SCREEN,
+      afterVerifyGoto: NAVIGATION_ROUTES.PERSONAL_DETAILS_SCREEN,
       phoneNumber,
     });
   };
-  const goToLoginScreen = () => {};
+  const goToLoginScreen = () => {
+    navigation.navigate(NAVIGATION_ROUTES.LOGIN_SCREEN);
+  };
 
   const title = () => (
     <Text style={styles(isLandscape).title}>
