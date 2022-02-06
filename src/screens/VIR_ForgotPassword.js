@@ -94,7 +94,7 @@ const VIR_ForgotPassword = ({navigation}) => {
   const renderButton = () => {
     return (
       <TouchableOpacity onPress={onPressSend}>
-        <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainer()}>
           <Text style={styles.send}>{strings.forgotPasswordScreen.send}</Text>
         </View>
       </TouchableOpacity>
@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     height: 46,
     width: 327,
     backgroundColor: colors.buttonBackground,
+    color: colors.buttonBackground,
     borderRadius: 6,
     marginTop: 50,
     justifyContent: 'center',
