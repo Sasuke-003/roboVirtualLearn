@@ -5,6 +5,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 import {images, strings, fonts, colors} from '../assets';
@@ -53,9 +54,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    paddingVertical: 20,
+    backgroundColor: colors.background,
   },
 
   innerContainer: {
+    paddingTop: Dimensions.get('window').height < 800 ? 70 : 180,
     alignItems: 'center',
   },
   image: {
@@ -66,11 +70,11 @@ const styles = StyleSheet.create({
   title: {
     color: colors.primaryText,
     fontFamily: fonts.BikoBold,
-    fontSize: 30,
+    fontSize: 35,
     fontWeight: 'bold',
     letterSpacing: 0,
     lineHeight: 35,
-    paddingTop: 20,
+    paddingTop: 40,
     paddingBottom: 20,
     textAlign: 'center',
   },
