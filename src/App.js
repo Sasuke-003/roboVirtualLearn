@@ -10,7 +10,7 @@ import {StackNavigator} from './navigators';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import {store, persistor} from './redux/store';
-import {ErrorModal} from './components';
+import {MessageModal} from './components';
 import SplashScreen from 'react-native-splash-screen';
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <StackNavigator />
-          <ErrorModal />
+          <MessageModal />
         </NavigationContainer>
       </PersistGate>
     </Provider>

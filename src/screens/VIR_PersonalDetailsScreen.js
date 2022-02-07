@@ -17,6 +17,7 @@ import {NAVIGATION_ROUTES} from '../constants';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {utils} from '../utils';
 import {RectangleButton, PasswordRequirement} from '../components';
+import {api} from '../network';
 
 const VIR_PersonalDetailsScreen = ({
   route: {
@@ -33,8 +34,26 @@ const VIR_PersonalDetailsScreen = ({
   const [confirmPass, setConfirmPass] = useState('');
   const [showPasswordInfo, setShowPasswordInfo] = useState(false);
 
+  const registerUser = async () => {
+    try {
+      const {status} = await api.user.register(
+        '+91' + phoneNumber,
+        fullName,
+        userName,
+        email,
+        pass,
+      );
+      if (status === 200) return true;
+      return false;
+    } catch (error) {
+      utils.showErrorMessage(error.response.data.message);
+      return false;
+    }
+  };
+
   const onPressRegister = () => {
     if (!validate()) return;
+    if (!registerUser()) return;
     navigation.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, {
       image: images.successScreen.registerSuccess,
       title: strings.registerSuccess.title,

@@ -8,11 +8,13 @@ import {
   ScrollView,
   useWindowDimensions,
   Platform,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState} from 'react';
 import {images, strings, fonts, colors} from '../assets';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NAVIGATION_ROUTES} from '../constants';
+import {api} from '../network';
 
 import {utils} from '../utils';
 
@@ -42,14 +44,31 @@ const VIR_NewAccountScreen = ({navigation}) => {
   const isLandscape = window.height < window.width ? true : false;
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isInputActive, setIsInputActive] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const onChangeText = text => {
     setPhoneNumber(text.replace(/[^0-9]/g, ''));
   };
-  const goToVerifyScreen = () => {
+
+  const sendOtp = async () => {
+    setIsButtonDisabled(true);
     if (phoneNumber.length < 10) {
       utils.showErrorMessage(strings.newAccountPage.phoneNumberError);
       return;
     }
+    try {
+      const {status} = await api.user.sendOtp('+91' + phoneNumber);
+      utils.showSuccessMessage(strings.newAccountPage.codeSent + phoneNumber);
+      setIsButtonDisabled(false);
+      if (status === 200) goToVerifyScreen();
+      return;
+    } catch (error) {
+      utils.showErrorMessage(error.response.data.message);
+      setIsButtonDisabled(false);
+      return;
+    }
+  };
+
+  const goToVerifyScreen = () => {
     navigation.navigate(NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN, {
       afterVerifyGoto: NAVIGATION_ROUTES.PERSONAL_DETAILS_SCREEN,
       phoneNumber,
@@ -99,11 +118,15 @@ const VIR_NewAccountScreen = ({navigation}) => {
   );
 
   const button = () => (
-    <TouchableOpacity onPress={goToVerifyScreen}>
+    <TouchableOpacity onPress={sendOtp} disabled={isButtonDisabled}>
       <View style={styles(isLandscape).button}>
-        <Text style={styles().buttonText}>
-          {strings.newAccountPage.buttonText}
-        </Text>
+        {isButtonDisabled ? (
+          <ActivityIndicator color={colors.background} />
+        ) : (
+          <Text style={styles().buttonText}>
+            {strings.newAccountPage.buttonText}
+          </Text>
+        )}
       </View>
     </TouchableOpacity>
   );

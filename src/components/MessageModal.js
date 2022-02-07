@@ -1,36 +1,51 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
-  getErrorStatus,
-  getErrorMessage,
+  getMessageStatus,
+  getMessageType,
+  getMessage,
   clearError,
-} from '../redux/reducers/errorModalReducer';
+} from '../redux/reducers/popupModalReducer';
 import Modal from 'react-native-modal';
 import {colors, fonts, images} from '../assets';
+import {color} from 'react-native-reanimated';
 
-const ErrorModal = () => {
+const MessageModal = () => {
   const dispatch = useDispatch();
-  const isError = useSelector(getErrorStatus);
-  const errorMessage = useSelector(getErrorMessage);
+  const showMessage = useSelector(getMessageStatus);
+  const messageType = useSelector(getMessageType);
+  const message = useSelector(getMessage);
   const clearErrorMessage = () => {
     dispatch(clearError());
   };
   return (
     <Modal
-      isVisible={isError}
+      isVisible={showMessage}
       style={styles.modalStyle}
       backdropOpacity={0}
       onBackButtonPress={clearErrorMessage}>
-      <View style={styles.container}>
-        <Image source={images.errorIcon} style={styles.icon} />
-        <Text style={styles.text}>{errorMessage}</Text>
+      <View
+        style={[
+          styles.container,
+          messageType === 'success' && {
+            backgroundColor: colors.inputTextRightBorder,
+          },
+        ]}>
+        {messageType === 'error' ? (
+          <Image source={images.errorIcon} style={styles.icon} />
+        ) : (
+          <Icon name="ios-checkmark-circle" style={styles.ionIcon} />
+        )}
+
+        <Text style={styles.text}>{message}</Text>
       </View>
     </Modal>
   );
 };
 
-export default ErrorModal;
+export default MessageModal;
 
 const styles = StyleSheet.create({
   modalStyle: {
@@ -59,5 +74,10 @@ const styles = StyleSheet.create({
     height: '30%',
     // width: 20,
     resizeMode: 'contain',
+  },
+  ionIcon: {
+    fontSize: 30,
+    marginRight: 10,
+    color: colors.background,
   },
 });
