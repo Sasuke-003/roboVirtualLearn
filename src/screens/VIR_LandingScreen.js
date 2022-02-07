@@ -14,11 +14,15 @@ import Header from '../components/Header';
 import {colors, fonts, images, strings} from '../assets';
 import RectangleButton from '../components/Buttons/RectangleButton';
 import {NavigationContainer} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {setNewInstallation} from '../redux/reducers/userReducer';
 import {NAVIGATION_ROUTES} from '../constants';
+import {api} from '../network';
 
 const VIR_LandingScreen = ({navigation}) => {
   const {height, width} = useWindowDimensions();
   const portrait = height > width;
+  const dispatch = useDispatch();
 
   const onRegisterPress = () => {
     navigation.navigate(NAVIGATION_ROUTES.NEW_ACCOUNT_SCREEN);
@@ -70,7 +74,7 @@ const VIR_LandingScreen = ({navigation}) => {
       <View style={styles.policyContainer}>
         <Text style={styles.policyText}>
           {strings.landingPage.policy}
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => dispatch(setNewInstallation(true))}>
             <Text style={styles.termsText}>{strings.landingPage.terms}</Text>
           </TouchableOpacity>
           &

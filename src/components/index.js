@@ -4,3 +4,5 @@ export {default as VIR_LoginButton} from './LoginScreenComponents/VIR_LoginButto
 export {default as ErrorModal} from './ErrorModal';
 export {default as RectangleButton} from './Buttons/RectangleButton';
 export {default as PasswordRequirement} from './PasswordRequirement';
+export {default as Onboard} from './Onboard';
+export {default as Header} from './Header';

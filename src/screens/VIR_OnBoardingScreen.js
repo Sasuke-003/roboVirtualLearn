@@ -9,10 +9,11 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import React from 'react';
 import {images, strings, fonts, colors} from '../assets';
-import OnboardHeader from '../components/Header';
-import Onboard from '../components/Onboard';
+import {Onboard, Header} from '../components';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import {NAVIGATION_ROUTES} from '../constants';
+import {useDispatch, useSelector} from 'react-redux';
+import {setNewInstallation} from '../redux/reducers/userReducer';
 const slides = [
   {
     key: 1,
@@ -37,7 +38,7 @@ const slides = [
 const VIR_OnBoardingScreen = ({navigation}) => {
   const {height, width} = useWindowDimensions();
   const portrait = height > width;
-  console.log(height);
+  const dispatch = useDispatch();
   const renderNextButton = () => {
     return (
       <View style={styles.nextButton}>
@@ -61,13 +62,14 @@ const VIR_OnBoardingScreen = ({navigation}) => {
   };
 
   const goToLandingPage = () => {
+    dispatch(setNewInstallation(false));
     navigation.replace(NAVIGATION_ROUTES.LANDING_SCREEN);
   };
 
   const renderPortrait = () => {
     return (
       <>
-        <OnboardHeader />
+        <Header />
         <View style={styles.container(portrait, height)}>
           <AppIntroSlider
             data={slides}

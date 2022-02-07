@@ -12,6 +12,8 @@ import {
   VIR_CreateNewPasswordScreen,
   VIR_HomeScreen,
 } from '../screens';
+import {useDispatch, useSelector} from 'react-redux';
+import {getIsNewInstallation} from '../redux/reducers/userReducer';
 import {NAVIGATION_ROUTES} from '../constants';
 
 const Stack = createNativeStackNavigator();
@@ -21,13 +23,12 @@ const screenOptions = {
 };
 
 const StackNavigator = () => {
-  const [newUser, setNewUser] = useState(true);
-
+  const isNewInstallation = useSelector(getIsNewInstallation);
   return (
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={
-        newUser
+        isNewInstallation
           ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
           : NAVIGATION_ROUTES.LANDING_SCREEN
       }>

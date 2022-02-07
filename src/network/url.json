@@ -1,0 +1,9 @@
+{
+  "auth": {
+    "login": "/api/v1/users/login",
+    "register": ""
+  },
+  "course": {
+    "getAllCourses": ""
+  }
+}
