@@ -34,7 +34,8 @@ const VIR_PersonalDetailsScreen = ({
   const [confirmPass, setConfirmPass] = useState('123QQww');
   const [showPasswordInfo, setShowPasswordInfo] = useState(false);
 
-  const registerUser = async () => {
+  const onPressRegister = async () => {
+    if (!validate()) return;
     try {
       const {status} = await api.user.register(
         '+91' + phoneNumber,
@@ -43,17 +44,15 @@ const VIR_PersonalDetailsScreen = ({
         email,
         pass,
       );
-      if (status === 200) return true;
-      return false;
+      if (status === 200) goToNextScreen();
+      return;
     } catch (error) {
       utils.showErrorMessage(error.response.data.message);
-      return false;
+      return;
     }
   };
 
-  const onPressRegister = () => {
-    if (!validate()) return;
-    if (!registerUser()) return;
+  const goToNextScreen = () => {
     navigation.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, {
       image: images.successScreen.registerSuccess,
       title: strings.registerSuccess.title,
