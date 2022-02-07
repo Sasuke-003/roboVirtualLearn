@@ -17,6 +17,7 @@ import {NAVIGATION_ROUTES} from '../constants';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {utils} from '../utils';
 import {RectangleButton, PasswordRequirement} from '../components';
+import {api} from '../network';
 
 const VIR_PersonalDetailsScreen = ({
   route: {
@@ -26,15 +27,32 @@ const VIR_PersonalDetailsScreen = ({
 }) => {
   const window = useWindowDimensions();
   const isLandscape = window.height < window.width ? true : false;
-  const [fullName, setFullName] = useState('');
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const [confirmPass, setConfirmPass] = useState('');
+  const [fullName, setFullName] = useState('dsbfh');
+  const [userName, setUserName] = useState('sdbf');
+  const [email, setEmail] = useState('dsbfj@dgf.fdh');
+  const [pass, setPass] = useState('123QQww');
+  const [confirmPass, setConfirmPass] = useState('123QQww');
   const [showPasswordInfo, setShowPasswordInfo] = useState(false);
 
-  const onPressRegister = () => {
+  const onPressRegister = async () => {
     if (!validate()) return;
+    try {
+      const {status} = await api.user.register(
+        '+91' + phoneNumber,
+        fullName,
+        userName,
+        email,
+        pass,
+      );
+      if (status === 200) goToNextScreen();
+      return;
+    } catch (error) {
+      utils.showErrorMessage(error.response.data.message);
+      return;
+    }
+  };
+
+  const goToNextScreen = () => {
     navigation.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, {
       image: images.successScreen.registerSuccess,
       title: strings.registerSuccess.title,
@@ -42,7 +60,7 @@ const VIR_PersonalDetailsScreen = ({
       buttonName: strings.registerSuccess.buttonName,
       onPressButton: () => {
         navigation.pop(4);
-        navigation.navigate(NAVIGATION_ROUTES.HOME_SCREEN);
+        navigation.navigate(NAVIGATION_ROUTES.DRAWER_NAVIGATOR);
       },
     });
   };

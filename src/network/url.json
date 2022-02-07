@@ -1,7 +1,9 @@
 {
   "auth": {
     "login": "/api/v1/users/login",
-    "register": ""
+    "sendOtp": "/api/v1/users/signup/otp",
+    "verifyOtp": "/api/v1/users/signup/verify",
+    "register": "/api/v1/users/signup/register"
   },
   "course": {
     "getAllCourses": ""

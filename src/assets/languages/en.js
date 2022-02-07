@@ -30,6 +30,7 @@ export default en = {
     haveAccountText: 'Already have an account? ',
     loginText: 'Login',
     phoneNumberError: 'Invalid phone number, please try again',
+    codeSent: 'Verification code sent to ',
   },
   verifyAccountPage: {
     title1: 'Verify Account',
@@ -42,6 +43,7 @@ export default en = {
     buttonText2: 'Submit',
     codeNotValid: 'Invalid verification code, please try again',
     codeLengthNotValid: 'Incomplete verification code',
+    codeVerified: 'Verified',
   },
   personalDetailsScreen: {
     title: 'Personal Details',

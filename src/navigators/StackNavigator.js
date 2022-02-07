@@ -15,6 +15,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {getIsNewInstallation} from '../redux/reducers/userReducer';
 import {NAVIGATION_ROUTES} from '../constants';
+import {DrawerNavigator} from './';
 
 const Stack = createNativeStackNavigator();
 
@@ -77,9 +78,10 @@ const StackNavigator = () => {
           phoneNumber: '',
         }}
       />
+
       <Stack.Screen
-        name={NAVIGATION_ROUTES.HOME_SCREEN}
-        component={VIR_HomeScreen}
+        name={NAVIGATION_ROUTES.DRAWER_NAVIGATOR}
+        component={DrawerNavigator}
       />
     </Stack.Navigator>
   );

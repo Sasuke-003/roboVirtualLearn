@@ -9,14 +9,14 @@ import {
   ScrollView,
   useWindowDimensions,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {images, strings, fonts, colors} from '../assets';
 import {NAVIGATION_ROUTES} from '../constants';
 import {utils} from '../utils';
-
-const OTP = '1234';
+import {api} from '../network';
 
 const VIR_VerifyAccountScreen = ({
   route: {
@@ -27,6 +27,8 @@ const VIR_VerifyAccountScreen = ({
   const window = useWindowDimensions();
   const [otp, setOtp] = useState('');
   const [isError, setIsError] = useState(false);
+  const [isResendDisabled, setIsResendDisabled] = useState(false);
+  const [isVerifyDisabled, setIsVerifyDisabled] = useState(false);
   const isLandscape = window.height < window.width ? true : false;
   const titleText =
     afterVerifyGoto === NAVIGATION_ROUTES.PERSONNEL_DETAILS_SCREEN
@@ -47,6 +49,41 @@ const VIR_VerifyAccountScreen = ({
     };
     BackHandler.addEventListener('hardwareBackPress', backAction);
   }, []);
+
+  const sendOtp = async () => {
+    try {
+      await api.user.sendOtp('+91' + phoneNumber);
+      utils.showSuccessMessage(strings.newAccountPage.codeSent + phoneNumber);
+      return true;
+    } catch (error) {
+      utils.showErrorMessage(error.response.data.message);
+      return false;
+    }
+  };
+
+  const verifyOtp = async () => {
+    setIsVerifyDisabled(true);
+    try {
+      const {status} = await api.user.verifyOtp('+91' + phoneNumber, otp);
+      utils.showSuccessMessage(strings.verifyAccountPage.codeVerified);
+      setIsVerifyDisabled(false);
+      if (status === 200) gotoNextScreen();
+      return;
+    } catch (error) {
+      utils.showErrorMessage(error.response.data.message);
+      setIsVerifyDisabled(false);
+      setIsError(true);
+      return;
+    }
+  };
+
+  onClickResend = () => {
+    if (!sendOtp()) return;
+    setIsResendDisabled(true);
+    setTimeout(() => {
+      setIsResendDisabled(false);
+    }, 10000);
+  };
 
   const onBackClick = () => {
     Alert.alert(
@@ -69,12 +106,7 @@ const VIR_VerifyAccountScreen = ({
       utils.showErrorMessage(strings.verifyAccountPage.codeLengthNotValid);
       return;
     }
-    if (otp !== OTP) {
-      setIsError(true);
-      utils.showErrorMessage(strings.verifyAccountPage.codeNotValid);
-      return;
-    }
-    gotoNextScreen();
+    verifyOtp();
   };
 
   const gotoNextScreen = () => {
@@ -92,8 +124,14 @@ const VIR_VerifyAccountScreen = ({
       <Text style={styles().didNotReceiveCode}>
         {strings.verifyAccountPage.didNotReceiveCode}
       </Text>
-      <TouchableOpacity>
-        <Text style={styles(isLandscape).resendButton}>
+      <TouchableOpacity
+        onPress={() => onClickResend()}
+        disabled={isResendDisabled}>
+        <Text
+          style={[
+            styles(isLandscape).resendButton,
+            isResendDisabled && {color: colors.inputBorderBottomColor},
+          ]}>
           {strings.verifyAccountPage.resend}
         </Text>
       </TouchableOpacity>
@@ -101,9 +139,13 @@ const VIR_VerifyAccountScreen = ({
   );
 
   const button = () => (
-    <TouchableOpacity onPress={onClickVerify}>
+    <TouchableOpacity onPress={onClickVerify} disabled={isVerifyDisabled}>
       <View style={styles(isLandscape).button}>
-        <Text style={styles().buttonText}>{ButtonText}</Text>
+        {isVerifyDisabled ? (
+          <ActivityIndicator color={colors.background} />
+        ) : (
+          <Text style={styles().buttonText}>{ButtonText}</Text>
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -117,7 +159,6 @@ const VIR_VerifyAccountScreen = ({
         setOtp(code);
         setIsError(false);
       }}
-      autoFocusOnLoad
       codeInputFieldStyle={[
         styles().underlineStyleBase,
         otp.length === 4 && {
