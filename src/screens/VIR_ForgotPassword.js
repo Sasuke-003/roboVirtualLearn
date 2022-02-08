@@ -48,7 +48,7 @@ const VIR_ForgotPassword = ({navigation}) => {
     }
     try {
       const response = await api.user.forgotPassword('+91' + phoneNumber);
-
+      console.log(response);
       if (response.status === 200) goToVerifyScreen();
       return;
     } catch (error) {
