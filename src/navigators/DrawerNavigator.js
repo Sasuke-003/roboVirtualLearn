@@ -3,6 +3,7 @@ import React from 'react';
 import {NAVIGATION_ROUTES} from '../constants';
 import {HomeStackNavigator, ProfileStackNavigator} from './';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {VIR_MyCourses} from '../screens';
 
 const Drawer = createDrawerNavigator();
 
@@ -29,6 +30,10 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name={NAVIGATION_ROUTES.PROFILE_STACK}
         component={ProfileStackNavigator}
+      />
+      <Drawer.Screen
+        name={NAVIGATION_ROUTES.MY_COURSES}
+        component={VIR_MyCourses}
       />
     </Drawer.Navigator>
   );

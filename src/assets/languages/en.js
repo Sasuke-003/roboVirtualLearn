@@ -85,6 +85,7 @@ export default en = {
     mobileNumber: 'Mobile number',
     send: 'Send',
     invalidPhoneNumber: 'Invalid mobile number, please try again',
+    userNotExist: 'User does not exist',
   },
   registerSuccessScreen: {
     title: 'Success!',

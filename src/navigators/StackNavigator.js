@@ -10,7 +10,7 @@ import {
   VIR_VerifyAccountScreen,
   VIR_PersonalDetailsScreen,
   VIR_CreateNewPasswordScreen,
-  VIR_HomeScreen,
+  VIR_SearchScreen,
 } from '../screens';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIsNewInstallation} from '../redux/reducers/userReducer';
@@ -32,7 +32,9 @@ const StackNavigator = () => {
         isNewInstallation
           ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
           : NAVIGATION_ROUTES.LANDING_SCREEN
-      }>
+      }
+      //initialRouteName={NAVIGATION_ROUTES.SEARCH_SCREEN}
+    >
       <Stack.Screen
         name={NAVIGATION_ROUTES.ON_BOARDING_SCREEN}
         component={VIR_OnBoardingScreen}
@@ -82,6 +84,10 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.DRAWER_NAVIGATOR}
         component={DrawerNavigator}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.SEARCH_SCREEN}
+        component={VIR_SearchScreen}
       />
     </Stack.Navigator>
   );
