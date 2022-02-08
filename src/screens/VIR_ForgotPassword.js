@@ -15,10 +15,12 @@ import {images, strings, fonts, colors} from '../assets';
 import {NAVIGATION_ROUTES} from '../constants';
 import {utils} from '../utils';
 import {useDimension} from '../hooks';
+import {api} from '../network';
 Icon.loadFont().then();
 
 const VIR_ForgotPassword = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const {height, width, isPortrait} = useDimension();
 
   const borderColor =
@@ -32,22 +34,36 @@ const VIR_ForgotPassword = ({navigation}) => {
     phoneNumber.length < 10
       ? images.loginScreen.textfieldWrongIcon
       : images.loginScreen.textfieldRightIcon;
+
+  const goToVerifyScreen = () => {
+    navigation.navigate(NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN, {
+      afterVerifyGoto: NAVIGATION_ROUTES.PERSONAL_DETAILS_SCREEN,
+      phoneNumber,
+    });
+  };
+
+  const sendOtp = async () => {
+    if (phoneNumber.length < 10) {
+      utils.showErrorMessage(strings.newAccountPage.phoneNumberError);
+    }
+    try {
+      const response = await api.user.forgotPassword('+91' + phoneNumber);
+
+      if (response.status === 200) goToVerifyScreen();
+      return;
+    } catch (error) {
+      utils.showErrorMessage(strings.forgotPasswordScreen.invalidPhoneNumber);
+
+      return;
+    }
+  };
   const mobileCheck = phone => {
     return setPhoneNumber((phone = isNaN(phone) ? '' : phone));
   };
   const onPressBack = () => {
     navigation.navigate(NAVIGATION_ROUTES.LOGIN_SCREEN);
   };
-  const onPressSend = () => {
-    if (phoneNumber.length < 10) {
-      utils.showErrorMessage(strings.forgotPasswordScreen.invalidPhoneNumber);
-      return;
-    }
-    navigation.navigate(NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN, {
-      afterVerifyGoto: NAVIGATION_ROUTES.CREATE_NEW_PASSWORD_SCREEN,
-      phoneNumber,
-    });
-  };
+
   const renderIcon = () => {
     return (
       <View>
@@ -93,7 +109,7 @@ const VIR_ForgotPassword = ({navigation}) => {
   };
   const renderButton = () => {
     return (
-      <TouchableOpacity onPress={onPressSend}>
+      <TouchableOpacity onPress={sendOtp} disabled={phoneNumber.length < 10}>
         <View style={styles.buttonContainer()}>
           <Text style={styles.send}>{strings.forgotPasswordScreen.send}</Text>
         </View>
