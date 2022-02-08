@@ -85,6 +85,7 @@ export default en = {
     mobileNumber: 'Mobile number',
     send: 'Send',
     invalidPhoneNumber: 'Invalid mobile number, please try again',
+    userNotExist: 'User does not exist',
   },
   registerSuccessScreen: {
     title: 'Success!',
@@ -113,5 +114,8 @@ export default en = {
     title: 'Success!',
     message: 'Your VirtualLearn account has been successfully created!',
     buttonName: 'Lets Get Started',
+  },
+  homeScreen: {
+    hello: 'Hello!',
   },
 };

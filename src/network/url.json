@@ -8,6 +8,7 @@
     "forgotPassword": "/api/v1/users/forgotpassword/otp"
   },
   "course": {
-    "getAllCourses": ""
+    "getUserDetails": "/api/v1/users/displayprofile",
+    "getAllOffers": "/api/v1/"
   }
 }

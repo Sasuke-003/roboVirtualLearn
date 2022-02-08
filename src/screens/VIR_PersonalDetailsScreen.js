@@ -7,8 +7,6 @@ import {
   TextInput,
   ScrollView,
   useWindowDimensions,
-  Platform,
-  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState} from 'react';
 import {images, strings, fonts, colors} from '../assets';
@@ -33,21 +31,33 @@ const VIR_PersonalDetailsScreen = ({
   const [pass, setPass] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
   const [showPasswordInfo, setShowPasswordInfo] = useState(false);
+  const [isRegisterDisabled, setIsRegisterDisabled] = useState(false);
 
   const onPressRegister = async () => {
-    if (!validate()) return;
+    setIsRegisterDisabled(true);
+    if (!validate()) {
+      setIsRegisterDisabled(false);
+      return;
+    }
     try {
-      const {status} = await api.user.register(
+      const res = await api.user.register(
         '+91' + phoneNumber,
         fullName,
         userName,
         email,
         pass,
       );
-      if (status === 200) goToNextScreen();
+      console.warn(res);
+      if (res.status === 200) {
+        setIsRegisterDisabled(false);
+        goToNextScreen();
+        return;
+      }
+
       return;
     } catch (error) {
       utils.showErrorMessage(error.response.data.message);
+      setIsRegisterDisabled(false);
       return;
     }
   };
@@ -209,6 +219,7 @@ const VIR_PersonalDetailsScreen = ({
             btnStyles={styles(isLandscape).button}
             textStyles={styles().buttonText}
             onPress={onPressRegister}
+            isDisabled={isRegisterDisabled}
           />
         </KeyboardAwareScrollView>
       </ScrollView>

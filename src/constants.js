@@ -23,5 +23,7 @@ export const NAVIGATION_ROUTES = {
   PROFILE_EDIT: 'profileEdit',
 
   MY_COURSES: 'myCourses',
-  CHOICE_COURSE: 'choiceYourCourse',
+
+  SEARCH_SCREEN: 'searchScreen',
+  CHOICE_YOUR_COURSE: 'choiceYourCourse',
 };

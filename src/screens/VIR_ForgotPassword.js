@@ -43,16 +43,19 @@ const VIR_ForgotPassword = ({navigation}) => {
   };
 
   const sendOtp = async () => {
-    if (phoneNumber.length < 10) {
-      utils.showErrorMessage(strings.newAccountPage.phoneNumberError);
-    }
     try {
       const response = await api.user.forgotPassword('+91' + phoneNumber);
 
-      if (response.status === 200) goToVerifyScreen();
+      if (response.status === 200) {
+        goToVerifyScreen();
+      }
       return;
     } catch (error) {
-      utils.showErrorMessage(strings.forgotPasswordScreen.invalidPhoneNumber);
+      if (error.response.status === 404) {
+        utils.showErrorMessage(strings.forgotPasswordScreen.invalidPhoneNumber);
+      } else if (error.response.status === 500) {
+        utils.showErrorMessage(strings.loginScreen.serverError);
+      }
 
       return;
     }

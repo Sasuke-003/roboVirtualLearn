@@ -1,17 +1,28 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import React from 'react';
+import {colors} from '../../assets';
 
 const RectangleButton = ({
   name,
   btnStyles = {},
   textStyles = {},
   onPress,
-  ...prop
+  isDisabled = false,
 }) => {
   return (
-    <TouchableOpacity onPress={onPress} {...prop}>
+    <TouchableOpacity onPress={onPress} disabled={isDisabled}>
       <View style={[styles.buttonWrapper, btnStyles]}>
-        <Text style={[styles.buttonText, textStyles]}>{name}</Text>
+        {isDisabled ? (
+          <ActivityIndicator color={colors.background} />
+        ) : (
+          <Text style={[styles.buttonText, textStyles]}>{name}</Text>
+        )}
       </View>
     </TouchableOpacity>
   );

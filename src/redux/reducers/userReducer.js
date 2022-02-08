@@ -6,6 +6,7 @@ import {useReducer} from 'react';
 const initialState = {
   newInstallation: true,
   AuthorizationToken: '',
+  userDetails: null,
 };
 
 const slice = createSlice({
@@ -15,8 +16,17 @@ const slice = createSlice({
     setNewInstallation: (state, action) => {
       state.newInstallation = action.payload;
     },
-    setAuthorizationToken: (state, action) => {
+    setNewAuthToken: (state, action) => {
       state.AuthorizationToken = action.payload;
+    },
+    clearExistingAuthToken: (state, action) => {
+      state.AuthorizationToken = '';
+    },
+    setUserDetails: (state, action) => {
+      state.userDetails = action.payload;
+    },
+    clearUserDetails: (state, action) => {
+      state.userDetails = null;
     },
   },
 });
@@ -25,10 +35,16 @@ export default slice.reducer;
 
 // Actions
 
-export const {setNewInstallation, setAuthorizationToken} = slice.actions;
+export const {
+  setNewInstallation,
+  setNewAuthToken,
+  clearExistingAuthToken,
+  setUserDetails,
+  clearUserDetails,
+} = slice.actions;
 
 // Selectors
 
 export const getIsNewInstallation = state => state.userReducer.newInstallation;
-export const getAuthorizationToken = state =>
-  state.userReducer.AuthorizationToken;
+export const getAuthToken = state => state.userReducer.AuthorizationToken;
+export const getUserDetails = state => state.userReducer.userDetails;

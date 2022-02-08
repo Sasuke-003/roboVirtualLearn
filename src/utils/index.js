@@ -1,5 +1,6 @@
 import {showErrorMessage, showSuccessMessage} from './popup';
 import {validateEmail, validateUserName, validatePassword} from './validate';
+import {setAuthToken, clearAuthToken, saveUserDetails} from './auth';
 
 export const utils = {
   showErrorMessage,
@@ -7,4 +8,7 @@ export const utils = {
   validateEmail,
   validateUserName,
   validatePassword,
+  setAuthToken,
+  clearAuthToken,
+  saveUserDetails,
 };
