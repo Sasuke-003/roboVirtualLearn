@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {CustomDrawer} from '../components';
 import {api} from '../network';
 import {utils} from '../utils';
+import {VIR_MyCourses} from '../screens';
 
 const Drawer = createDrawerNavigator();
 
@@ -91,6 +92,14 @@ const DrawerNavigator = ({navigation}) => {
         options={{
           drawerIcon: DrawerIcons.home,
           drawerLabel: 'Home',
+        }}
+      />
+      <Drawer.Screen
+        name={NAVIGATION_ROUTES.MY_COURSES}
+        component={VIR_MyCourses}
+        options={{
+          drawerIcon: DrawerIcons.myCourse,
+          drawerLabel: 'My Courses',
         }}
       />
       <Drawer.Screen

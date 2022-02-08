@@ -16,4 +16,7 @@ export const user = {
       email,
       password,
     }),
+  forgotPassword: async number => {
+    return await virtualLearn.post(URL.auth.forgotPassword, {number});
+  },
 };

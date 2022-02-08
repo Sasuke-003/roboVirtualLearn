@@ -10,7 +10,7 @@ import {
   VIR_VerifyAccountScreen,
   VIR_PersonalDetailsScreen,
   VIR_CreateNewPasswordScreen,
-  VIR_HomeScreen,
+  VIR_SearchScreen,
 } from '../screens';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -89,6 +89,10 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.DRAWER_NAVIGATOR}
         component={DrawerNavigator}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.SEARCH_SCREEN}
+        component={VIR_SearchScreen}
       />
     </Stack.Navigator>
   );

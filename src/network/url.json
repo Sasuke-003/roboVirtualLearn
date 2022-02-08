@@ -3,7 +3,8 @@
     "login": "/api/v1/users/login",
     "sendOtp": "/api/v1/users/signup/otp",
     "verifyOtp": "/api/v1/users/signup/verify",
-    "register": "/api/v1/users/signup/register"
+    "register": "/api/v1/users/signup/register",
+    "forgotPassword": "/api/v1/users/forgotpassword/otp"
   },
   "course": {
     "getUserDetails": "/api/v1/users/displayprofile",
