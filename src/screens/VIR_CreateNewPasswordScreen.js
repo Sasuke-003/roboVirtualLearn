@@ -13,13 +13,17 @@ import {colors, fonts, strings, images} from '../assets';
 import {utils} from '../utils';
 import PasswordRequirement from '../components/PasswordRequirement';
 import {NAVIGATION_ROUTES} from '../constants';
+import {api} from '../network';
 
-const VIR_CreateNewPasswordScreen = ({navigation}) => {
+const VIR_CreateNewPasswordScreen = ({navigation, route}) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showRequirement, setShowRequirement] = useState(false);
   const {height, width} = useWindowDimensions();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const portrait = height > width;
+
+  let phoneNumber = '+919061360253';
 
   const onChangePassword = text => {
     setPassword(text);
@@ -41,23 +45,39 @@ const VIR_CreateNewPasswordScreen = ({navigation}) => {
       return false;
     }
   };
-  const onResetPress = () => {
+  const goToSuccessScreen = () => {
+    navigation.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, {
+      image: images.successScreen.passwordChangeSuccess,
+      title: strings.passwordChangeSuccess.title,
+      message: strings.passwordChangeSuccess.message,
+      buttonName: strings.passwordChangeSuccess.buttonName,
+      onPressButton: () => {
+        navigation.pop(2);
+      },
+    });
+  };
+
+  const onResetPress = async () => {
+    console.log('Button');
+    setIsButtonDisabled(true);
     if (isValidPassword(password)) {
       if (confirmPassword === password) {
-        navigation.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, {
-          image: images.successScreen.passwordChangeSuccess,
-          title: strings.passwordChangeSuccess.title,
-          message: strings.passwordChangeSuccess.message,
-          buttonName: strings.passwordChangeSuccess.buttonName,
-          onPressButton: () => {
-            navigation.pop(2);
-          },
-        });
+        try {
+          console.log('Button In');
+          const {status} = await api.user.createNewPass(phoneNumber, password);
+          setIsButtonDisabled(false);
+          if (status === 200) goToSuccessScreen();
+        } catch (error) {
+          utils.showErrorMessage(error.response.data.message);
+          setIsButtonDisabled(false);
+        }
       } else {
         utils.showErrorMessage(strings.createNewPassPage.passwdNotMatch);
+        setIsButtonDisabled(false);
       }
     } else {
       utils.showErrorMessage(strings.createNewPassPage.passwordError);
+      setIsButtonDisabled(false);
     }
   };
 
@@ -134,6 +154,7 @@ const VIR_CreateNewPasswordScreen = ({navigation}) => {
           name={strings.createNewPassPage.resetBtn}
           btnStyles={styles.btnStyles}
           textStyles={styles.textStyles}
+          disabled={isButtonDisabled}
         />
       </>
     );

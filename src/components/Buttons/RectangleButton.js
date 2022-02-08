@@ -1,9 +1,15 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 
-const RectangleButton = ({name, btnStyles = {}, textStyles = {}, onPress}) => {
+const RectangleButton = ({
+  name,
+  btnStyles = {},
+  textStyles = {},
+  onPress,
+  ...prop
+}) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} {...prop}>
       <View style={[styles.buttonWrapper, btnStyles]}>
         <Text style={[styles.buttonText, textStyles]}>{name}</Text>
       </View>

@@ -53,6 +53,7 @@ const VIR_NewAccountScreen = ({navigation}) => {
     setIsButtonDisabled(true);
     if (phoneNumber.length < 10) {
       utils.showErrorMessage(strings.newAccountPage.phoneNumberError);
+      setIsButtonDisabled(false);
       return;
     }
     try {
