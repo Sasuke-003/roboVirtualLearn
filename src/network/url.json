@@ -4,7 +4,8 @@
     "sendOtp": "/api/v1/users/signup/otp",
     "verifyOtp": "/api/v1/users/signup/verify",
     "register": "/api/v1/users/signup/register",
-    "createNewPass": "/api/v1/users/forgotpassword/resetpassword"
+    "createNewPass": "/api/v1/users/forgotpassword/resetpassword",
+    "forgotPassword": "/api/v1/users/forgotpassword/otp"
   },
   "course": {
     "getAllCourses": ""

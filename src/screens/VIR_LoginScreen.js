@@ -1,17 +1,6 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  ScrollView,
-  SafeAreaView,
-} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, ScrollView} from 'react-native';
 import React from 'react';
-import {
-  VIR_LoginButton,
-  VIR_SocialMediaLogin,
-  VIR_TextInput,
-} from '../components';
+import {VIR_LoginFields} from '../components';
 import {strings, fonts, colors} from '../assets';
 import {useDimension} from '../hooks';
 
@@ -33,9 +22,7 @@ const VIR_LoginScreen = ({navigation}) => {
     <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
       <View style={styles.container(width, height, isPortrait)}>
         {renderTitle()}
-        <VIR_SocialMediaLogin />
-        <VIR_TextInput />
-        <VIR_LoginButton />
+        <VIR_LoginFields />
       </View>
     </ScrollView>
   );

@@ -73,7 +73,9 @@ export default en = {
     login: 'Login',
     noAccount: "Don't have an account?  ",
     register: 'Register',
-    invalidCredentials: 'Invalid credentials,please try again',
+    invalidUsername: 'Invalid username, please try again',
+    invalidPassword: 'Invalid password, please try again',
+    serverError: ' Internal server error',
   },
   forgotPasswordScreen: {
     title: 'Forgot Password',
