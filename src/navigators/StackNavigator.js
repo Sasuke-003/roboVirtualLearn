@@ -29,9 +29,10 @@ const StackNavigator = () => {
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={
-        isNewInstallation
-          ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
-          : NAVIGATION_ROUTES.LANDING_SCREEN
+        NAVIGATION_ROUTES.DRAWER_NAVIGATOR
+        // isNewInstallation
+        //   ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
+        //   : NAVIGATION_ROUTES.LANDING_SCREEN
       }>
       <Stack.Screen
         name={NAVIGATION_ROUTES.ON_BOARDING_SCREEN}

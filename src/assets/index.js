@@ -48,4 +48,10 @@ export const images = {
     registerSuccess: require('./images/img_Register_success.png'),
     passwordChangeSuccess: require('./images/password_change_sucess3x.png'),
   },
+  profileScreen: {
+    profileBg: require('./images/profilepic3x.png'),
+    editIcon: require('./images/editIcon3x.png'),
+    forwardIcon: require('./images/forwardIcon3x.png'),
+    privacyIcon: require('./images/privacyIcon3x.png'),
+  },
 };

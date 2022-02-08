@@ -15,15 +15,18 @@ import PasswordRequirement from '../components/PasswordRequirement';
 import {NAVIGATION_ROUTES} from '../constants';
 import {api} from '../network';
 
-const VIR_CreateNewPasswordScreen = ({navigation, route}) => {
+const VIR_CreateNewPasswordScreen = ({
+  navigation,
+  route: {
+    params: {phoneNumber},
+  },
+}) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showRequirement, setShowRequirement] = useState(false);
   const {height, width} = useWindowDimensions();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const portrait = height > width;
-
-  let phoneNumber = '+919061360253';
 
   const onChangePassword = text => {
     setPassword(text);
@@ -58,13 +61,14 @@ const VIR_CreateNewPasswordScreen = ({navigation, route}) => {
   };
 
   const onResetPress = async () => {
-    console.log('Button');
     setIsButtonDisabled(true);
     if (isValidPassword(password)) {
       if (confirmPassword === password) {
         try {
-          console.log('Button In');
-          const {status} = await api.user.createNewPass(phoneNumber, password);
+          const {status} = await api.user.createNewPass(
+            '+91' + phoneNumber,
+            password,
+          );
           setIsButtonDisabled(false);
           if (status === 200) goToSuccessScreen();
         } catch (error) {

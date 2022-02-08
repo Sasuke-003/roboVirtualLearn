@@ -18,12 +18,12 @@ const ProfileStackNavigator = () => {
       initialRouteName={NAVIGATION_ROUTES.PROFILE_SCREEN}>
       <Stack.Screen
         name={NAVIGATION_ROUTES.PROFILE_SCREEN}
-        component={VIR_ProfileEditScreen}
+        component={VIR_ProfileScreen}
       />
 
       <Stack.Screen
         name={NAVIGATION_ROUTES.PROFILE_EDIT}
-        component={VIR_ProfileScreen}
+        component={VIR_ProfileEditScreen}
       />
     </Stack.Navigator>
   );

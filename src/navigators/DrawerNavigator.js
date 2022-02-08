@@ -11,7 +11,7 @@ const DrawerNavigator = () => {
     <Drawer.Navigator
       // initialRouteName="Home"
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         drawerActiveBackgroundColor: 'transparent',
         drawerActiveTintColor: '#000',
         drawerLabelStyle: {
