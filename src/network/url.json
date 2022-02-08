@@ -6,6 +6,7 @@
     "register": "/api/v1/users/signup/register"
   },
   "course": {
-    "getAllCourses": ""
+    "getUserDetails": "/api/v1/users/displayprofile",
+    "getAllOffers": "/api/v1/"
   }
 }

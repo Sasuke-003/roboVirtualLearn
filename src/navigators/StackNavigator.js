@@ -13,7 +13,10 @@ import {
   VIR_HomeScreen,
 } from '../screens';
 import {useDispatch, useSelector} from 'react-redux';
-import {getIsNewInstallation} from '../redux/reducers/userReducer';
+import {
+  getIsNewInstallation,
+  getAuthToken,
+} from '../redux/reducers/userReducer';
 import {NAVIGATION_ROUTES} from '../constants';
 import {DrawerNavigator} from './';
 
@@ -25,13 +28,17 @@ const screenOptions = {
 
 const StackNavigator = () => {
   const isNewInstallation = useSelector(getIsNewInstallation);
+  const authToken = useSelector(getAuthToken);
+
   return (
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={
-        isNewInstallation
-          ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
-          : NAVIGATION_ROUTES.LANDING_SCREEN
+        authToken === ''
+          ? isNewInstallation
+            ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
+            : NAVIGATION_ROUTES.LANDING_SCREEN
+          : NAVIGATION_ROUTES.DRAWER_NAVIGATOR
       }>
       <Stack.Screen
         name={NAVIGATION_ROUTES.ON_BOARDING_SCREEN}

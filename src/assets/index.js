@@ -21,6 +21,13 @@ export const fonts = {
 export const images = {
   errorIcon: require('./images/errorIcon3x.png'),
   infoIconGolden: require('./images/infoIconGolden3x.png'),
+  homeIcon: require('./images/homeIcon3x.png'),
+  myCourseIcon: require('./images/myCourseIcon3x.png'),
+  notificationIcon: require('./images/notificationIcon3x.png'),
+  profileIcon: require('./images/profileIcon3x.png'),
+  homeIcon: require('./images/logoutIcon3x.png'),
+  hamburgerMenuIcon: require('./images/hamburgerMenuIcon3x.png'),
+  searchIcon: require('./images/searchIcon3x.png'),
   newAccountScreen: {
     googleIcon: require('./images/googleIcon3x.png'),
     facebookIcon: require('./images/facebook3x.png'),

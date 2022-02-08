@@ -8,6 +8,7 @@ export const colors = {
   inputBorderBottomColor: '#7A7A7A60',
   phoneNumberActive: '#042C5C',
   googleButtonBorder: '#77869E30',
+  imageBorder: '#FFFFFF90',
 
   inputTextRightBorder: '#12A73B',
   inputTextWrongBorder: '#EA2626',
@@ -17,6 +18,8 @@ export const colors = {
   privacy: '#2BB5F4',
   errorColor: '#E92020',
   successColor: '#12A73B',
+
+  imageOpacity: '#12315a99',
 
   shadow: 'rgba(37,51,75)',
 };
