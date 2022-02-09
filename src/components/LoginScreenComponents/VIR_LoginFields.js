@@ -7,6 +7,7 @@ import {
   Dimensions,
   Text,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 
 import React, {useState} from 'react';
@@ -15,15 +16,13 @@ import {useDimension} from '../../hooks';
 import {useNavigation} from '@react-navigation/core';
 import {NAVIGATION_ROUTES} from '../../constants';
 import {api} from '../../network';
-import {setAuthorizationToken} from '../../redux/reducers/userReducer';
-import {useDispatch} from 'react-redux';
 import {utils} from '../../utils';
 
 const VIR_LoginFields = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoginDisabled, setIsLoginDisabled] = useState(false);
   const navigation = useNavigation();
-  const dispatch = useDispatch();
   const {height, width, isPortrait} = useDimension();
 
   const onPressForgot = () => {
@@ -32,24 +31,32 @@ const VIR_LoginFields = () => {
   const onPressRegister = () => {
     navigation.navigate(NAVIGATION_ROUTES.NEW_ACCOUNT_SCREEN);
   };
+
+  const goToHomeScreen = () => {
+    navigation.navigate(NAVIGATION_ROUTES.DRAWER_NAVIGATOR);
+  };
   const onPressLogin = () => {
+    setIsLoginDisabled(true);
     api.user
       .login({username: username, password: password})
       .then(response => {
-        if (response.status === 200) {
-          dispatch(setAuthorizationToken(response.data.token));
-          navigation.navigate(NAVIGATION_ROUTES.DRAWER_NAVIGATOR);
+        const {
+          data: {message, token},
+          status,
+        } = response;
+        setIsLoginDisabled(false);
+        if (status === 200) {
+          utils.showSuccessMessage(message);
+          utils.setAuthToken(token);
+          goToHomeScreen();
         }
       })
       .catch(error => {
-        if (error.response.status === 404) {
-          utils.showErrorMessage(strings.loginScreen.invalidUsername);
-        } else if (error.response.status === 401) {
-          utils.showErrorMessage(strings.loginScreen.invalidPassword);
-        } else {
-          utils.showErrorMessage(strings.loginScreen.serverError);
-        }
+        utils.showErrorMessage(error.response.data.message);
+        setIsLoginDisabled(false);
       });
+
+    console.log('Login Pressed');
   };
 
   const borderColor =
@@ -90,11 +97,17 @@ const VIR_LoginFields = () => {
             {strings.loginScreen.forgotPassword}
           </Text>
         </TouchableOpacity>
-        <View style={styles.loginButton}>
-          <TouchableOpacity onPress={onPressLogin}>
-            <Text style={styles.login}>{strings.loginScreen.login}</Text>
-          </TouchableOpacity>
-        </View>
+
+        <TouchableOpacity onPress={onPressLogin} disabled={isLoginDisabled}>
+          <View style={styles.loginButton}>
+            {isLoginDisabled ? (
+              <ActivityIndicator color={colors.background} />
+            ) : (
+              <Text style={styles.login}>{strings.loginScreen.login}</Text>
+            )}
+          </View>
+        </TouchableOpacity>
+
         <View style={styles.registerAccount}>
           <Text style={styles.noAccount}>{strings.loginScreen.noAccount}</Text>
           <TouchableOpacity onPress={onPressRegister}>

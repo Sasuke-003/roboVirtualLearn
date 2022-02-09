@@ -118,4 +118,7 @@ export default en = {
   searchScreen: {
     search: 'Search',
   },
+  homeScreen: {
+    hello: 'Hello!',
+  },
 };
