@@ -84,7 +84,11 @@ const VIR_SearchScreen = props => {
           </View>
         ) : null}
         {enteredText !== '' && (
-          <Courses text={enteredText} searchedArray={onSearchArray} />
+          <Courses
+            text={enteredText}
+            searchedArray={onSearchArray}
+            arr={searchedArray}
+          />
         )}
       </View>
     </SafeAreaView>
