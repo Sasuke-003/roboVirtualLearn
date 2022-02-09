@@ -14,14 +14,16 @@ const headerRightIcon = () => (
   <Image style={styles.headerRightIcon} source={images.searchIcon} />
 );
 
-const VIR_HomeScreen = ({navigation}) => {
+const VIR_HomeScreen = ({navigation, goToSearchScreen}) => {
   const userDetails = useSelector(getUserDetails);
 
   const headerLeftIconOnPress = () => {
     navigation.openDrawer();
   };
 
-  const headerRightIconOnPress = () => {};
+  const headerRightIconOnPress = () => {
+    goToSearchScreen();
+  };
 
   const welcomeText = () => (
     <View style={styles.welcomeText}>

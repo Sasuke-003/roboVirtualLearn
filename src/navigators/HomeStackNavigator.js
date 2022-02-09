@@ -12,15 +12,18 @@ const screenOptions = {
   headerShown: false,
 };
 
-const HomeStackNavigator = () => {
+const HomeStackNavigator = props => {
+  const {goToSearchScreen} = props;
+
   return (
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={NAVIGATION_ROUTES.HOME_SCREEN}>
-      <Stack.Screen
-        name={NAVIGATION_ROUTES.HOME_SCREEN}
-        component={VIR_HomeScreen}
-      />
+      <Stack.Screen name={NAVIGATION_ROUTES.HOME_SCREEN}>
+        {props => (
+          <VIR_HomeScreen {...props} goToSearchScreen={goToSearchScreen} />
+        )}
+      </Stack.Screen>
 
       <Stack.Screen
         name={NAVIGATION_ROUTES.CHOICE_YOUR_COURSE}

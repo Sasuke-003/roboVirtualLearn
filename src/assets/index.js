@@ -55,4 +55,9 @@ export const images = {
     registerSuccess: require('./images/img_Register_success.png'),
     passwordChangeSuccess: require('./images/password_change_sucess3x.png'),
   },
+  searchScreen: {
+    backIcon: require('./images/backIcon3x.png'),
+    searchIcon: require('./images/searchCourse.png'),
+    filterSearch: require('./images/filterSearch.png'),
+  },
 };

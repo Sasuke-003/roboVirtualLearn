@@ -117,6 +117,9 @@ export default en = {
   },
   searchScreen: {
     search: 'Search',
+    topSearch: 'Top Searches',
+    searchCategories: 'Search from Categories',
+    chapters: ' Chapters',
   },
   homeScreen: {
     hello: 'Hello!',

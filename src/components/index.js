@@ -6,3 +6,5 @@ export {default as Onboard} from './Onboard';
 export {default as Header} from './Header';
 export {default as CustomDrawer} from './CustomDrawer';
 export {default as DrawerHeader} from './DrawerHeader';
+export {default as Categories} from './Categories';
+export {default as Courses} from './Courses';

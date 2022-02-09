@@ -9,7 +9,12 @@ const config = () => {
 
 export const course = {
   getUserDetails: async () => {
-    console.log(config());
     return await virtualLearn.get(URL.course.getUserDetails, config());
+  },
+  getAllCategories: async () => {
+    return await virtualLearn.get(URL.course.getAllCategories);
+  },
+  getAllCourses: async () => {
+    return await virtualLearn.get(URL.course.getAllCourses);
   },
 };
