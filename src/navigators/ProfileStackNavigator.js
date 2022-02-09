@@ -11,15 +11,22 @@ const screenOptions = {
   headerShown: false,
 };
 
-const ProfileStackNavigator = () => {
+const ProfileStackNavigator = ({goToCreateNewPassword}) => {
   return (
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={NAVIGATION_ROUTES.PROFILE_SCREEN}>
       <Stack.Screen
         name={NAVIGATION_ROUTES.PROFILE_SCREEN}
-        component={VIR_ProfileScreen}
-      />
+        // component={VIR_ProfileScreen}
+      >
+        {props => (
+          <VIR_ProfileScreen
+            {...props}
+            goToCreateNewPassword={goToCreateNewPassword}
+          />
+        )}
+      </Stack.Screen>
 
       <Stack.Screen
         name={NAVIGATION_ROUTES.PROFILE_EDIT}

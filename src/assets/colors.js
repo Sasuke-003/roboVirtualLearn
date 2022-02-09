@@ -22,4 +22,11 @@ export const colors = {
   imageOpacity: '#12315a99',
 
   shadow: 'rgba(37,51,75)',
+  profileBg: 'rgba(4, 44, 92,0.85)',
+  profileImgBorder: '#47607d',
+  cardBg: '#FEFEFF',
+  cardShadow: 'rgba(0,0,0,0.15)',
+  dobText: '#72727290',
+  modalBg: 'rgba(0,0,0,0.4)',
+  seperator: '#00000080',
 };

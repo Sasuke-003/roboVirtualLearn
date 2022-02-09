@@ -2,14 +2,22 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
+  // SafeAreaView,
   ImageBackground,
   useWindowDimensions,
   Image,
+  TouchableOpacity,
+  ScrollView,
+  Platform,
 } from 'react-native';
 import React from 'react';
-import {colors, fonts, images} from '../assets';
-// import {SafeAreaView} from 'react-native-safe-area-context';
+import {colors, fonts, images, strings} from '../assets';
+import {useSelector, useDispatch} from 'react-redux';
+import {getUserDetails} from '../redux/reducers/userReducer';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {utils} from '../utils';
+import {DrawerHeader} from '../components';
+import {NAVIGATION_ROUTES} from '../constants';
 const CourseCard = ({count, subHeading}) => {
   return (
     <View style={styles.cardContainer}>
@@ -26,72 +34,135 @@ const PersonalDetails = ({label, value}) => {
     </View>
   );
 };
-const VIR_ProfileScreen = () => {
+const headerLeftIcon = () => (
+  <Image
+    style={styles.headerLeftIcon}
+    source={images.profileScreen.hamburgerMenuIconWhite}
+  />
+);
+const VIR_ProfileScreen = ({goToCreateNewPassword, navigation}) => {
   const {height, width} = useWindowDimensions();
-  return (
-    <>
-      {/* <View style={{flex: 1}}> */}
-      <ImageBackground
-        source={{
-          uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs6Zmc_BNgfI0VoGCx7KL-x45TIzIo-hBN2BJ9FscU7grARs99V4SjyLsmPF9gDLdiWXE&usqp=CAUs',
-        }}
-        style={{
-          flex: 1,
-          resizeMode: 'contain',
-          width: width,
-        }}>
-        <SafeAreaView style={styles.container}>
-          <View style={styles.titleView}>
-            <Text style={styles.title}>Profile</Text>
-            <Image
-              source={images.profileScreen.editIcon}
-              style={styles.editIcon}
-            />
-          </View>
-          <View style={styles.profileSection}>
-            <View style={styles.profilePicView}>
-              <Image
-                source={{
-                  uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs6Zmc_BNgfI0VoGCx7KL-x45TIzIo-hBN2BJ9FscU7grARs99V4SjyLsmPF9gDLdiWXE&usqp=CAUs',
-                }}
-                style={styles.profilePic}
-              />
-            </View>
-            <View style={styles.profileNameView}>
-              <Text style={styles.profileName}>Mahendra Sing Dhoni</Text>
-              <Text style={styles.profileJob}>UI/UX Designer</Text>
-            </View>
-          </View>
-        </SafeAreaView>
-      </ImageBackground>
+  const portrait = height > width;
+  const userDetails = useSelector(getUserDetails);
+  let authToken = utils.getAuthToken();
 
-      <SafeAreaView style={styles.container2}>
-        <View style={styles.courseDetails}>
-          <Text style={styles.hasCompleted}>Has Completed</Text>
-          <View style={styles.cardView}>
-            <CourseCard count="06" subHeading="Courses" />
-            <CourseCard count="102" subHeading="Chapters" />
-            <CourseCard count="24" subHeading="Test" />
-          </View>
+  let occupation =
+    userDetails.hasOwnProperty('occupation') &&
+    userDetails.occupation.length > 0
+      ? userDetails.occupation
+      : '-- --';
+  let dob =
+    userDetails.hasOwnProperty('dateOfBirth') &&
+    userDetails.dateOfBirth.length > 0
+      ? userDetails.dateOfBirth
+      : '-- --';
+  let profileImage = userDetails.hasOwnProperty('image')
+    ? userDetails.image
+    : images.profileScreen.blankImage;
+
+  const headerLeftIconOnPress = () => {
+    navigation.openDrawer();
+  };
+  const editIconOnPress = () => {
+    navigation.navigate(NAVIGATION_ROUTES.PROFILE_EDIT);
+  };
+
+  const renderTitleSection = () => {
+    return (
+      <View style={styles.titleView}>
+        <Text style={styles.title}>{strings.profileScreen.title}</Text>
+        <TouchableOpacity onPress={editIconOnPress}>
+          <Image
+            source={images.profileScreen.editIcon}
+            style={styles.editIcon}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderProfileImageDetailsSection = () => {
+    return (
+      <View style={styles.profileSection}>
+        <View style={styles.profilePicView}>
+          <Image
+            source={
+              typeof profileImage === 'number'
+                ? profileImage
+                : {uri: profileImage}
+            }
+            style={styles.profilePic}
+          />
         </View>
-        <View style={styles.personalDetails}>
-          <Text style={styles.personalDetailsText}>Personal Details</Text>
-          <PersonalDetails label="Name" value="Mahendra Singh Dhoni" />
-          <PersonalDetails label="Username" value="Msdian" />
-          <PersonalDetails label="Email" value="msd07@gmail.com" />
-          <PersonalDetails label="Mobile Number" value="+919895086660" />
-          <PersonalDetails label="Occupation" value="UI/UX Designer" />
-          <PersonalDetails label="Date of Birth" value="10/04/1989" />
+        <View style={styles.profileNameView}>
+          <Text style={styles.profileName}>{userDetails.fullname}</Text>
+          <Text style={styles.profileJob}>{occupation}</Text>
         </View>
-        <View style={styles.privacyView}>
+      </View>
+    );
+  };
+  const renderCourseCard = () => {
+    return (
+      <View style={styles.courseDetails}>
+        <Text style={styles.hasCompleted}>
+          {strings.profileScreen.hasCompleted}
+        </Text>
+        <View style={styles.cardView(portrait)}>
+          <CourseCard count="06" subHeading={strings.profileScreen.courses} />
+          <CourseCard count="102" subHeading={strings.profileScreen.chapters} />
+          <CourseCard count="24" subHeading={strings.profileScreen.test} />
+        </View>
+      </View>
+    );
+  };
+  const renderPersonalDetails = () => {
+    return (
+      <View style={styles.personalDetails}>
+        <Text style={styles.personalDetailsText}>
+          {strings.profileScreen.personalDetails}
+        </Text>
+
+        <PersonalDetails
+          label={strings.profileScreen.name}
+          value={userDetails.fullname}
+        />
+        <PersonalDetails
+          label={strings.profileScreen.username}
+          value={userDetails.username}
+        />
+        <PersonalDetails
+          label={strings.profileScreen.email}
+          value={userDetails.email}
+        />
+        <PersonalDetails
+          label={strings.profileScreen.mobNum}
+          value={userDetails.number}
+        />
+        <PersonalDetails
+          label={strings.profileScreen.occupation}
+          value={occupation}
+        />
+        <PersonalDetails label={strings.profileScreen.DOB} value={dob} />
+      </View>
+    );
+  };
+  const renderPrivacyButton = () => {
+    return (
+      <TouchableOpacity onPress={() => goToCreateNewPassword({authToken})}>
+        <View style={styles.privacyView(height)}>
           <View style={styles.innerPrivacyView}>
             <Image
               source={images.profileScreen.privacyIcon}
               style={styles.privacyIcon}
             />
+
             <View style={styles.privacyTitleView}>
-              <Text style={styles.privacyTitle}>Privacy</Text>
-              <Text style={styles.privacySubHeading}>Change your password</Text>
+              <Text style={styles.privacyTitle}>
+                {strings.profileScreen.privacy}
+              </Text>
+              <Text style={styles.privacySubHeading}>
+                {strings.profileScreen.changePass}
+              </Text>
             </View>
           </View>
           <Image
@@ -99,9 +170,39 @@ const VIR_ProfileScreen = () => {
             style={styles.forwardIcon}
           />
         </View>
+      </TouchableOpacity>
+    );
+  };
+  const renderHeader = () => {
+    return (
+      <DrawerHeader
+        leftIcon={headerLeftIcon}
+        leftIconOnPress={headerLeftIconOnPress}
+      />
+    );
+  };
+  return (
+    <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+      <ImageBackground
+        source={
+          typeof profileImage === 'number' ? profileImage : {uri: profileImage}
+        }
+        style={styles.imageBackground(width)}>
+        <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+          {renderHeader()}
+          {renderTitleSection()}
+          {renderProfileImageDetailsSection()}
+        </SafeAreaView>
+      </ImageBackground>
+
+      <SafeAreaView
+        style={styles.container2(width, height)}
+        edges={['bottom', 'left', 'right']}>
+        {renderCourseCard()}
+        {renderPersonalDetails()}
+        {renderPrivacyButton()}
       </SafeAreaView>
-      {/* </View> */}
-    </>
+    </ScrollView>
   );
 };
 
@@ -110,11 +211,21 @@ export default VIR_ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(4, 44, 92,0.85)',
+    backgroundColor: colors.profileBg,
   },
-  container2: {
+  container2: (width, height) => ({
     backgroundColor: colors.background,
-    flex: 2,
+  }),
+  imageBackground: width => ({
+    flex: 1,
+    resizeMode: 'contain',
+    width: width,
+  }),
+  headerLeftIcon: {
+    height: 17,
+    width: 25,
+    marginLeft: 24,
+    marginTop: 5,
   },
   titleView: {
     justifyContent: 'space-between',
@@ -122,7 +233,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 20,
     paddingRight: 24,
-    marginTop: 64,
+    marginTop: 21,
   },
   editIcon: {height: 18, width: 18},
   title: {
@@ -143,15 +254,15 @@ const styles = StyleSheet.create({
     height: 70,
     borderWidth: 3,
     overflow: 'hidden',
-    borderColor: '#47607d',
+    borderColor: colors.profileImgBorder,
     borderRadius: 5,
   },
   profileSection: {
     flexDirection: 'row',
-    // justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 26,
     marginTop: 31,
+    marginBottom: 26,
   },
   profileNameView: {
     marginLeft: 22,
@@ -186,42 +297,41 @@ const styles = StyleSheet.create({
     height: 85,
     width: 95,
     borderRadius: 6,
-    backgroundColor: '#FEFEFF',
+    backgroundColor: colors.cardBg,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: 'rgba(0,0,0,0.1)',
+    shadowColor: colors.cardShadow,
     shadowOffset: {width: 0, height: 0},
     shadowOpacity: 1,
     shadowRadius: 11,
   },
   courseNum: {
-    color: '#2BB5F4',
+    color: colors.privacy,
     fontFamily: fonts.BikoBold,
     fontSize: 32,
     fontWeight: 'bold',
     lineHeight: 38,
   },
   subHeading: {
-    color: '#373737',
+    color: colors.skipLabel,
     fontFamily: fonts.proximaNovaRegular,
     fontSize: 14,
     lineHeight: 17,
     textAlign: 'center',
   },
-  cardView: {
-    width: '100%',
+  cardView: portrait => ({
+    width: portrait ? '100%' : '60%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // backgroundColor: '#545',
     marginTop: 20,
-  },
+  }),
   detailsView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 20,
   },
   personalDetailsText: {
-    color: '#2B2B2B',
+    color: colors.primaryText,
     fontFamily: fonts.proximaNovaRegular,
     fontSize: 18,
     fontWeight: '600',
@@ -229,14 +339,14 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   label: {
-    color: '#7A7A7A',
+    color: colors.secondaryText,
     fontFamily: fonts.proximaNovaMedium,
     fontSize: 14,
     fontWeight: '500',
     lineHeight: 17,
   },
   value: {
-    color: '#373737',
+    color: colors.skipLabel,
     fontFamily: fonts.proximaNovaRegular,
     fontSize: 16,
     fontWeight: '600',
@@ -250,21 +360,21 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
-  privacyView: {
+  privacyView: height => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 8,
     marginHorizontal: 24,
     marginTop: 11,
-    marginBottom: 30,
-    backgroundColor: '#FEFEFF',
+    marginBottom: height < 840 ? 30 : 0,
+    backgroundColor: colors.cardBg,
     borderRadius: 6,
-    shadowColor: 'rgba(0,0,0,0.15)',
+    shadowColor: colors.cardShadow,
     shadowOffset: {width: 0, height: 0},
     shadowOpacity: 1,
     shadowRadius: 11,
-  },
+  }),
   forwardIcon: {
     width: 10,
     height: 16,
@@ -279,7 +389,7 @@ const styles = StyleSheet.create({
     marginLeft: 17,
   },
   privacyTitle: {
-    color: '#042C5C',
+    color: colors.phoneNumberActive,
     fontFamily: fonts.proximaNovaBold,
     fontSize: 16,
     fontWeight: 'bold',
@@ -287,7 +397,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   privacySubHeading: {
-    color: '#7A7A7A',
+    color: colors.secondaryText,
     fontFamily: fonts.proximaNovaRegular,
     fontSize: 13,
     letterSpacing: 0.27,

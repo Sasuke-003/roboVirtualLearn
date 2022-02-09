@@ -10,5 +10,10 @@
   "course": {
     "getUserDetails": "/api/v1/users/displayprofile",
     "getAllOffers": "/api/v1/"
+  },
+  "profile": {
+    "changePassword": "/api/v1/users/changepassword/oldpassword",
+    "uploadProfilePic": "/api/v1/users/uploadimage",
+    "updateDetails": "/api/v1/users/updateprofile"
   }
 }
