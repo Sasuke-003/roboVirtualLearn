@@ -28,13 +28,12 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={screenOptions}
-      initialRouteName={
+      /* initialRouteName={
         isNewInstallation
           ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
           : NAVIGATION_ROUTES.LANDING_SCREEN
-      }
-      //initialRouteName={NAVIGATION_ROUTES.SEARCH_SCREEN}
-    >
+      }*/
+      initialRouteName={NAVIGATION_ROUTES.SEARCH_SCREEN}>
       <Stack.Screen
         name={NAVIGATION_ROUTES.ON_BOARDING_SCREEN}
         component={VIR_OnBoardingScreen}
