@@ -65,4 +65,9 @@ export const images = {
     hamburgerMenuIconWhite: require('./images/hamburgermenu_white3x.png'),
     uploadProfilePic: require('./images/uploadProfilePic3x.png'),
   },
+  searchScreen: {
+    backIcon: require('./images/backIcon3x.png'),
+    searchIcon: require('./images/searchCourse.png'),
+    filterSearch: require('./images/filterSearch.png'),
+  },
 };

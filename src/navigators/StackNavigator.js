@@ -39,7 +39,9 @@ const StackNavigator = () => {
             ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
             : NAVIGATION_ROUTES.LANDING_SCREEN
           : NAVIGATION_ROUTES.DRAWER_NAVIGATOR
-      }>
+      }
+      //initialRouteName={NAVIGATION_ROUTES.SEARCH_SCREEN}
+    >
       <Stack.Screen
         name={NAVIGATION_ROUTES.ON_BOARDING_SCREEN}
         component={VIR_OnBoardingScreen}

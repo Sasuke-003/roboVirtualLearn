@@ -116,6 +116,12 @@ export default en = {
     message: 'Your VirtualLearn account has been successfully created!',
     buttonName: 'Lets Get Started',
   },
+  searchScreen: {
+    search: 'Search',
+    topSearch: 'Top Searches',
+    searchCategories: 'Search from Categories',
+    chapters: ' Chapters',
+  },
   homeScreen: {
     hello: 'Hello!',
   },

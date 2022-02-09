@@ -79,6 +79,9 @@ const DrawerNavigator = ({navigation}) => {
       routes: [{name: NAVIGATION_ROUTES.LANDING_SCREEN}],
     });
   };
+  const goToSearchScreen = () => {
+    navigation.navigate(NAVIGATION_ROUTES.SEARCH_SCREEN);
+  };
   return (
     <Drawer.Navigator
       // initialRouteName="Home"
@@ -95,12 +98,15 @@ const DrawerNavigator = ({navigation}) => {
       }}>
       <Drawer.Screen
         name={NAVIGATION_ROUTES.HOME_STACK}
-        component={HomeStackNavigator}
         options={{
           drawerIcon: DrawerIcons.home,
           drawerLabel: 'Home',
-        }}
-      />
+        }}>
+        {props => (
+          <HomeStackNavigator {...props} goToSearchScreen={goToSearchScreen} />
+        )}
+      </Drawer.Screen>
+
       <Drawer.Screen
         name={NAVIGATION_ROUTES.MY_COURSES}
         component={VIR_MyCourses}
