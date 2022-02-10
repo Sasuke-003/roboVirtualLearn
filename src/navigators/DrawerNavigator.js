@@ -51,6 +51,13 @@ const DrawerIcons = {
 };
 
 const DrawerNavigator = ({navigation}) => {
+  const goToCreateNewPassword = authToken => {
+    navigation.navigate(
+      NAVIGATION_ROUTES.CREATE_NEW_PASSWORD_SCREEN,
+      authToken,
+    );
+  };
+
   useEffect(() => {
     const getUserData = async () => {
       try {
@@ -110,12 +117,17 @@ const DrawerNavigator = ({navigation}) => {
       />
       <Drawer.Screen
         name={NAVIGATION_ROUTES.PROFILE_STACK}
-        component={ProfileStackNavigator}
         options={{
           drawerIcon: DrawerIcons.profile,
           drawerLabel: 'Profile',
-        }}
-      />
+        }}>
+        {props => (
+          <ProfileStackNavigator
+            {...props}
+            goToCreateNewPassword={goToCreateNewPassword}
+          />
+        )}
+      </Drawer.Screen>
     </Drawer.Navigator>
   );
 };

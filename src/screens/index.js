@@ -11,6 +11,8 @@ export {default as VIR_PersonalDetailsScreen} from './VIR_PersonalDetailsScreen'
 export {default as VIR_CreateNewPasswordScreen} from './VIR_CreateNewPasswordScreen';
 
 export {default as VIR_HomeScreen} from './VIR_HomeScreen';
+export {default as VIR_ProfileScreen} from './VIR_ProfileScreen';
+export {default as VIR_ProfileEditScreen} from './VIR_ProfileEditScreen';
 export {default as VIR_SearchScreen} from './VIR_SearchScreen';
 export {default as VIR_ChoiceYourCourse} from './VIR_ChoiceYourCourse';
 export {default as VIR_MyCourses} from './VIR_MyCourses';

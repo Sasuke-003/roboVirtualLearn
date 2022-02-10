@@ -28,6 +28,7 @@ export const images = {
   homeIcon: require('./images/logoutIcon3x.png'),
   hamburgerMenuIcon: require('./images/hamburgerMenuIcon3x.png'),
   searchIcon: require('./images/searchIcon3x.png'),
+  dropdown: require('./images/dropdown3x.png'),
   newAccountScreen: {
     googleIcon: require('./images/googleIcon3x.png'),
     facebookIcon: require('./images/facebook3x.png'),
@@ -54,6 +55,15 @@ export const images = {
   successScreen: {
     registerSuccess: require('./images/img_Register_success.png'),
     passwordChangeSuccess: require('./images/password_change_sucess3x.png'),
+  },
+  profileScreen: {
+    profileBg: require('./images/profilepic3x.png'),
+    editIcon: require('./images/editIcon3x.png'),
+    forwardIcon: require('./images/forwardIcon3x.png'),
+    privacyIcon: require('./images/privacyIcon3x.png'),
+    blankImage: require('./images/blankProfile.png'),
+    hamburgerMenuIconWhite: require('./images/hamburgermenu_white3x.png'),
+    uploadProfilePic: require('./images/uploadProfilePic3x.png'),
   },
   searchScreen: {
     backIcon: require('./images/backIcon3x.png'),

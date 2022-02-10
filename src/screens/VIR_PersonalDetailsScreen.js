@@ -25,11 +25,11 @@ const VIR_PersonalDetailsScreen = ({
 }) => {
   const window = useWindowDimensions();
   const isLandscape = window.height < window.width ? true : false;
-  const [fullName, setFullName] = useState('dsbfh');
-  const [userName, setUserName] = useState('sdbf');
-  const [email, setEmail] = useState('dsbfj@dgf.fdh');
-  const [pass, setPass] = useState('123QQww');
-  const [confirmPass, setConfirmPass] = useState('123QQww');
+  const [fullName, setFullName] = useState('');
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
   const [showPasswordInfo, setShowPasswordInfo] = useState(false);
   const [isRegisterDisabled, setIsRegisterDisabled] = useState(false);
 

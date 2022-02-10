@@ -4,11 +4,18 @@
     "sendOtp": "/api/v1/users/signup/otp",
     "verifyOtp": "/api/v1/users/signup/verify",
     "register": "/api/v1/users/signup/register",
+    "createNewPass": "/api/v1/users/forgotpassword/resetpassword",
     "forgotPassword": "/api/v1/users/forgotpassword/otp"
   },
   "course": {
     "getAllCategories": "/api/v1/searches/categories",
     "getUserDetails": "/api/v1/users/displayprofile",
-    "getAllCourses": "/api/v1/searches"
-  }
+    "getAllOffers": "/api/v1/"
+  },
+  "profile": {
+    "changePassword": "/api/v1/users/changepassword/oldpassword",
+    "uploadProfilePic": "/api/v1/users/uploadimage",
+    "updateDetails": "/api/v1/users/updateprofile"
+  },
+  "getAllCourses": "/api/v1/searches"
 }
