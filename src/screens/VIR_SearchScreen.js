@@ -26,6 +26,7 @@ const VIR_SearchScreen = props => {
   const onSearchArray = value => {
     setSearchedArray(value);
   };
+
   const renderHeader = () => {
     return (
       <View style={styles.header}>
@@ -66,6 +67,34 @@ const VIR_SearchScreen = props => {
       </View>
     );
   };
+  const renderCategory = () => {
+    if (enteredText.length === 0 || searchedArray.length <= 0) {
+      return <Categories title={strings.searchScreen.searchCategories} />;
+    }
+
+    return;
+  };
+
+  const renderCourse = () => {
+    if (enteredText.length > 0) {
+      return (
+        <Courses
+          text={enteredText}
+          searchedArray={onSearchArray}
+          arr={searchedArray}
+        />
+      );
+    }
+    return;
+  };
+
+  const renderNoResults = () => {
+    if (enteredText.length > 0 && searchedArray.length <= 0) {
+      return <Text>No Results Found</Text>;
+    }
+
+    return;
+  };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -73,23 +102,9 @@ const VIR_SearchScreen = props => {
         {renderHeader()}
 
         {renderTextInput()}
-
-        {enteredText.length === 0 ? (
-          <Categories title={strings.searchScreen.searchCategories} />
-        ) : null}
-        {enteredText.length !== 0 && searchedArray.length <= 0 ? (
-          <View style={{flex: 1}}>
-            <Text>No Results found</Text>
-            <Categories title={strings.searchScreen.searchCategories} />
-          </View>
-        ) : null}
-        {enteredText !== '' && (
-          <Courses
-            text={enteredText}
-            searchedArray={onSearchArray}
-            arr={searchedArray}
-          />
-        )}
+        {renderNoResults()}
+        {renderCategory()}
+        {renderCourse()}
       </View>
     </SafeAreaView>
   );
