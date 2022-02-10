@@ -39,10 +39,12 @@ export const profile = {
     );
   },
   uploadProfilePic: async image => {
-    return await virtualLearn.patch(
-      URL.profile.uploadProfilePic,
-      {image},
-      config(),
-    );
+    return await virtualLearn.patch(URL.profile.uploadProfilePic, image, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+        Authorization: store.getState().userReducer.AuthorizationToken,
+      },
+    });
   },
 };

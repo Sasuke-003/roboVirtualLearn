@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     // height: '5%',
     marginTop: 20,
-    backgroundColor: '#567',
   },
   rightIcon: {
     position: 'absolute',
