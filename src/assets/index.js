@@ -69,5 +69,7 @@ export const images = {
     backIcon: require('./images/backIcon3x.png'),
     searchIcon: require('./images/searchCourse.png'),
     filterSearch: require('./images/filterSearch.png'),
+    noSearchResult: require('./images/noSearchResult.png'),
+    modalClose: require('./images/modalClose.png'),
   },
 };

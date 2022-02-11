@@ -29,4 +29,5 @@ export const colors = {
   dobText: '#72727290',
   modalBg: 'rgba(0,0,0,0.4)',
   seperator: '#00000080',
+  categoryBackground: '#FCBE4B',
 };

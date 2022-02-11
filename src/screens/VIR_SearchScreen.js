@@ -9,22 +9,31 @@ import {
   Image,
   TextInput,
   Platform,
+  Modal,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useDispatch, useSelector} from 'react-redux';
 import {images, strings, fonts, colors} from '../assets';
-import {Categories, Courses} from '../components';
+import {Categories, Courses, SearchModal} from '../components';
 import {NAVIGATION_ROUTES} from '../constants';
+import {
+  showSearchScreenModal,
+  getShowSearchModal,
+} from '../redux/reducers/filterSearchReducer';
 Icon.loadFont().then();
 
 const VIR_SearchScreen = props => {
   const [enteredText, setEnteredText] = useState('');
-  const [searchedArray, setSearchedArray] = useState([]);
+
+  const showModal = useSelector(getShowSearchModal);
+  const dispatch = useDispatch();
 
   const onPressBack = () => {
     props.navigation.navigate(NAVIGATION_ROUTES.DRAWER_NAVIGATOR);
   };
-  const onSearchArray = value => {
-    setSearchedArray(value);
+
+  const onPressFilter = () => {
+    dispatch(showSearchScreenModal(true));
   };
 
   const renderHeader = () => {
@@ -56,7 +65,7 @@ const VIR_SearchScreen = props => {
             style={styles.input}
           />
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPressFilter}>
           <View>
             <Image
               source={images.searchScreen.filterSearch}
@@ -68,45 +77,30 @@ const VIR_SearchScreen = props => {
     );
   };
   const renderCategory = () => {
-    if (enteredText.length === 0 || searchedArray.length <= 0) {
-      return <Categories title={strings.searchScreen.searchCategories} />;
-    }
-
-    return;
+    return (
+      <View style={styles.categoryContainer}>
+        <Categories title={strings.searchScreen.searchCategories} />
+      </View>
+    );
   };
 
   const renderCourse = () => {
-    if (enteredText.length > 0) {
-      return (
-        <Courses
-          text={enteredText}
-          searchedArray={onSearchArray}
-          arr={searchedArray}
-        />
-      );
-    }
-    return;
-  };
-
-  const renderNoResults = () => {
-    if (enteredText.length > 0 && searchedArray.length <= 0) {
-      return <Text>No Results Found</Text>;
-    }
-
-    return;
+    return <Courses text={enteredText} />;
   };
 
   return (
-    <SafeAreaView style={styles.mainContainer}>
-      <View style={styles.container}>
-        {renderHeader()}
-
-        {renderTextInput()}
-        {renderNoResults()}
-        {renderCategory()}
-        {renderCourse()}
-      </View>
-    </SafeAreaView>
+    <>
+      <SafeAreaView style={styles.mainContainer}>
+        <View style={styles.container}>
+          {renderHeader()}
+          <View style={{flex: 1}}>
+            {renderTextInput()}
+            {enteredText.length <= 0 ? renderCategory() : renderCourse()}
+          </View>
+        </View>
+      </SafeAreaView>
+      {showModal && <SearchModal />}
+    </>
   );
 };
 
@@ -174,6 +168,11 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     textAlign: 'left',
     width: '100%',
+  },
+
+  categoryContainer: {
+    flex: 1,
+    marginTop: 40,
   },
 });
 export default VIR_SearchScreen;

@@ -17,4 +17,10 @@ export const course = {
   getAllCourses: async () => {
     return await virtualLearn.get(URL.course.getAllCourses);
   },
+  getFilteredSearch: async (category, chapters) => {
+    return await virtualLearn.post(URL.course.getSearchFilter, {
+      category,
+      chapters,
+    });
+  },
 };
