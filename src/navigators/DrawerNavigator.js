@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {CustomDrawer} from '../components';
 import {api} from '../network';
 import {utils} from '../utils';
-import {VIR_MyCourses} from '../screens';
+import {VIR_MyCourses, VIR_SettingsScreen} from '../screens';
 
 const Drawer = createDrawerNavigator();
 
@@ -82,10 +82,11 @@ const DrawerNavigator = ({navigation}) => {
   const goToSearchScreen = () => {
     navigation.navigate(NAVIGATION_ROUTES.SEARCH_SCREEN);
   };
+  const goToNextScreen = data => {
+    navigation.navigate(NAVIGATION_ROUTES.PRIVACY_AND_TERMS_SCREEN, data);
+  };
   return (
     <Drawer.Navigator
-      // initialRouteName="Home"
-
       drawerContent={props => <CustomDrawer logoutPress={logout} {...props} />}
       screenOptions={{
         headerShown: false,
@@ -126,6 +127,17 @@ const DrawerNavigator = ({navigation}) => {
             {...props}
             goToCreateNewPassword={goToCreateNewPassword}
           />
+        )}
+      </Drawer.Screen>
+
+      <Drawer.Screen
+        name={NAVIGATION_ROUTES.SETTINGS_SCREEN}
+        options={{
+          drawerIcon: DrawerIcons.settings,
+          drawerLabel: 'Settings',
+        }}>
+        {props => (
+          <VIR_SettingsScreen {...props} goToNextScreen={goToNextScreen} />
         )}
       </Drawer.Screen>
     </Drawer.Navigator>

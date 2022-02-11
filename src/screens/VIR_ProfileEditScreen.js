@@ -28,6 +28,7 @@ import {RectangleButton} from '../components';
 import {ListModal} from '../components';
 import ImagePicker from 'react-native-image-crop-picker';
 import {api} from '../network';
+// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const data = [{value: 'Male'}, {value: 'Female'}, {value: 'Others'}];
 
@@ -75,27 +76,31 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   let authToken = utils.getAuthToken();
 
   useEffect(() => {
-    userDetails.hasOwnProperty('image')
-      ? setProfileImage(userDetails.image)
+    userDetails.data.hasOwnProperty('image')
+      ? setProfileImage(userDetails.data.image)
       : setProfileImage(images.profileScreen.blankImage);
-    userDetails.hasOwnProperty('fullname') && setFullName(userDetails.fullname);
-    userDetails.hasOwnProperty('username') && setUserName(userDetails.username);
-    userDetails.hasOwnProperty('email') && setEmail(userDetails.email);
-    userDetails.hasOwnProperty('number') &&
+    userDetails.data.hasOwnProperty('fullname') &&
+      setFullName(userDetails.data.fullname);
+    userDetails.data.hasOwnProperty('username') &&
+      setUserName(userDetails.data.username);
+    userDetails.data.hasOwnProperty('email') &&
+      setEmail(userDetails.data.email);
+    userDetails.data.hasOwnProperty('number') &&
       setMobile(
-        userDetails.number.substring(0, 3) +
+        userDetails.data.number.substring(0, 3) +
           '    ' +
-          userDetails.number.substring(3),
+          userDetails.data.number.substring(3),
       );
-    userDetails.hasOwnProperty('occupation') &&
-      setOccupation(userDetails.occupation);
-    userDetails.hasOwnProperty('gender') && setGender(userDetails.gender);
-    userDetails.hasOwnProperty('dateOfBirth') &&
-      setDob(userDetails.dateOfBirth);
-    userDetails.hasOwnProperty('twitterLink') &&
-      setTwitter(userDetails.twitterLink);
-    userDetails.hasOwnProperty('facebookLink') &&
-      setFacebook(userDetails.facebookLink);
+    userDetails.data.hasOwnProperty('occupation') &&
+      setOccupation(userDetails.data.occupation);
+    userDetails.data.hasOwnProperty('gender') &&
+      setGender(userDetails.data.gender);
+    userDetails.data.hasOwnProperty('dateOfBirth') &&
+      setDob(userDetails.data.dateOfBirth);
+    userDetails.data.hasOwnProperty('twitterLink') &&
+      setTwitter(userDetails.data.twitterLink);
+    userDetails.data.hasOwnProperty('facebookLink') &&
+      setFacebook(userDetails.data.facebookLink);
   }, []);
 
   const headerLeftIconOnPress = () => {
@@ -136,14 +141,17 @@ const VIR_ProfileEditScreen = ({navigation}) => {
       if (response.status === 200) {
         utils.showSuccessMessage(response.data.message);
         utils.saveUserDetails({
-          ...userDetails,
-          fullname: fullName,
-          occupation: occupation,
-          dateOfBirth: dob,
-          gender: gender,
-          twitterLink: twitter,
-          facebookLink: facebook,
-          email: email,
+          data: {
+            ...userDetails.data,
+            fullname: fullName,
+            occupation: occupation,
+            dateOfBirth: dob,
+            gender: gender,
+            twitterLink: twitter,
+            facebookLink: facebook,
+            email: email,
+          },
+          hasCompleted: {...userDetails.hasCompleted},
         });
         navigation.goBack();
       }
@@ -160,8 +168,18 @@ const VIR_ProfileEditScreen = ({navigation}) => {
         cropping: true,
       });
       if (image) {
-        setProfileImage(image.path); //TODO: incomplete, pending to send image to api
-        utils.saveUserDetails({...userDetails, image: image.path});
+        setProfileImage(image.sourceURL); //TODO: incomplete, pending to send image to api
+        console.log(image);
+        const formData = new FormData();
+        formData.append('image', {
+          name: image.filename,
+          uri: image.sourceURL,
+          type: 'image/jpeg',
+        });
+        console.log('FormData', formData._parts[0]);
+        utils.saveUserDetails({...userDetails, image: image.sourceURL});
+        const response = await api.profile.uploadProfilePic(formData);
+        console.log(response.data);
       }
     } catch (e) {
       console.log(e);

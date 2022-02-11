@@ -47,17 +47,17 @@ const VIR_ProfileScreen = ({goToCreateNewPassword, navigation}) => {
   let authToken = utils.getAuthToken();
 
   let occupation =
-    userDetails.hasOwnProperty('occupation') &&
-    userDetails.occupation.length > 0
-      ? userDetails.occupation
+    userDetails.data.hasOwnProperty('occupation') &&
+    userDetails.data.occupation.length > 0
+      ? userDetails.data.occupation
       : '-- --';
   let dob =
-    userDetails.hasOwnProperty('dateOfBirth') &&
-    userDetails.dateOfBirth.length > 0
-      ? userDetails.dateOfBirth
+    userDetails.data.hasOwnProperty('dateOfBirth') &&
+    userDetails.data.dateOfBirth.length > 0
+      ? userDetails.data.dateOfBirth
       : '-- --';
-  let profileImage = userDetails.hasOwnProperty('image')
-    ? userDetails.image
+  let profileImage = userDetails.data.hasOwnProperty('image')
+    ? userDetails.data.image
     : images.profileScreen.blankImage;
 
   const headerLeftIconOnPress = () => {
@@ -95,7 +95,7 @@ const VIR_ProfileScreen = ({goToCreateNewPassword, navigation}) => {
           />
         </View>
         <View style={styles.profileNameView}>
-          <Text style={styles.profileName}>{userDetails.fullname}</Text>
+          <Text style={styles.profileName}>{userDetails.data.fullname}</Text>
           <Text style={styles.profileJob}>{occupation}</Text>
         </View>
       </View>
@@ -108,9 +108,18 @@ const VIR_ProfileScreen = ({goToCreateNewPassword, navigation}) => {
           {strings.profileScreen.hasCompleted}
         </Text>
         <View style={styles.cardView(portrait)}>
-          <CourseCard count="06" subHeading={strings.profileScreen.courses} />
-          <CourseCard count="102" subHeading={strings.profileScreen.chapters} />
-          <CourseCard count="24" subHeading={strings.profileScreen.test} />
+          <CourseCard
+            count={userDetails.hasCompleted.courses}
+            subHeading={strings.profileScreen.courses}
+          />
+          <CourseCard
+            count={userDetails.hasCompleted.chapters}
+            subHeading={strings.profileScreen.chapters}
+          />
+          <CourseCard
+            count={userDetails.hasCompleted.test}
+            subHeading={strings.profileScreen.test}
+          />
         </View>
       </View>
     );
@@ -124,19 +133,19 @@ const VIR_ProfileScreen = ({goToCreateNewPassword, navigation}) => {
 
         <PersonalDetails
           label={strings.profileScreen.name}
-          value={userDetails.fullname}
+          value={userDetails.data.fullname}
         />
         <PersonalDetails
           label={strings.profileScreen.username}
-          value={userDetails.username}
+          value={userDetails.data.username}
         />
         <PersonalDetails
           label={strings.profileScreen.email}
-          value={userDetails.email}
+          value={userDetails.data.email}
         />
         <PersonalDetails
           label={strings.profileScreen.mobNum}
-          value={userDetails.number}
+          value={userDetails.data.number}
         />
         <PersonalDetails
           label={strings.profileScreen.occupation}

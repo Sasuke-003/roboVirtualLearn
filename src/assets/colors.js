@@ -30,4 +30,7 @@ export const colors = {
   modalBg: 'rgba(0,0,0,0.4)',
   seperator: '#00000080',
   categoryBackground: '#FCBE4B',
+
+  switchFalse: '#767577',
+  switchTrue: '#1EAB0D',
 };

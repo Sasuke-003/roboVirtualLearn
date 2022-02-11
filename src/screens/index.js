@@ -16,3 +16,5 @@ export {default as VIR_ProfileEditScreen} from './VIR_ProfileEditScreen';
 export {default as VIR_SearchScreen} from './VIR_SearchScreen';
 export {default as VIR_ChoiceYourCourse} from './VIR_ChoiceYourCourse';
 export {default as VIR_MyCourses} from './VIR_MyCourses';
+export {default as VIR_SettingsScreen} from './VIR_SettingsScreen';
+export {default as VIR_PrivacyPolicyAndTerms} from './VIR_PrivacyPolicyAndTerms';

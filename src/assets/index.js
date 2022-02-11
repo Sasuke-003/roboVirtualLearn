@@ -72,4 +72,9 @@ export const images = {
     noSearchResult: require('./images/noSearchResult.png'),
     modalClose: require('./images/modalClose.png'),
   },
+  settings: {
+    notification: require('./images/notificationSettingsIcon3x.png'),
+    privacy: require('./images/privacyIcon.png'),
+    terms: require('./images/termsIcon.png'),
+  },
 };
