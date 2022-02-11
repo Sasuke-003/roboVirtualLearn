@@ -10,7 +10,9 @@
   "course": {
     "getAllCategories": "/api/v1/searches/categories",
     "getUserDetails": "/api/v1/users/displayprofile",
-    "getAllOffers": "/api/v1/"
+    "getAllOffers": "/api/v1/",
+    "getAllCourses": "/api/v1/searches",
+    "getSearchFilter": "/api/v1/searches/getcoursebymultiplefilters"
   },
   "profile": {
     "changePassword": "/api/v1/users/changepassword/oldpassword",

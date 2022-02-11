@@ -8,12 +8,35 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {api} from '../network';
+import {
+  getCategory,
+  setCategories,
+} from '../redux/reducers/filterSearchReducer';
 import {images, strings, fonts, colors} from '../assets';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Category = props => {
+  const [isSelected, setIsSelected] = useState(false);
+  const categories = useSelector(getCategory);
+  const bgColor = isSelected ? colors.categoryBackground : null;
+  const dispatch = useDispatch();
+
+  const onPressCatgeory = () => {
+    dispatch(setCategories(props.id));
+    getColor();
+  };
+
+  const getColor = () => {
+    const isPresent = categories.find(catId => catId === props.id);
+    if (isPresent) {
+      return setIsSelected(true);
+    } else {
+      return setIsSelected(false);
+    }
+  };
   return (
-    <TouchableOpacity>
-      <View style={styles.category}>
+    <TouchableOpacity onPress={onPressCatgeory}>
+      <View style={[styles.category, {backgroundColor: bgColor}]}>
         <Image source={{uri: props.image}} style={styles.categoryIcon} />
         <Text style={styles.name}>{props.name}</Text>
       </View>
@@ -62,6 +85,7 @@ const Categories = props => {
               key={category._id}
               name={category.name}
               image={category.categoryImageUrl}
+              id={category._id}
             />
           ))}
         {isLoading && <ActivityIndicator color={colors.primaryText} />}
@@ -79,7 +103,7 @@ const Categories = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 30,
   },
   title: {
     color: 'black',
@@ -96,6 +120,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   list: {
+    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignContent: 'flex-start',
@@ -105,6 +130,7 @@ const styles = StyleSheet.create({
   category: {
     flexDirection: 'row',
     alignItems: 'center',
+
     borderColor: colors.secondaryText,
     borderWidth: 0.45,
     borderRadius: 6,

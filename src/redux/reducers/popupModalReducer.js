@@ -32,7 +32,8 @@ export default slice.reducer;
 
 // Actions
 
-export const {setError, setSuccess, clearMessage} = slice.actions;
+export const {setError, setSuccess, clearMessage, showSearchScreenModal} =
+  slice.actions;
 
 // Selectors
 export const getMessageStatus = state => state.popupModalReducer.showMessage;

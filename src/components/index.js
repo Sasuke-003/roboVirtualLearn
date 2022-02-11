@@ -10,3 +10,5 @@ export {default as ListModal} from './ListModal';
 export {default as Categories} from './Categories';
 export {default as Courses} from './Courses';
 export {default as TimeRender} from './TimeRender';
+export {default as SearchModal} from './SearchModal';
+export {default as Duration} from './Duration';

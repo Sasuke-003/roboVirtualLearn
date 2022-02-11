@@ -121,6 +121,13 @@ export default en = {
     topSearch: 'Top Searches',
     searchCategories: 'Search from Categories',
     chapters: ' Chapters',
+    noMatching: 'No matching course',
+    tryDifferent: 'Try a different search or browse categories',
+    modalTitle: 'Search Filter',
+    categories: 'Categories',
+    duration: 'Duration',
+    applyFilter: 'Apply Filter',
+    clearAll: 'Clear All',
   },
   homeScreen: {
     hello: 'Hello!',

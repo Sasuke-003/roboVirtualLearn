@@ -20,4 +20,10 @@ export const course = {
   getNotification: async () => {
     return await virtualLearn.get(URL.notification.getNotification, config());
   },
+  getFilteredSearch: async (category, chapters) => {
+    return await virtualLearn.post(URL.course.getSearchFilter, {
+      category,
+      chapters,
+    });
+  },
 };
