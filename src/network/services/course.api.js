@@ -17,4 +17,7 @@ export const course = {
   getAllCourses: async () => {
     return await virtualLearn.get(URL.course.getAllCourses);
   },
+  getNotification: async () => {
+    return await virtualLearn.get(URL.notification.getNotification, config());
+  },
 };

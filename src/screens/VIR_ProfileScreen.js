@@ -18,6 +18,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {utils} from '../utils';
 import {DrawerHeader} from '../components';
 import {NAVIGATION_ROUTES} from '../constants';
+import moment from 'moment';
 const CourseCard = ({count, subHeading}) => {
   return (
     <View style={styles.cardContainer}>
@@ -46,6 +47,8 @@ const VIR_ProfileScreen = ({goToCreateNewPassword, navigation}) => {
   const userDetails = useSelector(getUserDetails);
   let authToken = utils.getAuthToken();
 
+  console.log(userDetails);
+
   let occupation =
     userDetails.data.hasOwnProperty('occupation') &&
     userDetails.data.occupation.length > 0
@@ -53,11 +56,15 @@ const VIR_ProfileScreen = ({goToCreateNewPassword, navigation}) => {
       : '-- --';
   let dob =
     userDetails.data.hasOwnProperty('dateOfBirth') &&
-    userDetails.data.dateOfBirth.length > 0
-      ? userDetails.data.dateOfBirth
+    userDetails.data.dateOfBirth
+      ? moment(userDetails.data.dateOfBirth).format('DD/MM/YYYY')
       : '-- --';
   let profileImage = userDetails.data.hasOwnProperty('image')
     ? userDetails.data.image
+    : images.profileScreen.blankImage;
+
+  let coverImg = userDetails.data.hasOwnProperty('coverImage')
+    ? userDetails.data.coverImage
     : images.profileScreen.blankImage;
 
   const headerLeftIconOnPress = () => {
@@ -193,9 +200,7 @@ const VIR_ProfileScreen = ({goToCreateNewPassword, navigation}) => {
   return (
     <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
       <ImageBackground
-        source={
-          typeof profileImage === 'number' ? profileImage : {uri: profileImage}
-        }
+        source={typeof coverImg === 'number' ? coverImg : {uri: coverImg}}
         style={styles.imageBackground(width)}>
         <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
           {renderHeader()}

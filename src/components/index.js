@@ -9,3 +9,4 @@ export {default as DrawerHeader} from './DrawerHeader';
 export {default as ListModal} from './ListModal';
 export {default as Categories} from './Categories';
 export {default as Courses} from './Courses';
+export {default as TimeRender} from './TimeRender';

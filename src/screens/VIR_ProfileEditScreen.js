@@ -23,12 +23,12 @@ import {DrawerHeader} from '../components';
 import {NAVIGATION_ROUTES} from '../constants';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DatePicker from 'react-native-date-picker';
-import {format} from 'date-fns';
 import {RectangleButton} from '../components';
 import {ListModal} from '../components';
 import ImagePicker from 'react-native-image-crop-picker';
 import {api} from '../network';
-// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import moment from 'moment';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const data = [{value: 'Male'}, {value: 'Female'}, {value: 'Others'}];
 
@@ -63,7 +63,7 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   const [mobile, setMobile] = useState('');
   const [occupation, setOccupation] = useState('');
   const [gender, setGender] = useState('');
-  const [dob, setDob] = useState('');
+  const [dob, setDob] = useState(null);
   const [twitter, setTwitter] = useState('');
   const [facebook, setFacebook] = useState('');
   const [open, setOpen] = useState(false);
@@ -72,13 +72,16 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [profileImage, setProfileImage] = useState(0);
+  const [coverImg, setCoverImg] = useState(0);
 
   let authToken = utils.getAuthToken();
-
   useEffect(() => {
     userDetails.data.hasOwnProperty('image')
       ? setProfileImage(userDetails.data.image)
       : setProfileImage(images.profileScreen.blankImage);
+    userDetails.data.hasOwnProperty('coverImage')
+      ? setCoverImg(userDetails.data.coverImage)
+      : setCoverImg(images.profileScreen.blankImage);
     userDetails.data.hasOwnProperty('fullname') &&
       setFullName(userDetails.data.fullname);
     userDetails.data.hasOwnProperty('username') &&
@@ -106,8 +109,9 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   const headerLeftIconOnPress = () => {
     navigation.goBack();
   };
+
   const onChangeFullName = text => {
-    setFullName(text);
+    setFullName(utils.toTitleCase(text));
   };
   const onChangeEmail = text => {
     setEmail(text);
@@ -128,6 +132,30 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   };
 
   const onPressSave = async () => {
+    setIsButtonDisabled(true);
+    if (fullName.length < 3) {
+      utils.showErrorMessage('Name should not be less than 3 characters');
+      setIsButtonDisabled(false);
+      return;
+    }
+
+    if (!utils.validateEmail(email)) {
+      utils.showErrorMessage('Invalid Email!');
+      setIsButtonDisabled(false);
+      return;
+    }
+
+    if (twitter.length > 0 && !utils.isValidTwitterLink(twitter)) {
+      utils.showErrorMessage('Invalid Twitter Link!');
+      setIsButtonDisabled(false);
+      return;
+    }
+    if (facebook.length > 0 && !utils.isValidFacebookLink(facebook)) {
+      utils.showErrorMessage('Invalid Facebook Link!');
+      setIsButtonDisabled(false);
+      return;
+    }
+
     try {
       const response = await api.profile.updateDetails(
         fullName,
@@ -153,14 +181,16 @@ const VIR_ProfileEditScreen = ({navigation}) => {
           },
           hasCompleted: {...userDetails.hasCompleted},
         });
+        setIsButtonDisabled(false);
         navigation.goBack();
       }
     } catch (error) {
       utils.showErrorMessage(error.response.data.message);
+      setIsButtonDisabled(false);
     }
   };
 
-  const onPressUpload = async () => {
+  const onPressCoverUpload = async () => {
     try {
       const image = await ImagePicker.openPicker({
         width: 300,
@@ -168,16 +198,54 @@ const VIR_ProfileEditScreen = ({navigation}) => {
         cropping: true,
       });
       if (image) {
-        setProfileImage(image.sourceURL); //TODO: incomplete, pending to send image to api
+        setCoverImg(image.path); //TODO: incomplete, pending to send image to api
+        console.log(image);
+        const formData = new FormData();
+        formData.append('coverImage', {
+          name: image.filename,
+          uri: image.path,
+          type: image.mime,
+        });
+        console.log('FormData', formData._parts[0]);
+        utils.saveUserDetails({
+          data: {
+            ...userDetails.data,
+            coverImage: image.path,
+          },
+          hasCompleted: {...userDetails.hasCompleted},
+        });
+        const response = await api.profile.uploadCoverPic(formData);
+        console.log(response.data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onPressImageUpload = async () => {
+    try {
+      const image = await ImagePicker.openPicker({
+        width: 300,
+        height: 300,
+        cropping: true,
+      });
+      if (image) {
+        setProfileImage(image.path); //TODO: incomplete, pending to send image to api
         console.log(image);
         const formData = new FormData();
         formData.append('image', {
           name: image.filename,
-          uri: image.sourceURL,
-          type: 'image/jpeg',
+          uri: image.path,
+          type: image.mime,
         });
         console.log('FormData', formData._parts[0]);
-        utils.saveUserDetails({...userDetails, image: image.sourceURL});
+        utils.saveUserDetails({
+          data: {
+            ...userDetails.data,
+            image: image.path,
+          },
+          hasCompleted: {...userDetails.hasCompleted},
+        });
         const response = await api.profile.uploadProfilePic(formData);
         console.log(response.data);
       }
@@ -202,13 +270,15 @@ const VIR_ProfileEditScreen = ({navigation}) => {
             style={styles.profilePic}
           />
         </View>
-        <TouchableOpacity onPress={() => onPressUpload()}>
+        <TouchableOpacity onPress={() => onPressImageUpload()}>
           <Image
             source={images.profileScreen.uploadProfilePic}
             style={styles.uploadButton}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.changeTextView} onPress={onPressUpload}>
+        <TouchableOpacity
+          style={styles.changeTextView}
+          onPress={onPressCoverUpload}>
           <Text style={[styles.changeText]}>
             {strings.editProfileScreen.changeImg}
           </Text>
@@ -252,12 +322,14 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   const renderDOBField = () => {
     return (
       <TouchableOpacity onPress={() => setOpen(true)}>
-        <View style={[styles.dateField, dob.length > 0 && styles.dateActive]}>
+        <View style={[styles.dateField, dob && styles.dateActive]}>
           <Text style={styles.label}>
-            {dob.length > 0 && strings.editProfileScreen.dob}
+            {dob && strings.editProfileScreen.dob}
           </Text>
-          <Text style={[styles.dobText, dob.length > 0 && styles.inputActive]}>
-            {dob.length > 0 ? dob : strings.editProfileScreen.dobPlaceholder}
+          <Text style={[styles.dobText, dob && styles.inputActive]}>
+            {dob
+              ? moment(dob).format('DD/MM/YYYY')
+              : strings.editProfileScreen.dobPlaceholder}
           </Text>
 
           <DatePicker
@@ -267,7 +339,8 @@ const VIR_ProfileEditScreen = ({navigation}) => {
             mode="date"
             onConfirm={date => {
               setOpen(false);
-              setDob(format(date, 'dd/MM/yyyy'));
+              setDob(date);
+              console.log('njb', date);
             }}
             onCancel={() => {
               setOpen(false);
@@ -294,6 +367,8 @@ const VIR_ProfileEditScreen = ({navigation}) => {
           valueState={email}
           onChangeText={onChangeEmail}
           placeholder={strings.editProfileScreen.email}
+          autoCorrect={false}
+          autoCapitalize="none"
         />
         <TextField
           valueState={mobile}
@@ -313,11 +388,15 @@ const VIR_ProfileEditScreen = ({navigation}) => {
           valueState={twitter}
           onChangeText={onChangeTwitter}
           placeholder={strings.editProfileScreen.twitter}
+          autoCorrect={false}
+          autoCapitalize="none"
         />
         <TextField
           valueState={facebook}
           onChangeText={onChangeFacebook}
           placeholder={strings.editProfileScreen.facebook}
+          autoCorrect={false}
+          autoCapitalize="none"
         />
       </View>
     );
@@ -346,25 +425,32 @@ const VIR_ProfileEditScreen = ({navigation}) => {
     );
   };
   return (
-    <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-      <ImageBackground
-        source={
-          typeof profileImage === 'number' ? profileImage : {uri: profileImage}
-        }
-        style={styles.imageBackground(width)}>
-        <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-          {renderHeader()}
-          {renderTitle()}
-          {renderProfileImage()}
-        </SafeAreaView>
-      </ImageBackground>
+    <ScrollView
+      bounces={false}
+      showsVerticalScrollIndicator={false}
+      keyboardDismissMode="interactive">
+      <KeyboardAwareScrollView
+        showsVerticalScrollIndicator={false}
+        bounces={false}>
+        <ImageBackground
+          source={typeof coverImg === 'number' ? coverImg : {uri: coverImg}}
+          style={styles.imageBackground(width)}>
+          <SafeAreaView
+            style={styles.container}
+            edges={['top', 'left', 'right']}>
+            {renderHeader()}
+            {renderTitle()}
+            {renderProfileImage()}
+          </SafeAreaView>
+        </ImageBackground>
 
-      <SafeAreaView
-        style={styles.container2}
-        edges={['bottom', 'left', 'right']}>
-        {renderTextFields()}
-        {renderSaveButton()}
-      </SafeAreaView>
+        <SafeAreaView
+          style={styles.container2}
+          edges={['bottom', 'left', 'right']}>
+          {renderTextFields()}
+          {renderSaveButton()}
+        </SafeAreaView>
+      </KeyboardAwareScrollView>
     </ScrollView>
   );
 };

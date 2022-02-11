@@ -178,4 +178,7 @@ export default en = {
     privacy: 'Privacy Policy',
     terms: 'Terms of Services',
   },
+  notification: {
+    title: 'Notifications',
+  },
 };

@@ -113,7 +113,7 @@ const VIR_LandingScreen = ({navigation}) => {
   };
   const renderLandscape = () => {
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
         {renderPortrait()}
       </ScrollView>
     );
