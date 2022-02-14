@@ -33,4 +33,5 @@ export const colors = {
 
   switchFalse: '#767577',
   switchTrue: '#1EAB0D',
+  notificationBg: '#F0F6FB',
 };

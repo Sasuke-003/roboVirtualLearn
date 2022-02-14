@@ -1,5 +1,12 @@
 import {showErrorMessage, showSuccessMessage} from './popup';
-import {validateEmail, validateUserName, validatePassword} from './validate';
+import {
+  validateEmail,
+  validateUserName,
+  validatePassword,
+  toTitleCase,
+  isValidTwitterLink,
+  isValidFacebookLink,
+} from './validate';
 import {
   setAuthToken,
   clearAuthToken,
@@ -17,4 +24,7 @@ export const utils = {
   clearAuthToken,
   saveUserDetails,
   getAuthToken,
+  toTitleCase,
+  isValidTwitterLink,
+  isValidFacebookLink,
 };

@@ -18,3 +18,4 @@ export {default as VIR_ChoiceYourCourse} from './VIR_ChoiceYourCourse';
 export {default as VIR_MyCourses} from './VIR_MyCourses';
 export {default as VIR_SettingsScreen} from './VIR_SettingsScreen';
 export {default as VIR_PrivacyPolicyAndTerms} from './VIR_PrivacyPolicyAndTerms';
+export {default as VIR_NotificationScreen} from './VIR_NotificationScreen';

@@ -7,6 +7,7 @@ const initialState = {
   filteredCourses: [],
   category: [],
   chapters: [],
+  onSelected: [],
 };
 
 const FilterSlice = createSlice({
@@ -63,6 +64,7 @@ export const {
   clearFilter,
   setFilteredCourses,
   showSearchScreenModal,
+  setSelectedValue,
 } = FilterSlice.actions;
 
 // Selectors

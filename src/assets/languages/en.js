@@ -187,6 +187,7 @@ export default en = {
     privacy: 'Privacy Policy',
     terms: 'Terms of Services',
   },
+<<<<<<< HEAD
   myCourses: {
     title: 'My Course',
     question: 'What will you learn first?',
@@ -195,5 +196,9 @@ export default en = {
     completed: 'Completed',
     viewCertificate: 'View Certificate',
     continue: 'Continue',
+=======
+  notification: {
+    title: 'Notifications',
+>>>>>>> bbf84768de1c7cb76e21dc129eecb3377ddc7125
   },
 };

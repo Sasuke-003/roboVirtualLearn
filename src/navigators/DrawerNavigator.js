@@ -8,7 +8,11 @@ import Icon from 'react-native-vector-icons/Feather';
 import {CustomDrawer} from '../components';
 import {api} from '../network';
 import {utils} from '../utils';
-import {VIR_MyCourses, VIR_SettingsScreen} from '../screens';
+import {
+  VIR_MyCourses,
+  VIR_NotificationScreen,
+  VIR_SettingsScreen,
+} from '../screens';
 
 const Drawer = createDrawerNavigator();
 
@@ -123,6 +127,7 @@ const DrawerNavigator = ({navigation}) => {
         options={{
           drawerIcon: DrawerIcons.profile,
           drawerLabel: 'Profile',
+          swipeEnabled: false,
         }}>
         {props => (
           <ProfileStackNavigator
@@ -137,11 +142,21 @@ const DrawerNavigator = ({navigation}) => {
         options={{
           drawerIcon: DrawerIcons.settings,
           drawerLabel: 'Settings',
+          swipeEnabled: false,
         }}>
         {props => (
           <VIR_SettingsScreen {...props} goToNextScreen={goToNextScreen} />
         )}
       </Drawer.Screen>
+      <Drawer.Screen
+        name={NAVIGATION_ROUTES.NOTIFICATION_SCREEN}
+        component={VIR_NotificationScreen}
+        options={{
+          drawerIcon: DrawerIcons.notifications,
+          drawerLabel: 'Notifications',
+          swipeEnabled: false,
+        }}
+      />
     </Drawer.Navigator>
   );
 };

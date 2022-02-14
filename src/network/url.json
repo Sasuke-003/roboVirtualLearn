@@ -19,6 +19,13 @@
   "profile": {
     "changePassword": "/api/v1/users/changepassword/oldpassword",
     "uploadProfilePic": "/api/v1/users/uploadimage",
+    "uploadCoverPic": "/api/v1/users/uploadcoverimage",
     "updateDetails": "/api/v1/users/updateprofile"
+  },
+  "getAllCourses": "/api/v1/searches",
+
+  "notification": {
+    "getNotification": "/api/v1/users/notifications",
+    "setNotification": "/api/v1/users/notifications"
   }
 }

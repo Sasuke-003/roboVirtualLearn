@@ -5,6 +5,8 @@ import {
   Image,
   TouchableOpacity,
   Switch,
+  useWindowDimensions,
+  ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -25,6 +27,8 @@ const VIR_SettingsScreen = ({navigation, goToNextScreen}) => {
   const toggleSoundSwitch = () => store.dispatch(setNotificationSound());
   const showPushNotification = useSelector(getPushNotification);
   const showSound = useSelector(getNotificationSound);
+  const {height, width} = useWindowDimensions();
+  const portrait = height > width;
 
   const onBackPress = () => {
     navigation.goBack();
@@ -143,11 +147,26 @@ const VIR_SettingsScreen = ({navigation, goToNextScreen}) => {
     );
   };
 
+  const renderPortrait = () => {
+    return (
+      <>
+        {renderHeader()}
+        {renderTitle()}
+        {renderBody()}
+      </>
+    );
+  };
+  const renderLandscape = () => {
+    return (
+      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+        {renderPortrait()}
+      </ScrollView>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      {renderHeader()}
-      {renderTitle()}
-      {renderBody()}
+      {portrait ? renderPortrait() : renderLandscape()}
     </SafeAreaView>
   );
 };

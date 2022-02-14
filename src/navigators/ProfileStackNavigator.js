@@ -31,7 +31,7 @@ const ProfileStackNavigator = ({goToCreateNewPassword}) => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.PROFILE_EDIT}
         component={VIR_ProfileEditScreen}
-        options={{gestureEnabled: false}}
+        options={{gestureEnabled: false, swipeEnabled: false}}
       />
     </Stack.Navigator>
   );
