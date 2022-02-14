@@ -43,7 +43,7 @@ export const profile = {
   uploadProfilePic: async formData => {
     return await virtualLearn.patch(URL.profile.uploadProfilePic, formData, {
       headers: {
-        Accept: 'application/json',
+        // Accept: 'application/json',
         'Content-Type': 'multipart/form-data',
         Authorization: authToken,
       },

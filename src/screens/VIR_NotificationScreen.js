@@ -19,15 +19,17 @@ const VIR_NotificationScreen = ({navigation}) => {
 
   useFocusEffect(
     React.useCallback(() => {
+      console.log('hello');
       const fetchNotification = async () => {
         try {
           const response = await api.course.getNotification();
-          if (response.status === 200) {
-            setNotification(response.data);
+          if (response?.status === 200) {
+            setNotification(response.data.reverse());
             setIsLoading(false);
+            const data = await api.course.setNotifications();
           }
         } catch (e) {
-          console.log(e);
+          console.log(e.response.data.message);
         }
       };
       fetchNotification();
@@ -59,7 +61,11 @@ const VIR_NotificationScreen = ({navigation}) => {
 
   const renderItem = ({item}) => {
     return (
-      <View style={styles.notificationCard}>
+      <View
+        style={[
+          styles.notificationCard,
+          !item.isRead && {backgroundColor: colors.notificationBg},
+        ]}>
         <View style={styles.imageView}>
           <Image source={{uri: item.notificationIcon}} style={styles.image} />
         </View>
@@ -68,7 +74,7 @@ const VIR_NotificationScreen = ({navigation}) => {
           <TimeRender date={item.createdAt} />
         </View>
         <View style={styles.notificationIndicatorView}>
-          <View style={styles.notificationIndicator}></View>
+          {!item.isRead && <View style={styles.notificationIndicator}></View>}
         </View>
       </View>
     );
@@ -84,12 +90,18 @@ const VIR_NotificationScreen = ({navigation}) => {
         </View>
       ) : (
         <View style={styles.flatlistContainer}>
-          <FlatList
-            data={notification}
-            renderItem={renderItem}
-            keyExtractor={item => item._id}
-            showsVerticalScrollIndicator={false}
-          />
+          {notification.length > 0 ? (
+            <FlatList
+              data={notification}
+              renderItem={renderItem}
+              keyExtractor={item => item._id}
+              showsVerticalScrollIndicator={false}
+            />
+          ) : (
+            <View style={styles.notFound}>
+              <Text>No Notification Found 😃</Text>
+            </View>
+          )}
         </View>
       )}
     </SafeAreaView>
@@ -131,7 +143,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 20,
     marginBottom: 4,
-    backgroundColor: '#F0F6FB',
   },
   imageView: {
     flex: 2,
@@ -170,5 +181,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  notFound: {
+    alignItems: 'center',
+    marginTop: '10%',
   },
 });

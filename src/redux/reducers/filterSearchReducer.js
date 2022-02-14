@@ -7,6 +7,7 @@ const initialState = {
   filteredCourses: [],
   category: [],
   chapters: [],
+  onSelected: [],
 };
 
 const FilterSlice = createSlice({
@@ -57,6 +58,20 @@ const FilterSlice = createSlice({
     setFilteredCourses: (state, action) => {
       state.filteredCourses = action.payload;
     },
+
+    // added
+    setSelectedValue: (state, action) => {
+      const existingIndex = state.onSelected.findIndex(
+        Chapter => Chapter.id === action.payload,
+      );
+      if (existingIndex >= 0) {
+        console.log(state.onSelected[existingIndex].selected);
+        state.onSelected[existingIndex].selected =
+          !state.onSelected[existingIndex].selected;
+      } else {
+        state.onSelected.push({id: action.payload, selected: true});
+      }
+    },
   },
 });
 
@@ -70,10 +85,12 @@ export const {
   clearFilter,
   setFilteredCourses,
   showSearchScreenModal,
+  setSelectedValue,
 } = FilterSlice.actions;
 
 // Selectors
 export const getChapters = state => state.filterSearchReducer.chapters;
+export const getSelectedValue = state => state.filterSearchReducer.onSelected;
 export const getCategory = state => state.filterSearchReducer.category;
 export const getFilteredCourses = state =>
   state.filterSearchReducer.filteredCourses;

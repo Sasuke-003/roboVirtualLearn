@@ -11,19 +11,32 @@ import {api} from '../network';
 import {
   getCategory,
   setCategories,
+  setSelectedValue,
+  getSelectedValue,
 } from '../redux/reducers/filterSearchReducer';
 import {images, strings, fonts, colors} from '../assets';
 import {useDispatch, useSelector} from 'react-redux';
 
 const Category = props => {
-  const [isSelected, setIsSelected] = useState(false);
+  // const [isSelected, setIsSelected] = useState(false);
   const categories = useSelector(getCategory);
-  const bgColor = isSelected ? colors.categoryBackground : null;
+  const selectedValue = useSelector(getSelectedValue);
+  // const bgColor = isSelected ? colors.categoryBackground : null;
   const dispatch = useDispatch();
 
+  const index = selectedValue.findIndex(value => value.id === props.id);
+  let isSelected;
+  if (index >= 0) {
+    isSelected = selectedValue[index].selected;
+  } else {
+    isSelected = false;
+  }
   const onPressCatgeory = () => {
+    console.log('clicked');
     dispatch(setCategories(props.id));
-    getColor();
+    dispatch(setSelectedValue(props.id));
+    // console.log('selected', selectedValue);
+    // setIsSelected(!isSelected);
   };
 
   const getColor = () => {
@@ -36,7 +49,11 @@ const Category = props => {
   };
   return (
     <TouchableOpacity onPress={onPressCatgeory}>
-      <View style={[styles.category, {backgroundColor: bgColor}]}>
+      <View
+        style={[
+          styles.category,
+          {backgroundColor: isSelected ? colors.categoryBackground : null},
+        ]}>
         <Image source={{uri: props.image}} style={styles.categoryIcon} />
         <Text style={styles.name}>{props.name}</Text>
       </View>

@@ -201,6 +201,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     marginVertical: 5,
     padding: 3,
+    alignSelf: 'flex-start',
   },
   noSearchImage: {
     width: 220,

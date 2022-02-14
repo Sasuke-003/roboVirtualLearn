@@ -228,15 +228,16 @@ const VIR_ProfileEditScreen = ({navigation}) => {
         width: 300,
         height: 300,
         cropping: true,
+        includeBase64: true,
       });
       if (image) {
         setProfileImage(image.path); //TODO: incomplete, pending to send image to api
-        console.log(image);
+        console.log(image.data);
         const formData = new FormData();
         formData.append('image', {
-          name: image.filename,
-          uri: image.path,
+          uri: image.sourceURL,
           type: image.mime,
+          name: image.filename,
         });
         console.log('FormData', formData._parts[0]);
         utils.saveUserDetails({
@@ -247,9 +248,11 @@ const VIR_ProfileEditScreen = ({navigation}) => {
           hasCompleted: {...userDetails.hasCompleted},
         });
         const response = await api.profile.uploadProfilePic(formData);
-        console.log(response.data);
+        console.log(response);
+        console.log('Bello');
       }
     } catch (e) {
+      console.log('hello');
       console.log(e);
     }
   };

@@ -36,13 +36,13 @@ const drawerHeader = userDetails => (
         />
         <View style={styles.profileDetailsWrapper}>
           <Text style={styles.name}>
-            {userDetails && userDetails.data.fullname}
+            {userDetails && userDetails?.data?.fullname}
           </Text>
           <Text style={styles.occupation}>
             {userDetails &&
-              (userDetails.data['occupation'] === undefined
+              (userDetails?.data?.occupation === undefined
                 ? 'Update occupation in profile'
-                : userDetails?.data.occupation)}
+                : userDetails?.data?.occupation)}
           </Text>
         </View>
       </View>

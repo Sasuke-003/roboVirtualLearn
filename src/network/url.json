@@ -23,6 +23,7 @@
   "getAllCourses": "/api/v1/searches",
 
   "notification": {
-    "getNotification": "/api/v1/users/notifications"
+    "getNotification": "/api/v1/users/notifications",
+    "setNotification": "/api/v1/users/notifications"
   }
 }
