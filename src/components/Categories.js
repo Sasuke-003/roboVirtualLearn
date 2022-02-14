@@ -12,16 +12,11 @@ import {
   getCategory,
   setCategories,
   setSelectedValue,
-<<<<<<< HEAD
-=======
-  getSelectedValue,
->>>>>>> bbf84768de1c7cb76e21dc129eecb3377ddc7125
 } from '../redux/reducers/filterSearchReducer';
 import {images, strings, fonts, colors} from '../assets';
 import {useDispatch, useSelector} from 'react-redux';
 
 const Category = props => {
-<<<<<<< HEAD
   const categories = useSelector(getCategory);
   const dispatch = useDispatch();
   const index = categories.findIndex(value => value === props.id);
@@ -29,33 +24,6 @@ const Category = props => {
   const onPressCatgeory = () => {
     if (props.isModal === true) {
       dispatch(setCategories(props.id));
-=======
-  // const [isSelected, setIsSelected] = useState(false);
-  const categories = useSelector(getCategory);
-  const selectedValue = useSelector(getSelectedValue);
-  // const bgColor = isSelected ? colors.categoryBackground : null;
-  const dispatch = useDispatch();
-
-  const index = selectedValue.findIndex(value => value.id === props.id);
-  let isSelected;
-  if (index >= 0) {
-    isSelected = selectedValue[index].selected;
-  } else {
-    isSelected = false;
-  }
-  const onPressCatgeory = () => {
-    console.log('clicked');
-    dispatch(setCategories(props.id));
-    dispatch(setSelectedValue(props.id));
-    // console.log('selected', selectedValue);
-    // setIsSelected(!isSelected);
-  };
-
-  const getColor = () => {
-    const isPresent = categories.find(catId => catId === props.id);
-    if (isPresent) {
-      return setIsSelected(true);
->>>>>>> bbf84768de1c7cb76e21dc129eecb3377ddc7125
     } else {
       return;
     }
@@ -66,16 +34,12 @@ const Category = props => {
       <View
         style={[
           styles.category,
-<<<<<<< HEAD
           {
             backgroundColor:
               isSelected && props.isModal === true
                 ? colors.categoryBackground
                 : null,
           },
-=======
-          {backgroundColor: isSelected ? colors.categoryBackground : null},
->>>>>>> bbf84768de1c7cb76e21dc129eecb3377ddc7125
         ]}>
         <Image source={{uri: props.image}} style={styles.categoryIcon} />
         <Text style={styles.name}>{props.name}</Text>
