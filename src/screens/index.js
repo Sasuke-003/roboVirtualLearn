@@ -14,3 +14,5 @@ export {default as VIR_HomeScreen} from './VIR_HomeScreen';
 export {default as VIR_SearchScreen} from './VIR_SearchScreen';
 export {default as VIR_ChoiceYourCourse} from './VIR_ChoiceYourCourse';
 export {default as VIR_MyCourses} from './VIR_MyCourses';
+export {default as VIR_CategoriesScreen} from './VIR_CategoriesScreen';
+export {default as VIR_CategoryCoursesScreen} from './VIR_CategoryCoursesScreen';

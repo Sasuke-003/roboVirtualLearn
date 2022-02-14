@@ -12,6 +12,7 @@ const DrawerHeader = ({
   rightIcon = null,
   rightIconOnPress = null,
   style = {},
+  right = 0,
 }) => {
   const {landscape} = useDeviceOrientation();
   return (
@@ -29,7 +30,7 @@ const DrawerHeader = ({
       <TouchableOpacity
         hitSlop={hitSlop}
         onPress={rightIconOnPress}
-        style={styles.rightIcon}>
+        style={[styles.rightIcon, {right}]}>
         {rightIcon()}
       </TouchableOpacity>
     </View>
@@ -49,8 +50,9 @@ const styles = StyleSheet.create({
     width: '100%',
     // marginBottom: 20,
     alignSelf: 'center',
-    height: '5%',
+    // height: '5%',
     marginTop: 20,
+    // borderWidth: 2,
   },
   rightIcon: {
     position: 'absolute',

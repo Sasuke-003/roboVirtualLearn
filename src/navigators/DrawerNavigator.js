@@ -55,9 +55,9 @@ const DrawerNavigator = ({navigation}) => {
     const getUserData = async () => {
       try {
         const {data} = await api.course.getUserDetails();
+
         utils.saveUserDetails(data);
       } catch (error) {
-        console.warn(error);
         logout();
       }
     };

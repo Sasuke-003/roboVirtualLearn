@@ -11,6 +11,8 @@ import {
   VIR_PersonalDetailsScreen,
   VIR_CreateNewPasswordScreen,
   VIR_SearchScreen,
+  VIR_CategoriesScreen,
+  VIR_CategoryCoursesScreen,
 } from '../screens';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -93,6 +95,18 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.SEARCH_SCREEN}
         component={VIR_SearchScreen}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.CATEGORIES_SCREEN}
+        component={VIR_CategoriesScreen}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.CATEGORY_COURSES_SCREEN}
+        component={VIR_CategoryCoursesScreen}
+        initialParams={{
+          categoryName: '',
+          categoryId: '',
+        }}
       />
     </Stack.Navigator>
   );

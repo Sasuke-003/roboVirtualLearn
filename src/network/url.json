@@ -8,6 +8,11 @@
   },
   "course": {
     "getUserDetails": "/api/v1/users/displayprofile",
-    "getAllOffers": "/api/v1/"
+    "getAllOffers": "/api/v1/",
+    "getAllCategories": "/api/v1/searches/categories",
+    "getAllCourses": "/api/v1/searches/",
+    "getTopSearchedCategories": "/api/v1/searches/topcategories",
+    "getAllCoursesFromACategory": "/api/v1/searches/getallincategory",
+    "getTopCoursesFromACategory": "/api/v1/searches/topcourses"
   }
 }

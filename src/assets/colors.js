@@ -22,4 +22,7 @@ export const colors = {
   imageOpacity: '#12315a99',
 
   shadow: 'rgba(37,51,75)',
+
+  sortTypeButton: '#DFE7F5',
+  cardShadow: '#0000001c',
 };

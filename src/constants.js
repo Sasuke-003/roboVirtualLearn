@@ -26,4 +26,6 @@ export const NAVIGATION_ROUTES = {
 
   SEARCH_SCREEN: 'searchScreen',
   CHOICE_YOUR_COURSE: 'choiceYourCourse',
+  CATEGORIES_SCREEN: 'categoriesScreen',
+  CATEGORY_COURSES_SCREEN: 'categoryCoursesScreen',
 };

@@ -22,7 +22,9 @@ import {useSelector, useDispatch} from 'react-redux';
 const drawerHeader = userDetails => (
   <ImageBackground
     source={{
-      uri: 'https://images.unsplash.com/photo-1467685790346-20bfe73a81f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80',
+      uri: userDetails
+        ? userDetails.data.image
+        : 'https://images.unsplash.com/photo-1467685790346-20bfe73a81f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80',
     }}
     resizeMode="cover"
     style={styles.headerBackgroundImage}>
@@ -30,12 +32,16 @@ const drawerHeader = userDetails => (
       <View style={styles.profileWrapper}>
         <Image
           source={{
-            uri: 'https://images.unsplash.com/photo-1467685790346-20bfe73a81f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80',
+            uri: userDetails
+              ? userDetails.data.image
+              : 'https://images.unsplash.com/photo-1467685790346-20bfe73a81f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80',
           }}
           style={styles.image}
         />
         <View style={styles.profileDetailsWrapper}>
-          <Text style={styles.name}>{userDetails && userDetails.fullname}</Text>
+          <Text style={styles.name}>
+            {userDetails && userDetails.data.fullname}
+          </Text>
           <Text style={styles.occupation}>
             {userDetails &&
               (userDetails['occupation'] === undefined

@@ -28,6 +28,7 @@ export const images = {
   homeIcon: require('./images/logoutIcon3x.png'),
   hamburgerMenuIcon: require('./images/hamburgerMenuIcon3x.png'),
   searchIcon: require('./images/searchIcon3x.png'),
+  playButton: require('./images/playButton3x.png'),
   newAccountScreen: {
     googleIcon: require('./images/googleIcon3x.png'),
     facebookIcon: require('./images/facebook3x.png'),
