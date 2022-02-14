@@ -11,3 +11,6 @@ export {default as Categories} from './Categories';
 export {default as Courses} from './Courses';
 export {default as SearchModal} from './SearchModal';
 export {default as Duration} from './Duration';
+export {default as TopSearches} from './TopSearches';
+export {default as OngoingScreen} from './OngoingScreen';
+export {default as CompletedScreen} from './CompletedScreen';

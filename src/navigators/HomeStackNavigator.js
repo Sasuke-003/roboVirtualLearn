@@ -25,10 +25,9 @@ const HomeStackNavigator = props => {
         )}
       </Stack.Screen>
 
-      <Stack.Screen
-        name={NAVIGATION_ROUTES.CHOICE_YOUR_COURSE}
-        component={VIR_ChoiceYourCourse}
-      />
+      <Stack.Screen name={NAVIGATION_ROUTES.CHOICE_YOUR_COURSE}>
+        {props => <VIR_ChoiceYourCourse {...props} />}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 };

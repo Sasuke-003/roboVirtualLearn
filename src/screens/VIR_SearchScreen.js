@@ -11,19 +11,20 @@ import {
   Platform,
   Modal,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+
 import {useDispatch, useSelector} from 'react-redux';
 import {images, strings, fonts, colors} from '../assets';
-import {Categories, Courses, SearchModal} from '../components';
+import {Categories, Courses, SearchModal, TopSearches} from '../components';
 import {NAVIGATION_ROUTES} from '../constants';
 import {
   showSearchScreenModal,
   getShowSearchModal,
+  getFilteredCourses,
 } from '../redux/reducers/filterSearchReducer';
-Icon.loadFont().then();
 
 const VIR_SearchScreen = props => {
   const [enteredText, setEnteredText] = useState('');
+  const filteredResult = useSelector(getFilteredCourses);
 
   const showModal = useSelector(getShowSearchModal);
   const dispatch = useDispatch();
@@ -78,14 +79,21 @@ const VIR_SearchScreen = props => {
   };
   const renderCategory = () => {
     return (
-      <View style={styles.categoryContainer}>
-        <Categories title={strings.searchScreen.searchCategories} />
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.categoryContainer}>
+          <TopSearches />
+          <Categories
+            title={strings.searchScreen.searchCategories}
+            enteredText={enteredText}
+            isModal={false}
+          />
+        </View>
+      </ScrollView>
     );
   };
 
   const renderCourse = () => {
-    return <Courses text={enteredText} />;
+    return <Courses text={enteredText} isSearchScreen={true} />;
   };
 
   return (
@@ -95,7 +103,9 @@ const VIR_SearchScreen = props => {
           {renderHeader()}
           <View style={{flex: 1}}>
             {renderTextInput()}
-            {enteredText.length <= 0 ? renderCategory() : renderCourse()}
+            {enteredText.length <= 0 && filteredResult.length <= 0
+              ? renderCategory()
+              : renderCourse()}
           </View>
         </View>
       </SafeAreaView>

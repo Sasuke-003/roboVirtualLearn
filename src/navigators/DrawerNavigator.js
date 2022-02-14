@@ -110,12 +110,14 @@ const DrawerNavigator = ({navigation}) => {
 
       <Drawer.Screen
         name={NAVIGATION_ROUTES.MY_COURSES}
-        component={VIR_MyCourses}
         options={{
           drawerIcon: DrawerIcons.myCourse,
           drawerLabel: 'My Courses',
-        }}
-      />
+        }}>
+        {props => (
+          <VIR_MyCourses {...props} goToSearchScreen={goToSearchScreen} />
+        )}
+      </Drawer.Screen>
       <Drawer.Screen
         name={NAVIGATION_ROUTES.PROFILE_STACK}
         options={{

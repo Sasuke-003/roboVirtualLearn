@@ -77,4 +77,9 @@ export const images = {
     privacy: require('./images/privacyIcon.png'),
     terms: require('./images/termsIcon.png'),
   },
+  myCourses: {
+    CourseEmpty: require('./images/my_course_empty.png'),
+    CourseCompleted: require('./images/CourseCompleted.png'),
+    CourseOngoing: require('./images/CourseOngoing.png'),
+  },
 };

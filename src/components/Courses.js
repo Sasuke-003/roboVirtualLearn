@@ -6,6 +6,7 @@ import {
   FlatList,
   ActivityIndicator,
   Image,
+  ScrollView,
 } from 'react-native';
 import {Categories} from '../components';
 import {colors, strings, images, fonts} from '../assets';
@@ -15,6 +16,13 @@ import {useSelector} from 'react-redux';
 import {getFilteredCourses} from '../redux/reducers/filterSearchReducer';
 
 const Course = props => {
+  const renderCategory = () => {
+    return (
+      <View style={styles.categoryBorder}>
+        <Text style={styles.categoryName}>{props.category}</Text>
+      </View>
+    );
+  };
   return (
     <TouchableOpacity>
       <View style={styles.list}>
@@ -22,16 +30,13 @@ const Course = props => {
           <Image source={{uri: props.image}} style={styles.image} />
         </View>
         <View style={styles.rightPart}>
-          <View>
-            <Text style={styles.name}>{props.name}</Text>
-          </View>
+          <Text style={styles.name}>{props.name}</Text>
+
           <Text style={styles.chapterContainer}>
             {props.chapters}
             <Text>{strings.searchScreen.chapters}</Text>
           </Text>
-          <View style={styles.categoryBorder}>
-            <Text style={styles.categoryName}>{props.category}</Text>
-          </View>
+          {renderCategory()}
         </View>
       </View>
     </TouchableOpacity>
@@ -100,7 +105,12 @@ const Courses = props => {
     );
   };
   const renderCategory = () => {
-    return <Categories title={strings.searchScreen.searchCategories} />;
+    return (
+      <Categories
+        title={strings.searchScreen.searchCategories}
+        isModal={false}
+      />
+    );
   };
 
   const renderNotFound = () => {
@@ -125,10 +135,12 @@ const Courses = props => {
   };
   const renderNoResults = () => {
     return (
-      <View style={{flex: 1}}>
-        {renderNotFound()}
-        {renderCategory()}
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{flex: 1}}>
+          {renderNotFound()}
+          {renderCategory()}
+        </View>
+      </ScrollView>
     );
   };
 
@@ -154,11 +166,12 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    marginTop: 30,
+    marginTop: 20,
   },
   list: {
+    flex: 1,
     flexDirection: 'row',
-    marginVertical: 10,
+    marginVertical: 8,
   },
   imageContainer: {
     borderRadius: 6,
@@ -174,6 +187,7 @@ const styles = StyleSheet.create({
   },
 
   rightPart: {
+    flex: 1,
     paddingLeft: 15,
   },
   name: {
@@ -196,7 +210,8 @@ const styles = StyleSheet.create({
     paddingTop: 2,
   },
   categoryBorder: {
-    flex: 1,
+    alignSelf: 'flex-start',
+    paddingHorizontal: 5,
     backgroundColor: colors.categoryBackground,
     borderRadius: 3,
     marginVertical: 5,
@@ -232,6 +247,10 @@ const styles = StyleSheet.create({
   categoryContainer: {
     flex: 1,
     marginTop: 40,
+  },
+  categoryName: {
+    fontSize: 10,
+    textAlign: 'center',
   },
 });
 export default Courses;

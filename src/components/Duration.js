@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {strings, fonts, colors, images} from '../assets';
-import {setChapters} from '../redux/reducers/filterSearchReducer';
+import {getChapters, setChapters} from '../redux/reducers/filterSearchReducer';
 
 const durationArray = [
   {
@@ -18,13 +18,15 @@ const durationArray = [
   {id: 5, name: '5/10 Chapters', chapters: [5, 6, 7, 8, 9, 10]},
 ];
 const DisplayDuration = props => {
+  const chapters = useSelector(getChapters);
   const dispatch = useDispatch();
+
   const onPressDuration = () => {
-    dispatch(setChapters(props.chapters));
+    dispatch(setChapters({chapters: props.chapters, id: props.id}));
   };
   return (
     <TouchableOpacity onPress={onPressDuration}>
-      <View style={styles.duration}>
+      <View style={[styles.duration, {backgroundColor: null}]}>
         <Text style={styles.name}>{props.name}</Text>
       </View>
     </TouchableOpacity>
@@ -50,6 +52,7 @@ const Duration = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 15,
   },
   list: {
     flexDirection: 'row',

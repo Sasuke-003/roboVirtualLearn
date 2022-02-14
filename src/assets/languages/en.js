@@ -128,6 +128,8 @@ export default en = {
     duration: 'Duration',
     applyFilter: 'Apply Filter',
     clearAll: 'Clear All',
+    choiceYourCourse: 'Choice your course',
+    AllCourses: 'All Courses',
   },
   homeScreen: {
     hello: 'Hello!',
@@ -184,5 +186,14 @@ export default en = {
     notificationSound: 'Notification Sound',
     privacy: 'Privacy Policy',
     terms: 'Terms of Services',
+  },
+  myCourses: {
+    title: 'My Course',
+    question: 'What will you learn first?',
+    message: 'Your courses will go here',
+    ongoing: 'Ongoing',
+    completed: 'Completed',
+    viewCertificate: 'View Certificate',
+    continue: 'Continue',
   },
 };

@@ -23,4 +23,10 @@ export const course = {
       chapters,
     });
   },
+  getTopSearch: async () => {
+    return await virtualLearn.get(URL.course.getTopSearches);
+  },
+  getEnrolledCourses: async () => {
+    return await virtualLearn.get(URL.course.getEnrolledCourses, config());
+  },
 };

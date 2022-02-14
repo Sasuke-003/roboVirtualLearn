@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {Alert, StyleSheet, Text, Pressable, View, Image} from 'react-native';
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  Image,
+  ScrollView,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {
@@ -67,25 +75,33 @@ const SearchModal = props => {
       backdropOpacity={0.4}
       onBackdropPress={() => dispatch(showSearchScreenModal(false))}>
       <View style={styles.container}>
-        {renderTitle()}
-        <View>
-          <Categories title={strings.searchScreen.categories} />
-          <Duration />
-        </View>
+        <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
+          {renderTitle()}
 
-        <View style={styles.filterContainer}>
-          <TouchableOpacity onPress={onPressApplyFilter}>
-            <Text style={styles.applyFilter}>
-              {strings.searchScreen.applyFilter}
-            </Text>
-          </TouchableOpacity>
-        </View>
+          <View>
+            <Categories
+              title={strings.searchScreen.categories}
+              isModal={true}
+            />
+            <Duration />
+          </View>
 
-        <View style={styles.clearContainer}>
-          <TouchableOpacity onPress={onPressClearAll}>
-            <Text style={styles.clearAll}>{strings.searchScreen.clearAll}</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.filterContainer}>
+            <TouchableOpacity onPress={onPressApplyFilter}>
+              <Text style={styles.applyFilter}>
+                {strings.searchScreen.applyFilter}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.clearContainer}>
+            <TouchableOpacity onPress={onPressClearAll}>
+              <Text style={styles.clearAll}>
+                {strings.searchScreen.clearAll}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     </Modal>
   );
@@ -100,8 +116,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    paddingTop: 170,
-    paddingBottom: 20,
+    paddingTop: 20,
+    paddingBottom: 10,
     paddingHorizontal: 30,
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -112,7 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginRight: 10,
+    marginRight: 5,
   },
   title: {
     textAlign: 'center',

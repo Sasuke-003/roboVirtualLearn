@@ -11,32 +11,36 @@ import {api} from '../network';
 import {
   getCategory,
   setCategories,
+  setSelectedValue,
 } from '../redux/reducers/filterSearchReducer';
 import {images, strings, fonts, colors} from '../assets';
 import {useDispatch, useSelector} from 'react-redux';
 
 const Category = props => {
-  const [isSelected, setIsSelected] = useState(false);
   const categories = useSelector(getCategory);
-  const bgColor = isSelected ? colors.categoryBackground : null;
   const dispatch = useDispatch();
-
+  const index = categories.findIndex(value => value === props.id);
+  const isSelected = index >= 0 ? true : false;
   const onPressCatgeory = () => {
-    dispatch(setCategories(props.id));
-    getColor();
-  };
-
-  const getColor = () => {
-    const isPresent = categories.find(catId => catId === props.id);
-    if (isPresent) {
-      return setIsSelected(true);
+    if (props.isModal === true) {
+      dispatch(setCategories(props.id));
     } else {
-      return setIsSelected(false);
+      return;
     }
   };
+
   return (
     <TouchableOpacity onPress={onPressCatgeory}>
-      <View style={[styles.category, {backgroundColor: bgColor}]}>
+      <View
+        style={[
+          styles.category,
+          {
+            backgroundColor:
+              isSelected && props.isModal === true
+                ? colors.categoryBackground
+                : null,
+          },
+        ]}>
         <Image source={{uri: props.image}} style={styles.categoryIcon} />
         <Text style={styles.name}>{props.name}</Text>
       </View>
@@ -86,6 +90,7 @@ const Categories = props => {
               name={category.name}
               image={category.categoryImageUrl}
               id={category._id}
+              isModal={props.isModal}
             />
           ))}
         {isLoading && <ActivityIndicator color={colors.primaryText} />}
@@ -124,7 +129,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignContent: 'flex-start',
-    paddingVertical: 15,
+    paddingTop: 15,
   },
 
   category: {
