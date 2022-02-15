@@ -82,4 +82,11 @@ export const images = {
     CourseCompleted: require('./images/CourseCompleted.png'),
     CourseOngoing: require('./images/CourseOngoing.png'),
   },
+  result: {
+    closeIcon: require('./images/icn_close_white3x.png'),
+    showAns: require('./images/icn_show_answer3x.png'),
+    checked: require('./images/icn_optionChecked3x.png'),
+    wrongAns: require('./images/icn_optionWrong3x.png'),
+    closeModal: require('./images/icn_close_showAnswer3x.png'),
+  },
 };

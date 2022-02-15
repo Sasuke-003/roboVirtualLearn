@@ -12,6 +12,7 @@ import {
   VIR_CreateNewPasswordScreen,
   VIR_SearchScreen,
   VIR_PrivacyPolicyAndTerms,
+  VIR_ResultScreen,
 } from '../screens';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -35,11 +36,12 @@ const StackNavigator = () => {
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={
-        authToken === ''
-          ? isNewInstallation
-            ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
-            : NAVIGATION_ROUTES.LANDING_SCREEN
-          : NAVIGATION_ROUTES.DRAWER_NAVIGATOR
+        NAVIGATION_ROUTES.RESULT_SCREEN
+        // authToken === ''
+        //   ? isNewInstallation
+        //     ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
+        //     : NAVIGATION_ROUTES.LANDING_SCREEN
+        //   : NAVIGATION_ROUTES.DRAWER_NAVIGATOR
       }
       //initialRouteName={NAVIGATION_ROUTES.SEARCH_SCREEN}
     >
@@ -100,6 +102,10 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.PRIVACY_AND_TERMS_SCREEN}
         component={VIR_PrivacyPolicyAndTerms}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.RESULT_SCREEN}
+        component={VIR_ResultScreen}
       />
     </Stack.Navigator>
   );

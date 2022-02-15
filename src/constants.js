@@ -31,4 +31,5 @@ export const NAVIGATION_ROUTES = {
   PRIVACY_AND_TERMS_SCREEN: 'privacyAndTerms',
   TERMS_SCREEN: 'termsAndSerice',
   NOTIFICATION_SCREEN: 'notification',
+  RESULT_SCREEN: 'result',
 };
