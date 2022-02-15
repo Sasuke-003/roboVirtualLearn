@@ -4,7 +4,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   DrawerHeader,
   Offers,
-  Categories,
+  HomeCategories,
   ChoiceYourCourse,
   DisplayCourses,
 } from '../components';
@@ -12,6 +12,7 @@ import {images, colors, strings, fonts} from '../assets';
 import {getUserDetails} from '../redux/reducers/userReducer';
 import {useSelector, useDispatch} from 'react-redux';
 import {api} from '../network';
+import {NAVIGATION_ROUTES} from '../constants';
 
 const headerLeftIcon = () => (
   <Image style={styles.headerLeftIcon} source={images.hamburgerMenuIcon} />
@@ -21,7 +22,11 @@ const headerRightIcon = () => (
   <Image style={styles.headerRightIcon} source={images.searchIcon} />
 );
 
-const VIR_HomeScreen = ({navigation}) => {
+const VIR_HomeScreen = ({
+  navigation,
+  goToSearchScreen,
+  gotoCourseDetailsScreen,
+}) => {
   const userDetails = useSelector(getUserDetails);
   const [topCategories, setTopCategories] = useState([]);
   useEffect(() => {
@@ -43,7 +48,9 @@ const VIR_HomeScreen = ({navigation}) => {
     navigation.openDrawer();
   };
 
-  const headerRightIconOnPress = () => {};
+  const headerRightIconOnPress = () => {
+    goToSearchScreen();
+  };
 
   const welcomeText = () => (
     <View style={styles.welcomeText}>
@@ -66,10 +73,11 @@ const VIR_HomeScreen = ({navigation}) => {
         />
         {welcomeText()}
         <Offers />
-        <Categories />
-        <ChoiceYourCourse />
+        <HomeCategories />
+        <ChoiceYourCourse gotoCourseDetailsScreen={gotoCourseDetailsScreen} />
         {topCategories.length > 0 && (
           <DisplayCourses
+            gotoCourseDetailsScreen={gotoCourseDetailsScreen}
             title={`Top courses in ${topCategories[0].name}`}
             api={async () =>
               await api.course.getAllCourses(topCategories[0].name)
@@ -78,6 +86,7 @@ const VIR_HomeScreen = ({navigation}) => {
         )}
         {topCategories.length > 1 && (
           <DisplayCourses
+            gotoCourseDetailsScreen={gotoCourseDetailsScreen}
             title={`Top courses in ${topCategories[1].name}`}
             api={async () =>
               await api.course.getAllCourses(topCategories[1].name)

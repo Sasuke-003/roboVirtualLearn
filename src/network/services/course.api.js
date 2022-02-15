@@ -25,4 +25,30 @@ export const course = {
     await virtualLearn.post(URL.course.getTopCoursesFromACategory, {
       category: categoryId,
     }),
+
+  getNotification: async () => {
+    return await virtualLearn.get(URL.notification.getNotification, config());
+  },
+  setNotifications: async () => {
+    return await virtualLearn.post(
+      URL.notification.setNotification,
+      {},
+      config(),
+    );
+  },
+
+  getFilteredSearch: async (category, chapters) => {
+    return await virtualLearn.post(URL.course.getSearchFilter, {
+      category,
+      chapters,
+    });
+  },
+  getTopSearch: async () => {
+    return await virtualLearn.get(URL.course.getTopSearches);
+  },
+  getEnrolledCourses: async () => {
+    return await virtualLearn.get(URL.course.getEnrolledCourses, config());
+  },
+  getCourseDetails: async id =>
+    await virtualLearn.post(URL.course.getCourseDetails, {id}, config()),
 };

@@ -14,3 +14,8 @@ export const clearAuthToken = () => {
 export const saveUserDetails = details => {
   store.dispatch(setUserDetails(details));
 };
+
+export const getAuthToken = () => {
+  const token = store.getState().userReducer.AuthorizationToken;
+  return token;
+};

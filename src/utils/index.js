@@ -1,7 +1,19 @@
 import {showErrorMessage, showSuccessMessage} from './popup';
-import {validateEmail, validateUserName, validatePassword} from './validate';
-import {setAuthToken, clearAuthToken, saveUserDetails} from './auth';
 import {getHoursMinutesFromMinutes} from './date';
+import {
+  validateEmail,
+  validateUserName,
+  validatePassword,
+  toTitleCase,
+  isValidTwitterLink,
+  isValidFacebookLink,
+} from './validate';
+import {
+  setAuthToken,
+  clearAuthToken,
+  saveUserDetails,
+  getAuthToken,
+} from './auth';
 
 export const utils = {
   showErrorMessage,
@@ -13,4 +25,8 @@ export const utils = {
   clearAuthToken,
   saveUserDetails,
   getHoursMinutesFromMinutes,
+  getAuthToken,
+  toTitleCase,
+  isValidTwitterLink,
+  isValidFacebookLink,
 };

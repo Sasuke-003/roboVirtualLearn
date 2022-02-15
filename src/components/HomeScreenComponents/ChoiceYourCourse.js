@@ -8,18 +8,22 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {api} from '../../network';
 import {colors, fonts, strings} from '../../assets';
+import {NAVIGATION_ROUTES} from '../../constants';
 
 const CourseCard = ({
   course: {
     courseImageUrl,
     name,
     courseContent: {chapter},
+    _id,
   },
+  gotoCourseDetailsScreen,
 }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => gotoCourseDetailsScreen(_id)}>
       <View style={styles.cardContainer}>
         <Image style={styles.cardImage} source={{uri: courseImageUrl}} />
         <View style={styles.courseNameWrapper}>
@@ -35,15 +39,15 @@ const CourseCard = ({
   );
 };
 
-const ChoiceYourCourse = () => {
+const ChoiceYourCourse = ({gotoCourseDetailsScreen}) => {
   const [sortBy, setSortBy] = useState(strings.homeScreen.sortTypeAll);
   const [courses, setCourses] = useState([]);
+  const navigation = useNavigation();
   const getCoursesData = async () => {
     try {
       const {
         data: {courses},
       } = await api.course.getAllCourses();
-      console.log(JSON.stringify(courses, null, 2));
       setCourses(courses);
     } catch (error) {
       console.warn(error);
@@ -55,10 +59,14 @@ const ChoiceYourCourse = () => {
     getCoursesData();
   }, []);
 
+  const onClickSeeAll = () => {
+    navigation.navigate(NAVIGATION_ROUTES.CHOICE_YOUR_COURSE);
+  };
+
   const title = () => (
     <View style={styles.titleWrapper}>
       <Text style={styles.title}>{strings.homeScreen.choiceYourCourse}</Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onClickSeeAll}>
         <Text style={styles.seeAll}>{strings.homeScreen.seeAll}</Text>
       </TouchableOpacity>
     </View>
@@ -90,8 +98,8 @@ const ChoiceYourCourse = () => {
       <View style={styles.container}>
         {title()}
         <View style={styles.sortButtonsContainer}>
-          {SortButtonNames.map(name => (
-            <SortButtons key={name} name={name} />
+          {SortButtonNames.map((name, index) => (
+            <SortButtons key={index} name={name} />
           ))}
         </View>
         <FlatList
@@ -107,7 +115,12 @@ const ChoiceYourCourse = () => {
                   .sort((a, b) => b.searchFrequency - a.searchFrequency)
               : courses.slice().reverse()
           }
-          renderItem={({item}) => <CourseCard course={item} />}
+          renderItem={({item}) => (
+            <CourseCard
+              course={item}
+              gotoCourseDetailsScreen={gotoCourseDetailsScreen}
+            />
+          )}
         />
       </View>
     )

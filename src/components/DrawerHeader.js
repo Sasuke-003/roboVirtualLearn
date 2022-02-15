@@ -6,10 +6,10 @@ const hitSlop = {top: 10, bottom: 10, left: 10, right: 10};
 
 const DrawerHeader = ({
   backgroundColor = 'transparent',
-  leftIcon = null,
+  leftIcon = () => {},
   leftIconOnPress = null,
   centerComponent = null,
-  rightIcon = null,
+  rightIcon = () => {},
   rightIconOnPress = null,
   style = {},
   right = 0,

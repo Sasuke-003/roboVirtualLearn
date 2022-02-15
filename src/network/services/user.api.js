@@ -16,6 +16,8 @@ export const user = {
       email,
       password,
     }),
+  createNewPass: async (number, password) =>
+    await virtualLearn.patch(URL.auth.createNewPass, {number, password}),
   forgotPassword: async number => {
     return await virtualLearn.post(URL.auth.forgotPassword, {number});
   },

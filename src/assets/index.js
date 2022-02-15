@@ -29,6 +29,8 @@ export const images = {
   hamburgerMenuIcon: require('./images/hamburgerMenuIcon3x.png'),
   searchIcon: require('./images/searchIcon3x.png'),
   playButton: require('./images/playButton3x.png'),
+  dropdown: require('./images/dropdown3x.png'),
+  closeIcon: require('./images/closeIcon3x.png'),
   newAccountScreen: {
     googleIcon: require('./images/googleIcon3x.png'),
     facebookIcon: require('./images/facebook3x.png'),
@@ -55,5 +57,31 @@ export const images = {
   successScreen: {
     registerSuccess: require('./images/img_Register_success.png'),
     passwordChangeSuccess: require('./images/password_change_sucess3x.png'),
+  },
+  profileScreen: {
+    profileBg: require('./images/profilepic3x.png'),
+    editIcon: require('./images/editIcon3x.png'),
+    forwardIcon: require('./images/forwardIcon3x.png'),
+    privacyIcon: require('./images/privacyIcon3x.png'),
+    blankImage: require('./images/blankProfile.png'),
+    hamburgerMenuIconWhite: require('./images/hamburgermenu_white3x.png'),
+    uploadProfilePic: require('./images/uploadProfilePic3x.png'),
+  },
+  searchScreen: {
+    backIcon: require('./images/backIcon3x.png'),
+    searchIcon: require('./images/searchCourse.png'),
+    filterSearch: require('./images/filterSearch.png'),
+    noSearchResult: require('./images/noSearchResult.png'),
+    modalClose: require('./images/modalClose.png'),
+  },
+  settings: {
+    notification: require('./images/notificationSettingsIcon3x.png'),
+    privacy: require('./images/privacyIcon.png'),
+    terms: require('./images/termsIcon.png'),
+  },
+  myCourses: {
+    CourseEmpty: require('./images/my_course_empty.png'),
+    CourseCompleted: require('./images/CourseCompleted.png'),
+    CourseOngoing: require('./images/CourseOngoing.png'),
   },
 };

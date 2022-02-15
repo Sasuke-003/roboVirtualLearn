@@ -18,26 +18,30 @@ const CourseCard = ({
     name,
     courseImageUrl,
     courseContent: {chapter, totalLength},
+    _id,
   },
+  gotoCourseDetailsScreen,
 }) => {
   return (
     <View style={styles.courseContainer}>
-      <View style={{justifyContent: 'center'}}>
-        <Image style={styles.courseImage} source={{uri: courseImageUrl}} />
-        <Image style={styles.playButton} source={images.playButton} />
-      </View>
-      <Text style={styles.courseName}>{name}</Text>
-      <View style={styles.courseDetails}>
-        <Text style={styles.chapter}>{`${chapter} Chapter${
-          chapter > 1 && 's'
-        }`}</Text>
-        <View style={styles.courseLengthWrapper}>
-          <Icon size={13} name="clock" style={styles.courseLengthIcon} />
-          <Text style={styles.courseLength}>
-            {utils.getHoursMinutesFromMinutes(totalLength)}
-          </Text>
+      <TouchableOpacity onPress={() => gotoCourseDetailsScreen(_id)}>
+        <View style={{justifyContent: 'center'}}>
+          <Image style={styles.courseImage} source={{uri: courseImageUrl}} />
+          <Image style={styles.playButton} source={images.playButton} />
         </View>
-      </View>
+        <Text style={styles.courseName}>{name}</Text>
+        <View style={styles.courseDetails}>
+          <Text style={styles.chapter}>{`${chapter} Chapter${
+            chapter > 1 && 's'
+          }`}</Text>
+          <View style={styles.courseLengthWrapper}>
+            <Icon size={13} name="clock" style={styles.courseLengthIcon} />
+            <Text style={styles.courseLength}>
+              {utils.getHoursMinutesFromMinutes(totalLength)}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -49,6 +53,7 @@ const DisplayCourses = ({
   containerStyle,
   disableSeeAll = false,
   searchKey = 'courses',
+  gotoCourseDetailsScreen,
 }) => {
   const [courses, setCourses] = useState([]);
   useEffect(() => {
@@ -82,7 +87,12 @@ const DisplayCourses = ({
           horizontal
           showsHorizontalScrollIndicator={false}
           data={courses}
-          renderItem={({item}) => <CourseCard course={item} />}
+          renderItem={({item}) => (
+            <CourseCard
+              course={item}
+              gotoCourseDetailsScreen={gotoCourseDetailsScreen}
+            />
+          )}
         />
       </View>
     )

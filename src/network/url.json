@@ -4,15 +4,32 @@
     "sendOtp": "/api/v1/users/signup/otp",
     "verifyOtp": "/api/v1/users/signup/verify",
     "register": "/api/v1/users/signup/register",
+    "createNewPass": "/api/v1/users/forgotpassword/resetpassword",
     "forgotPassword": "/api/v1/users/forgotpassword/otp"
   },
   "course": {
+    "getAllCategories": "/api/v1/searches/categories",
     "getUserDetails": "/api/v1/users/displayprofile",
     "getAllOffers": "/api/v1/",
-    "getAllCategories": "/api/v1/searches/categories",
-    "getAllCourses": "/api/v1/searches/",
     "getTopSearchedCategories": "/api/v1/searches/topcategories",
     "getAllCoursesFromACategory": "/api/v1/searches/getallincategory",
-    "getTopCoursesFromACategory": "/api/v1/searches/topcourses"
+    "getTopCoursesFromACategory": "/api/v1/searches/topcourses",
+    "getAllCourses": "/api/v1/searches",
+    "getSearchFilter": "/api/v1/searches/getcoursebymultiplefilters",
+    "getTopSearches": "/api/v1/searches/topcategories",
+    "getEnrolledCourses": "/api/v1/users/getenrolledcourses",
+    "getCourseDetails": "/api/v1/searches/id"
+  },
+  "profile": {
+    "changePassword": "/api/v1/users/changepassword/oldpassword",
+    "uploadProfilePic": "/api/v1/users/uploadimage",
+    "uploadCoverPic": "/api/v1/users/uploadcoverimage",
+    "updateDetails": "/api/v1/users/updateprofile"
+  },
+  "getAllCourses": "/api/v1/searches",
+
+  "notification": {
+    "getNotification": "/api/v1/users/notifications",
+    "setNotification": "/api/v1/users/notifications"
   }
 }

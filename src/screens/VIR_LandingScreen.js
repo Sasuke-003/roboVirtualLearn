@@ -69,16 +69,28 @@ const VIR_LandingScreen = ({navigation}) => {
       </View>
     );
   };
+  const onPressPrivacy = () => {
+    navigation.navigate(NAVIGATION_ROUTES.PRIVACY_AND_TERMS_SCREEN, {
+      title: strings.privacy.title,
+      text: strings.privacy.text,
+    });
+  };
+  const onPressTerms = () => {
+    navigation.navigate(NAVIGATION_ROUTES.PRIVACY_AND_TERMS_SCREEN, {
+      title: strings.terms.title,
+      text: strings.terms.text,
+    });
+  };
   const renderPolicyView = () => {
     return (
       <View style={styles.policyContainer}>
         <Text style={styles.policyText}>
           {strings.landingPage.policy}
-          <TouchableOpacity onPress={() => dispatch(setNewInstallation(true))}>
+          <TouchableOpacity onPress={onPressTerms}>
             <Text style={styles.termsText}>{strings.landingPage.terms}</Text>
           </TouchableOpacity>
           &
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onPressPrivacy}>
             <Text style={styles.termsText}>{strings.landingPage.privacy}</Text>
           </TouchableOpacity>
         </Text>
@@ -101,7 +113,7 @@ const VIR_LandingScreen = ({navigation}) => {
   };
   const renderLandscape = () => {
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
         {renderPortrait()}
       </ScrollView>
     );

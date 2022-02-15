@@ -9,13 +9,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {
-  DrawerHeader,
-  Offers,
-  Categories,
-  ChoiceYourCourse,
-  DisplayCourses,
-} from '../components';
+import {DrawerHeader, Courses, DisplayCourses} from '../components';
 import {images, colors, strings, fonts} from '../assets';
 import {getUserDetails} from '../redux/reducers/userReducer';
 import {useSelector, useDispatch} from 'react-redux';
@@ -49,6 +43,33 @@ const VIR_CategoryCoursesScreen = ({
     navigation.goBack();
   };
   const headerRightIconOnPress = () => {};
+  const onCoursePress = courseId => {
+    navigation.navigate(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {courseId});
+  };
+
+  const renderCourse = () => {
+    return (
+      <View style={styles.allCoursesContainer}>
+        <View style={{flex: 1, marginTop: 20}}>
+          <Text style={styles.allCoursesText}>
+            {strings.searchScreen.AllCourses}
+          </Text>
+          <ScrollView
+            bounces={false}
+            horizontal
+            scrollEnabled={false}
+            style={{width: '100%'}}>
+            <Courses
+              text={''}
+              scrollEnabled={false}
+              gotoCourseDetailsScreen={onCoursePress}
+            />
+          </ScrollView>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={{backgroundColor: colors.background}}>
       <ScrollView
@@ -66,6 +87,7 @@ const VIR_CategoryCoursesScreen = ({
         {renderTitleDescription(categoryName)}
         {categoryName !== '' > 1 && (
           <DisplayCourses
+            gotoCourseDetailsScreen={onCoursePress}
             disableSeeAll
             containerStyle={{marginTop: 0}}
             title={`${strings.categoryCoursesScreen.getYouStarted}`}
@@ -74,6 +96,7 @@ const VIR_CategoryCoursesScreen = ({
         )}
         {categoryId !== '' > 1 && (
           <DisplayCourses
+            gotoCourseDetailsScreen={onCoursePress}
             disableSeeAll
             containerStyle={{marginTop: 5}}
             title={`${strings.categoryCoursesScreen.featuredCourses}`}
@@ -83,6 +106,7 @@ const VIR_CategoryCoursesScreen = ({
             searchKey="data"
           />
         )}
+        {renderCourse()}
       </ScrollView>
     </SafeAreaView>
   );
@@ -113,5 +137,18 @@ const styles = StyleSheet.create({
     color: colors.secondaryText,
     fontFamily: fonts.proximaNovaRegular,
     fontSize: 16,
+  },
+  allCoursesText: {
+    color: colors.primaryText,
+    fontFamily: fonts.proximaNovaRegular,
+    fontWeight: '500',
+    fontSize: 19,
+    letterSpacing: 0,
+    lineHeight: 20,
+    textAlign: 'left',
+    paddingTop: 5,
+  },
+  allCoursesContainer: {
+    paddingHorizontal: 24,
   },
 });

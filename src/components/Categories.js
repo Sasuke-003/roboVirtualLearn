@@ -1,179 +1,158 @@
+import React, {Children, useEffect, useState} from 'react';
 import {
-  StyleSheet,
-  Text,
   View,
-  FlatList,
-  TouchableOpacity,
+  Text,
+  StyleSheet,
   Image,
-  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
 import {api} from '../network';
-import {colors, fonts, strings} from '../assets';
-import {useNavigation} from '@react-navigation/native';
-import {NAVIGATION_ROUTES} from '../constants';
+import {
+  getCategory,
+  setCategories,
+  setSelectedValue,
+} from '../redux/reducers/filterSearchReducer';
+import {images, strings, fonts, colors} from '../assets';
+import {useDispatch, useSelector} from 'react-redux';
 
-const numOfCatInRow = 3;
+const Category = props => {
+  const categories = useSelector(getCategory);
+  const dispatch = useDispatch();
+  const index = categories.findIndex(value => value === props.id);
+  const isSelected = index >= 0 ? true : false;
+  const onPressCatgeory = () => {
+    if (props.isModal === true) {
+      dispatch(setCategories(props.id));
+    } else {
+      return;
+    }
+  };
 
-const CategoryButton = ({category}) => {
   return (
-    <TouchableOpacity>
-      <View style={styles.button}>
-        <Image
-          style={styles.buttonImage}
-          source={{uri: category.categoryImageUrl}}
-        />
-        <Text style={styles.buttonText}>{category.name}</Text>
+    <TouchableOpacity onPress={onPressCatgeory}>
+      <View
+        style={[
+          styles.category,
+          {
+            backgroundColor:
+              isSelected && props.isModal === true
+                ? colors.categoryBackground
+                : null,
+          },
+        ]}>
+        <Image source={{uri: props.image}} style={styles.categoryIcon} />
+        <Text style={styles.name}>{props.name}</Text>
       </View>
     </TouchableOpacity>
   );
 };
-
-const Categories = ({scrollDisabled = false, disableSeeAll = false}) => {
+const Categories = props => {
   const [categories, setCategories] = useState([]);
-  const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    const getCategoriesData = async () => {
+    const getCategories = async () => {
       try {
-        const {
-          data: {data},
-        } = await api.course.getAllCategories();
-        setCategories(data);
+        setIsLoading(true);
+        const response = await api.course.getAllCategories();
+        if (response.status === 200) {
+          setCategories(response.data.data);
+          setIsLoading(false);
+        }
       } catch (error) {
-        console.warn(error);
-        setCategories([]);
+        console.log(error);
+        setIsLoading(false);
       }
     };
-    getCategoriesData();
+
+    getCategories();
+    return () => {
+      setIsLoading(true);
+    };
   }, []);
-  const onCLickSeeAll = () => {
-    navigation.navigate(NAVIGATION_ROUTES.CATEGORIES_SCREEN);
-  };
-  return (
-    categories.length > 0 && (
-      <View style={styles.mainContainer}>
-        <View style={styles.titleWrapper}>
-          <Text style={styles.title}>{strings.homeScreen.categories}</Text>
-          {!disableSeeAll ? (
-            <TouchableOpacity onPress={onCLickSeeAll}>
-              <Text style={styles.seeAll}>{strings.homeScreen.seeAll}</Text>
-            </TouchableOpacity>
-          ) : scrollDisabled && !disableSeeAll ? (
-            <TouchableOpacity onPress={onCLickSeeAll}>
-              <Text style={styles.seeAll}>{strings.homeScreen.seeAll}</Text>
-            </TouchableOpacity>
-          ) : null}
-          {/* {!disableSeeAll && scrollDisabled && (
-          <TouchableOpacity>
-            <Text style={styles.seeAll}>{strings.homeScreen.seeAll}</Text>
-          </TouchableOpacity>
-        )} */}
-        </View>
-        {scrollDisabled ? (
-          <FlatList
-            scrollEnabled={false}
-            bounces={false}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={[
-              styles.container,
-              {flexWrap: 'wrap', width: '100%'},
-            ]}
-            data={categories}
-            horizontal
-            renderItem={({item}) => <CategoryButton category={item} />}
-          />
-        ) : (
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <ScrollView scrollEnabled={false} bounces={false}>
-              <FlatList
-                scrollEnabled={false}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.container}
-                data={
-                  disableSeeAll
-                    ? categories.slice(0, Math.floor(categories.length / 2))
-                    : categories.length > numOfCatInRow
-                    ? categories.slice(0, numOfCatInRow)
-                    : categories
-                }
-                horizontal
-                renderItem={({item}) => <CategoryButton category={item} />}
-              />
-              {categories.length > numOfCatInRow && (
-                <FlatList
-                  scrollEnabled={false}
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={styles.container}
-                  data={
-                    disableSeeAll
-                      ? categories.slice(Math.floor(categories.length / 2))
-                      : categories.length > numOfCatInRow * 2
-                      ? categories.slice(numOfCatInRow, numOfCatInRow * 2)
-                      : categories.slice(numOfCatInRow)
-                  }
-                  horizontal
-                  renderItem={({item}) => <CategoryButton category={item} />}
-                />
-              )}
-            </ScrollView>
-          </ScrollView>
-        )}
+
+  const renderTitle = () => {
+    return (
+      <View>
+        <Text style={styles.title}>{props.title}</Text>
       </View>
-    )
+    );
+  };
+  const renderList = () => {
+    return (
+      <View style={styles.list}>
+        {categories.length > 0 &&
+          !isLoading &&
+          categories.map(category => (
+            <Category
+              key={category._id}
+              name={category.name}
+              image={category.categoryImageUrl}
+              id={category._id}
+              isModal={props.isModal}
+            />
+          ))}
+        {isLoading && <ActivityIndicator color={colors.primaryText} />}
+      </View>
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      {renderTitle()}
+      {renderList()}
+    </View>
   );
 };
-
-export default Categories;
-
 const styles = StyleSheet.create({
-  mainContainer: {
-    marginTop: 0,
-  },
   container: {
-    paddingLeft: 24,
-    paddingRight: 16,
-    // width: '100%',
-    // flexWrap: 'wrap',
-  },
-  button: {
-    height: 30,
-    borderWidth: 1,
-    borderColor: colors.inputBorderBottomColor,
-    borderRadius: 6,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    marginRight: 8,
-    flexDirection: 'row',
-    marginBottom: 8,
-  },
-  buttonImage: {
-    height: 20,
-    width: 19,
-  },
-  buttonText: {
-    color: colors.primaryText,
-    fontFamily: fonts.proximaNovaRegular,
-    fontSize: 12,
-    fontWeight: '500',
-    marginLeft: 8,
-  },
-  titleWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 24,
-    marginBottom: 15,
+    flex: 1,
+    marginTop: 30,
   },
   title: {
-    color: colors.primaryText,
-    fontFamily: fonts.proximaNovaRegular,
-    fontSize: 18,
+    color: 'black',
+    fontFamily: fonts.proximaNovaBold,
     fontWeight: '600',
+    fontSize: 19,
+    letterSpacing: 0,
+    lineHeight: 22,
+    textAlign: 'left',
   },
-  seeAll: {
-    color: colors.secondaryText,
-    fontFamily: fonts.proximaNovaRegular,
-    fontSize: 12,
+  categoryIcon: {
+    width: 25,
+    height: 25,
+    resizeMode: 'contain',
+  },
+  list: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignContent: 'flex-start',
+    paddingTop: 15,
+  },
+
+  category: {
+    flexDirection: 'row',
+    alignItems: 'center',
+
+    borderColor: colors.secondaryText,
+    borderWidth: 0.45,
+    borderRadius: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    marginHorizontal: 5,
+    marginVertical: 5,
+  },
+  name: {
+    color: colors.primaryText,
+    fontFamily: fonts.proximaNovaMedium,
+    fontWeight: '500',
+    fontSize: 13,
+    letterSpacing: 0.3,
+    lineHeight: 15,
+    textAlign: 'left',
+    paddingLeft: 7,
   },
 });
+export default Categories;

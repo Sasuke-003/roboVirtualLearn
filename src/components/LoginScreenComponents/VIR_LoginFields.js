@@ -55,7 +55,6 @@ const VIR_LoginFields = () => {
         utils.showErrorMessage(error.response.data.message);
         setIsLoginDisabled(false);
       });
-    console.log('Login Pressed');
   };
 
   const borderColor =

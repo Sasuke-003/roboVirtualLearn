@@ -6,6 +6,7 @@ export const colors = {
   primaryText: '#2B2B2B',
   secondaryText: '#7A7A7A',
   inputBorderBottomColor: '#7A7A7A60',
+  tabBorderBottomColor: '#7A7A7A50',
   phoneNumberActive: '#042C5C',
   googleButtonBorder: '#77869E30',
   imageBorder: '#FFFFFF90',
@@ -25,4 +26,17 @@ export const colors = {
 
   sortTypeButton: '#DFE7F5',
   cardShadow: '#0000001c',
+  profileBg: 'rgba(4, 44, 92,0.85)',
+  profileImgBorder: '#47607d',
+  cardBg: '#FEFEFF',
+  cardShadow: 'rgba(0,0,0,0.15)',
+  dobText: '#72727290',
+  modalBg: 'rgba(0,0,0,0.4)',
+  seperator: '#00000080',
+  categoryBackground: '#FCBE4B',
+
+  switchFalse: '#767577',
+  switchTrue: '#1EAB0D',
+  notificationBg: '#F0F6FB',
+  courseDetailBg: 'rgba(42,41,46,0.5)',
 };

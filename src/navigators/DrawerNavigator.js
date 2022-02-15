@@ -8,7 +8,11 @@ import Icon from 'react-native-vector-icons/Feather';
 import {CustomDrawer} from '../components';
 import {api} from '../network';
 import {utils} from '../utils';
-import {VIR_MyCourses} from '../screens';
+import {
+  VIR_MyCourses,
+  VIR_NotificationScreen,
+  VIR_SettingsScreen,
+} from '../screens';
 
 const Drawer = createDrawerNavigator();
 
@@ -51,6 +55,13 @@ const DrawerIcons = {
 };
 
 const DrawerNavigator = ({navigation}) => {
+  const goToCreateNewPassword = authToken => {
+    navigation.navigate(
+      NAVIGATION_ROUTES.CREATE_NEW_PASSWORD_SCREEN,
+      authToken,
+    );
+  };
+
   useEffect(() => {
     const getUserData = async () => {
       try {
@@ -72,10 +83,17 @@ const DrawerNavigator = ({navigation}) => {
       routes: [{name: NAVIGATION_ROUTES.LANDING_SCREEN}],
     });
   };
+  const goToSearchScreen = () => {
+    navigation.navigate(NAVIGATION_ROUTES.SEARCH_SCREEN);
+  };
+  const goToNextScreen = data => {
+    navigation.navigate(NAVIGATION_ROUTES.PRIVACY_AND_TERMS_SCREEN, data);
+  };
+  const gotoCourseDetailsScreen = courseId => {
+    navigation.navigate(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {courseId});
+  };
   return (
     <Drawer.Navigator
-      // initialRouteName="Home"
-
       drawerContent={props => <CustomDrawer logoutPress={logout} {...props} />}
       screenOptions={{
         headerShown: false,
@@ -88,26 +106,66 @@ const DrawerNavigator = ({navigation}) => {
       }}>
       <Drawer.Screen
         name={NAVIGATION_ROUTES.HOME_STACK}
-        component={HomeStackNavigator}
         options={{
           drawerIcon: DrawerIcons.home,
           drawerLabel: 'Home',
-        }}
-      />
+        }}>
+        {props => (
+          <HomeStackNavigator
+            {...props}
+            goToSearchScreen={goToSearchScreen}
+            gotoCourseDetailsScreen={gotoCourseDetailsScreen}
+          />
+        )}
+      </Drawer.Screen>
+
       <Drawer.Screen
         name={NAVIGATION_ROUTES.MY_COURSES}
-        component={VIR_MyCourses}
         options={{
           drawerIcon: DrawerIcons.myCourse,
           drawerLabel: 'My Courses',
-        }}
-      />
+        }}>
+        {props => (
+          <VIR_MyCourses
+            {...props}
+            goToSearchScreen={goToSearchScreen}
+            gotoCourseDetailsScreen={gotoCourseDetailsScreen}
+          />
+        )}
+      </Drawer.Screen>
       <Drawer.Screen
         name={NAVIGATION_ROUTES.PROFILE_STACK}
-        component={ProfileStackNavigator}
         options={{
           drawerIcon: DrawerIcons.profile,
           drawerLabel: 'Profile',
+          swipeEnabled: false,
+        }}>
+        {props => (
+          <ProfileStackNavigator
+            {...props}
+            goToCreateNewPassword={goToCreateNewPassword}
+          />
+        )}
+      </Drawer.Screen>
+
+      <Drawer.Screen
+        name={NAVIGATION_ROUTES.SETTINGS_SCREEN}
+        options={{
+          drawerIcon: DrawerIcons.settings,
+          drawerLabel: 'Settings',
+          swipeEnabled: false,
+        }}>
+        {props => (
+          <VIR_SettingsScreen {...props} goToNextScreen={goToNextScreen} />
+        )}
+      </Drawer.Screen>
+      <Drawer.Screen
+        name={NAVIGATION_ROUTES.NOTIFICATION_SCREEN}
+        component={VIR_NotificationScreen}
+        options={{
+          drawerIcon: DrawerIcons.notifications,
+          drawerLabel: 'Notifications',
+          swipeEnabled: false,
         }}
       />
     </Drawer.Navigator>
