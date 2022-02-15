@@ -5,6 +5,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  useWindowDimensions,
 } from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -55,18 +56,18 @@ const data = [
   },
 ];
 
-const ResultOptions = ({item}) => {
+const ResultOptions = ({item, onPressCard}) => {
   return (
     <TouchableOpacity onPress={() => onPressCard(item)}>
       <View style={styles.resultCardContainer}>
         <View style={styles.resultView}>
-          <Text style={styles.question}>Question{item.order}</Text>
+          <Text style={styles.question}>Question{item?.order}</Text>
           <Text
             style={[
               styles.answer,
-              item.type === 'Wrong' && {color: colors.inputTextWrongBorder},
+              item?.type === 'Wrong' && {color: colors.inputTextWrongBorder},
             ]}>
-            {item.type === 'Correct' ? 'Correct Answer' : 'Wrong Answer'}
+            {item?.type === 'Correct' ? 'Correct Answer' : 'Wrong Answer'}
           </Text>
         </View>
         <Image source={images.result.showAns} style={styles.showIcon} />
@@ -78,6 +79,9 @@ const ResultOptions = ({item}) => {
 const VIR_ResultScreen = ({navigation}) => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(null);
+  const {height, width} = useWindowDimensions();
+  const portrait = height > width;
+
   const onBackPress = () => {
     navigation.goBack();
   };
@@ -148,7 +152,9 @@ const VIR_ResultScreen = ({navigation}) => {
       <View style={styles.qsnView}>
         <Text style={styles.subHeading}>List of Questions</Text>
         {data.map((item, index) => {
-          return <ResultOptions item={item} key={index} />;
+          return (
+            <ResultOptions item={item} key={index} onPressCard={onPressCard} />
+          );
         })}
         {modalData && (
           <ResultModal
@@ -168,10 +174,14 @@ const VIR_ResultScreen = ({navigation}) => {
       bounces={false}
       showsVerticalScrollIndicator={false}>
       {renderTopHeaderPart()}
-      <View style={styles.viewContainer}>
-        {renderResultCountCard()}
-        {renderListOfQuestions()}
-      </View>
+      <SafeAreaView
+        edges={['left', 'right']}
+        style={styles.viewContainer(width)}>
+        <View>
+          {renderResultCountCard()}
+          {renderListOfQuestions()}
+        </View>
+      </SafeAreaView>
     </ScrollView>
   );
 };
@@ -182,6 +192,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.background,
   },
+  viewContainer: width => ({
+    width: width,
+  }),
   safeAreaContainer: {
     backgroundColor: colors.phoneNumberActive,
   },
@@ -244,7 +257,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 6,
     position: 'relative',
-    top: '-10%',
+    top: -40,
     shadowColor: colors.cardShadow,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 3,

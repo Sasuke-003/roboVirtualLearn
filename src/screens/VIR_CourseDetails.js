@@ -7,10 +7,11 @@ import {
   ImageBackground,
   ActivityIndicator,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Overview, Chapters} from '../components';
+import {Overview, Chapters, RectangleButton} from '../components';
 import {images, colors, strings, fonts} from '../assets';
 import {getUserDetails} from '../redux/reducers/userReducer';
 import {useSelector, useDispatch} from 'react-redux';
@@ -41,7 +42,7 @@ const VIR_CourseDetails = ({
         const {
           data: {data},
         } = await api.course.getCourseDetails(courseId);
-        console.log(JSON.stringify(data, null, 2));
+        // console.log(JSON.stringify(data, null, 2));
         setIsLoading(false);
         setCourseData(data);
       } catch (error) {
@@ -134,8 +135,17 @@ const VIR_CourseDetails = ({
       {renderHeader()}
       <View style={styles.tabContainer}>
         {renderTabBar()}
-        {tabName === TABS.CHAPTERS ? <Chapters /> : <Overview />}
+        {tabName === TABS.CHAPTERS ? (
+          <Chapters />
+        ) : (
+          <Overview data={courseData.overview} />
+        )}
       </View>
+      <RectangleButton
+        name="Join Course"
+        btnStyles={styles.btnStyles}
+        textStyles={styles.textStyles}
+      />
     </ScrollView>
   );
 };
@@ -210,5 +220,19 @@ const styles = StyleSheet.create({
   },
   tabBtnTextActive: {
     color: colors.primary,
+  },
+  btnStyles: {
+    backgroundColor: colors.primary,
+    width: '100%',
+    borderRadius: 0,
+    height: Platform.OS === 'ios' && 60,
+    paddingBottom: Platform.OS === 'ios' ? 10 : 0,
+  },
+  textStyles: {
+    color: colors.background,
+    fontFamily: fonts.sFnSDisplayRegular,
+    fontSize: 16,
+    lineHeight: 20,
+    textAlign: 'center',
   },
 });

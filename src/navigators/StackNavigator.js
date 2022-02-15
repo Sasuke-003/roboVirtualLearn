@@ -39,12 +39,12 @@ const StackNavigator = () => {
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={
-        NAVIGATION_ROUTES.RESULT_SCREEN
-        // authToken === ''
-        //   ? isNewInstallation
-        //     ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
-        //     : NAVIGATION_ROUTES.LANDING_SCREEN
-        //   : NAVIGATION_ROUTES.DRAWER_NAVIGATOR
+        // NAVIGATION_ROUTES.RESULT_SCREEN
+        authToken === ''
+          ? isNewInstallation
+            ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
+            : NAVIGATION_ROUTES.LANDING_SCREEN
+          : NAVIGATION_ROUTES.DRAWER_NAVIGATOR
       }
       //initialRouteName={NAVIGATION_ROUTES.SEARCH_SCREEN}
     >

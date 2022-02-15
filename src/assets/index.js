@@ -91,4 +91,8 @@ export const images = {
     wrongAns: require('./images/icn_optionWrong3x.png'),
     closeModal: require('./images/icn_close_showAnswer3x.png'),
   },
+  overview: {
+    play: require('./images/playIcon3x.png'),
+    rightArrow: require('./images/playRightIcon.png'),
+  },
 };

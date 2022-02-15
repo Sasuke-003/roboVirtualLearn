@@ -6,12 +6,17 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  useWindowDimensions,
 } from 'react-native';
 import React from 'react';
 import {colors, fonts, images, strings} from '../assets';
 import Modal from 'react-native-modal';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const ResultModal = ({showModal, setShowModal, data, setModalData}) => {
+  const {height, width} = useWindowDimensions();
+  const portrait = height > width;
+
   const onCancel = () => {
     setShowModal(false);
     setModalData(null);
@@ -20,7 +25,7 @@ const ResultModal = ({showModal, setShowModal, data, setModalData}) => {
   const renderHeader = () => {
     return (
       <View style={styles.headerView}>
-        <Text style={styles.title}>Question{data.order}</Text>
+        <Text style={styles.title}>Question{data?.order}</Text>
         <TouchableOpacity onPress={onCancel}>
           <Image source={images.result.closeModal} style={styles.closeIcon} />
         </TouchableOpacity>
@@ -30,14 +35,20 @@ const ResultModal = ({showModal, setShowModal, data, setModalData}) => {
   const renderAnwerCorrectCase = (item, index) => {
     return (
       <View
-        style={[styles.option, item === data.userAnswer && styles.correct]}
+        style={[styles.option, item === data?.userAnswer && styles.correct]}
         key={index}>
-        {item === data.userAnswer ? (
+        {item === data?.userAnswer ? (
           <Image source={images.result.checked} style={styles.checked} />
         ) : (
           <View style={styles.optionButton}></View>
         )}
-        <Text style={styles.optionText}>{item}</Text>
+        <Text
+          style={[
+            styles.optionText,
+            item === data?.userAnswer && styles.textChange,
+          ]}>
+          {item}
+        </Text>
       </View>
     );
   };
@@ -47,25 +58,33 @@ const ResultModal = ({showModal, setShowModal, data, setModalData}) => {
       <View
         style={[
           styles.option,
-          item === data.answer && styles.correct,
-          item === data.userAnswer && styles.wrong,
+          item === data?.answer && styles.correct,
+          item === data?.userAnswer && styles.wrong,
         ]}
         key={index}>
-        {item === data.answer ? (
+        {item === data?.answer ? (
           <Image source={images.result.checked} style={styles.checked} />
-        ) : item === data.userAnswer ? (
+        ) : item === data?.userAnswer ? (
           <Image source={images.result.wrongAns} style={styles.checked} />
         ) : (
           <View style={styles.optionButton}></View>
         )}
-        <Text style={styles.optionText}>{item}</Text>
+        <Text
+          style={[
+            styles.optionText,
+            item === data?.answer || item === data?.userAnswer
+              ? styles.textChange
+              : null,
+          ]}>
+          {item}
+        </Text>
       </View>
     );
   };
 
   const renderAnswerType = () => {
     return (
-      <Text style={[styles.answer, data.type === 'Wrong' && styles.wrongText]}>
+      <Text style={[styles.answer, data?.type === 'Wrong' && styles.wrongText]}>
         {data.type === 'Correct' ? 'Correct Answer' : 'Wrong Answer'}
       </Text>
     );
@@ -79,19 +98,21 @@ const ResultModal = ({showModal, setShowModal, data, setModalData}) => {
       onBackButtonPress={onCancel}
       backdropColor={colors.modalBg}
       style={{margin: 0, justifyContent: 'flex-end'}}>
-      <View style={styles.modalContainer}>
+      <SafeAreaView
+        style={styles.modalContainer(portrait)}
+        edges={['left', 'right']}>
         {renderHeader()}
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={styles.question}>{data.question}</Text>
-          {data.options.map((item, index) => {
-            return data.type === 'Correct'
+          <Text style={styles.question}>{data?.question}</Text>
+          {data?.options?.map((item, index) => {
+            return data?.type === 'Correct'
               ? renderAnwerCorrectCase(item, index)
               : renderAnwerWrongCase(item, index);
           })}
 
           {renderAnswerType()}
         </ScrollView>
-      </View>
+      </SafeAreaView>
     </Modal>
   );
 };
@@ -99,12 +120,12 @@ const ResultModal = ({showModal, setShowModal, data, setModalData}) => {
 export default ResultModal;
 
 const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 0.618,
+  modalContainer: portrait => ({
+    flex: portrait ? 0.618 : 0.8,
     backgroundColor: colors.background,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-  },
+  }),
   headerView: {
     width: '100%',
     flexDirection: 'row',
@@ -131,7 +152,7 @@ const styles = StyleSheet.create({
     marginRight: 37,
     color: colors.primaryText,
     fontFamily: fonts.proximaNovaBold,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     lineHeight: 22,
     marginBottom: 40,
@@ -187,5 +208,8 @@ const styles = StyleSheet.create({
   },
   wrongText: {
     color: colors.inputTextWrongBorder,
+  },
+  textChange: {
+    color: colors.background,
   },
 });
