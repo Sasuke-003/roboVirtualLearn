@@ -66,9 +66,9 @@ const DrawerNavigator = ({navigation}) => {
     const getUserData = async () => {
       try {
         const {data} = await api.course.getUserDetails();
+
         utils.saveUserDetails(data);
       } catch (error) {
-        console.warn(error);
         logout();
       }
     };
@@ -89,6 +89,9 @@ const DrawerNavigator = ({navigation}) => {
   const goToNextScreen = data => {
     navigation.navigate(NAVIGATION_ROUTES.PRIVACY_AND_TERMS_SCREEN, data);
   };
+  const gotoCourseDetailsScreen = courseId => {
+    navigation.navigate(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {courseId});
+  };
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer logoutPress={logout} {...props} />}
@@ -108,7 +111,11 @@ const DrawerNavigator = ({navigation}) => {
           drawerLabel: 'Home',
         }}>
         {props => (
-          <HomeStackNavigator {...props} goToSearchScreen={goToSearchScreen} />
+          <HomeStackNavigator
+            {...props}
+            goToSearchScreen={goToSearchScreen}
+            gotoCourseDetailsScreen={gotoCourseDetailsScreen}
+          />
         )}
       </Drawer.Screen>
 
@@ -119,7 +126,11 @@ const DrawerNavigator = ({navigation}) => {
           drawerLabel: 'My Courses',
         }}>
         {props => (
-          <VIR_MyCourses {...props} goToSearchScreen={goToSearchScreen} />
+          <VIR_MyCourses
+            {...props}
+            goToSearchScreen={goToSearchScreen}
+            gotoCourseDetailsScreen={gotoCourseDetailsScreen}
+          />
         )}
       </Drawer.Screen>
       <Drawer.Screen

@@ -1,4 +1,5 @@
 import {showErrorMessage, showSuccessMessage} from './popup';
+import {getHoursMinutesFromMinutes} from './date';
 import {
   validateEmail,
   validateUserName,
@@ -23,6 +24,7 @@ export const utils = {
   setAuthToken,
   clearAuthToken,
   saveUserDetails,
+  getHoursMinutesFromMinutes,
   getAuthToken,
   toTitleCase,
   isValidTwitterLink,

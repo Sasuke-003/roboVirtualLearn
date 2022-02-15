@@ -24,7 +24,7 @@ const Course = props => {
     );
   };
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => props.gotoCourseDetailsScreen(props._id)}>
       <View style={styles.list}>
         <View style={styles.imageContainer}>
           <Image source={{uri: props.image}} style={styles.image} />
@@ -43,7 +43,12 @@ const Course = props => {
   );
 };
 
-const Courses = props => {
+const Courses = ({
+  category = '',
+  text,
+  scrollEnabled = true,
+  gotoCourseDetailsScreen,
+}) => {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchedList, setSearchedList] = useState([]);
@@ -53,7 +58,10 @@ const Courses = props => {
     const getCourses = async () => {
       try {
         setIsLoading(true);
-        const response = await api.course.getAllCourses();
+        const response =
+          category.length > 0
+            ? await api.course.getAllCoursesFromACategory(category)
+            : await api.course.getAllCourses();
         if (response.status === 200) {
           setCourses(response.data.courses);
           setIsLoading(false);
@@ -73,10 +81,10 @@ const Courses = props => {
   useEffect(() => {
     setSearchedList(
       courses.filter(course => {
-        return course.name.toLowerCase().includes(props.text.toLowerCase());
+        return course.name.toLowerCase().includes(text.toLowerCase());
       }),
     );
-  }, [props.text, courses]);
+  }, [text, courses]);
 
   const renderSearchResult = () => {
     return (
@@ -89,6 +97,8 @@ const Courses = props => {
     return (
       <View style={styles.listContainer}>
         <FlatList
+          scrollEnabled={scrollEnabled}
+          bounces={scrollEnabled}
           data={filteredCourses.length > 0 ? filteredCourses : searchedList}
           keyExtractor={(item, index) => item._id}
           showsVerticalScrollIndicator={false}
@@ -98,6 +108,8 @@ const Courses = props => {
               image={item.courseImageUrl}
               chapters={item.courseContent.chapter}
               category={item.category.name}
+              _id={item._id}
+              gotoCourseDetailsScreen={gotoCourseDetailsScreen}
             />
           )}
         />

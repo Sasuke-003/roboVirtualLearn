@@ -8,15 +8,24 @@ const config = () => {
 };
 
 export const course = {
-  getUserDetails: async () => {
-    return await virtualLearn.get(URL.course.getUserDetails, config());
-  },
-  getAllCategories: async () => {
-    return await virtualLearn.get(URL.course.getAllCategories);
-  },
-  getAllCourses: async () => {
-    return await virtualLearn.get(URL.course.getAllCourses);
-  },
+  getUserDetails: async () =>
+    await virtualLearn.get(URL.course.getUserDetails, config()),
+  getAllOffers: async () =>
+    await virtualLearn.get(URL.course.getAllOffers, config()),
+  getAllCategories: async () =>
+    await virtualLearn.get(URL.course.getAllCategories),
+  getAllCourses: async () => await virtualLearn.get(URL.course.getAllCourses),
+  getTopSearchedCategories: async () =>
+    await virtualLearn.get(URL.course.getTopSearchedCategories),
+  getAllCoursesFromACategory: async categoryName =>
+    await virtualLearn.post(URL.course.getAllCoursesFromACategory, {
+      name: categoryName,
+    }),
+  getTopCoursesFromACategory: async categoryId =>
+    await virtualLearn.post(URL.course.getTopCoursesFromACategory, {
+      category: categoryId,
+    }),
+
   getNotification: async () => {
     return await virtualLearn.get(URL.notification.getNotification, config());
   },
@@ -40,4 +49,6 @@ export const course = {
   getEnrolledCourses: async () => {
     return await virtualLearn.get(URL.course.getEnrolledCourses, config());
   },
+  getCourseDetails: async id =>
+    await virtualLearn.post(URL.course.getCourseDetails, {id}, config()),
 };

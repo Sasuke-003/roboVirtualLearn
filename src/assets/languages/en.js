@@ -133,6 +133,20 @@ export default en = {
   },
   homeScreen: {
     hello: 'Hello!',
+    seeAll: 'See All',
+    categories: 'Categories',
+    choiceYourCourse: 'Choice your course',
+    sortTypeAll: 'All',
+    sortTypePopular: 'Popular',
+    sortTypeNewest: 'Newest',
+  },
+  categoriesScreen: {
+    title: 'Categories',
+    description: 'Please choose a topic on which you want to start a course.',
+  },
+  categoryCoursesScreen: {
+    getYouStarted: 'Courses to get you started',
+    featuredCourses: 'FeaturedCourses',
   },
   profileScreen: {
     title: 'Profile',
@@ -198,5 +212,9 @@ export default en = {
   },
   notification: {
     title: 'Notifications',
+  },
+  courseDetailsSCreen: {
+    overViewTabName: 'Overview',
+    chaptersTabName: 'Chapters',
   },
 };
