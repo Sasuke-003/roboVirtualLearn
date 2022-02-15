@@ -108,7 +108,7 @@ const Courses = ({
               image={item.courseImageUrl}
               chapters={item.courseContent.chapter}
               category={item.category.name}
-              _id={item.category._id}
+              _id={item._id}
               gotoCourseDetailsScreen={gotoCourseDetailsScreen}
             />
           )}
