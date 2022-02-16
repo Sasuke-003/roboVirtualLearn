@@ -16,6 +16,7 @@ import {
   VIR_PrivacyPolicyAndTerms,
   VIR_ResultScreen,
   VIR_CourseDetails,
+  VIR_VidioPlayer,
 } from '../screens';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -128,6 +129,10 @@ const StackNavigator = () => {
         initialParams={{
           courseId: '',
         }}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.VIDIO_PLAYER}
+        component={VIR_VidioPlayer}
       />
     </Stack.Navigator>
   );

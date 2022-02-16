@@ -18,7 +18,9 @@
     "getSearchFilter": "/api/v1/searches/getcoursebymultiplefilters",
     "getTopSearches": "/api/v1/searches/topcategories",
     "getEnrolledCourses": "/api/v1/users/getenrolledcourses",
-    "getCourseDetails": "/api/v1/searches/id"
+    "getCourseDetails": "/api/v1/searches/id",
+    "enroll": "/api/v1/users/enroll",
+    "getCourseProgress": "/api/v1/users/getcourseprogress"
   },
   "profile": {
     "changePassword": "/api/v1/users/changepassword/oldpassword",

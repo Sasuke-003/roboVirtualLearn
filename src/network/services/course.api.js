@@ -51,4 +51,15 @@ export const course = {
   },
   getCourseDetails: async id =>
     await virtualLearn.post(URL.course.getCourseDetails, {id}, config()),
+
+  enroll: async courseID => {
+    return await virtualLearn.post(URL.course.enroll, {courseID}, config());
+  },
+  getCourseProgress: async courseID => {
+    return await virtualLearn.post(
+      URL.course.getCourseProgress,
+      {courseID},
+      config(),
+    );
+  },
 };

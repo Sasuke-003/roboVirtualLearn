@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Platform,
+  useWindowDimensions,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -19,6 +20,7 @@ import {api} from '../network';
 import {NAVIGATION_ROUTES} from '../constants';
 import {CourseDetailsTabNavigator} from '../navigators';
 import {TabBar} from 'react-native-tab-view';
+import {utils} from '../utils';
 
 const TABS = {
   OVERVIEW: 'Overview',
@@ -34,6 +36,11 @@ const VIR_CourseDetails = ({
   const [courseData, setCourseData] = useState({});
   const [tabName, setTabName] = useState(TABS.OVERVIEW);
   const [isLoading, setIsLoading] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [HideJoinCourseBtn, setHideJoinCourseBtn] = useState(false);
+  const {height, width} = useWindowDimensions();
+
+  console.log(courseId);
   useEffect(() => {
     setIsLoading(true);
     const getCourseData = async () => {
@@ -51,7 +58,16 @@ const VIR_CourseDetails = ({
         setCourseData([]);
       }
     };
+    const getProgress = async () => {
+      try {
+        const progress = await api.course.getCourseProgress(courseId);
+        progress.status === 200 && setHideJoinCourseBtn(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getCourseData();
+    getProgress();
   }, []);
 
   const loadingComponent = () => (
@@ -125,6 +141,25 @@ const VIR_CourseDetails = ({
     </View>
   );
 
+  const onPressIntro = url => {
+    navigation.navigate(NAVIGATION_ROUTES.VIDIO_PLAYER, url);
+  };
+
+  const onPressJoinCourse = async () => {
+    setIsButtonDisabled(true);
+    try {
+      const response = await api.course.enroll(courseId);
+      if (response.status === 200) {
+        utils.showSuccessMessage(response.data.message);
+        setTabName(TABS.CHAPTERS);
+        setIsButtonDisabled(false);
+      }
+    } catch (e) {
+      utils.showErrorMessage(e.response.data.message);
+      setIsButtonDisabled(false);
+    }
+  };
+
   return isLoading ? (
     loadingComponent()
   ) : (
@@ -133,19 +168,24 @@ const VIR_CourseDetails = ({
       showsVerticalScrollIndicator={false}
       bounces={false}>
       {renderHeader()}
-      <View style={styles.tabContainer}>
+      <View
+        style={[styles.tabContainer, HideJoinCourseBtn && {paddingBottom: 30}]}>
         {renderTabBar()}
         {tabName === TABS.CHAPTERS ? (
           <Chapters />
         ) : (
-          <Overview data={courseData.overview} />
+          <Overview data={courseData.overview} onPressIntro={onPressIntro} />
         )}
       </View>
-      <RectangleButton
-        name="Join Course"
-        btnStyles={styles.btnStyles}
-        textStyles={styles.textStyles}
-      />
+      {!HideJoinCourseBtn && (
+        <RectangleButton
+          name="Join Course"
+          btnStyles={styles.btnStyles}
+          textStyles={styles.textStyles}
+          onPress={onPressJoinCourse}
+          isDisabled={isButtonDisabled}
+        />
+      )}
     </ScrollView>
   );
 };

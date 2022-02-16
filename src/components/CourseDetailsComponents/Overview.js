@@ -12,7 +12,7 @@ import {colors, fonts, images} from '../../assets';
 import {RectangleButton, ShowMore} from '..';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-const Overview = ({data}) => {
+const Overview = ({data, onPressIntro}) => {
   const {height, width} = useWindowDimensions();
   const portrait = height > width;
 
@@ -25,7 +25,8 @@ const Overview = ({data}) => {
       <>
         <Text style={styles.previewTitle}>Preview this course</Text>
         <View style={styles.previewContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => onPressIntro({url: data.previewVideoUrl})}>
             <ImageBackground
               source={{uri: data?.previewVideoThumbnail}}
               style={styles.imageBg}>
