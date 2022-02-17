@@ -15,22 +15,29 @@ import {
 } from '../redux/reducers/filterSearchReducer';
 import {images, strings, fonts, colors} from '../assets';
 import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/core';
+import {NAVIGATION_ROUTES} from '../constants';
 
 const Category = props => {
+  const navigation = useNavigation();
   const categories = useSelector(getCategory);
   const dispatch = useDispatch();
   const index = categories.findIndex(value => value === props.id);
   const isSelected = index >= 0 ? true : false;
-  const onPressCatgeory = () => {
+
+  const onPressCatgeory = (categoryName, categoryId) => {
     if (props.isModal === true) {
       dispatch(setCategories(props.id));
     } else {
-      return;
+      navigation.navigate(NAVIGATION_ROUTES.CATEGORY_COURSES_SCREEN, {
+        categoryName,
+        categoryId,
+      });
     }
   };
 
   return (
-    <TouchableOpacity onPress={onPressCatgeory}>
+    <TouchableOpacity onPress={() => onPressCatgeory(props.name, props.id)}>
       <View
         style={[
           styles.category,

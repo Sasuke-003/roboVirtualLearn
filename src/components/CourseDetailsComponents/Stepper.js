@@ -10,9 +10,11 @@ import {
 } from 'react-native';
 import React from 'react';
 import StepIndicator from 'react-native-step-indicator';
+import {useNavigation} from '@react-navigation/native';
 import {strings, fonts, images, colors} from '../../assets';
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Entypo';
+import {NAVIGATION_ROUTES} from '../../constants';
 
 const customStyles = {
   stepIndicatorSize: 25,
@@ -47,12 +49,15 @@ const StepCard = ({
   questionData,
   isEnrolled,
   chapterNumber,
+  onPressIntro,
+  gotoTest,
 }) => {
   const name = isQuestion ? questionData.questionName : lessons[position].name;
   const time = isQuestion
     ? questionData.timeDuration
     : lessons[position].timeDuration;
-  return (
+
+  const stepCard = () => (
     <View
       style={[
         styles.stepCardContainer,
@@ -66,7 +71,7 @@ const StepCard = ({
               : '0' + lessons[position].order}
           </Text>
         ) : (
-          <Image source={images.moduleTest} style={styles.testIcon} />
+          <Image source={images.testIcon} style={styles.testIcon} />
         )}
 
         <View>
@@ -81,7 +86,8 @@ const StepCard = ({
         </View>
       </View>
       {!isQuestion && (
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => onPressIntro({url: lessons[position].url})}>
           <Image
             source={
               !isEnrolled
@@ -98,6 +104,14 @@ const StepCard = ({
       )}
     </View>
   );
+
+  return isEnrolled && isQuestion ? (
+    <TouchableOpacity onPress={() => gotoTest(questionData)}>
+      {stepCard()}
+    </TouchableOpacity>
+  ) : (
+    stepCard()
+  );
 };
 
 const LessonCardNotEnrolled = ({
@@ -106,6 +120,7 @@ const LessonCardNotEnrolled = ({
   questionData,
   isEnrolled,
   chapterNumber,
+  onPressIntro,
 }) => {
   return (
     <View>
@@ -119,13 +134,26 @@ const LessonCardNotEnrolled = ({
           questionData={questionData}
           isEnrolled={isEnrolled}
           chapterNumber={chapterNumber}
+          onPressIntro={onPressIntro}
         />
       ))}
     </View>
   );
 };
 
-const Stepper = ({chapter, isEnrolled = false, ...props}) => {
+const Stepper = ({
+  chapter,
+  isEnrolled = true,
+  onPressIntro,
+  courseId,
+  courseName,
+  ...props
+}) => {
+  const navigation = useNavigation();
+
+  const gotoTest = data => {
+    navigation.navigate(NAVIGATION_ROUTES.MODULE_TEST_SCREEN, {data});
+  };
   const lessons = chapter.videos[0].videoID
     .slice()
     .sort((a, b) => a.order - b.order);
@@ -133,6 +161,8 @@ const Stepper = ({chapter, isEnrolled = false, ...props}) => {
     chapter['questionnaire'] === undefined
       ? null
       : {
+          courseID: courseId,
+          courseName: courseName,
           chapterNumber: chapter.order,
           chapterName: chapter.name,
           chapterId: chapter._id,
@@ -140,11 +170,8 @@ const Stepper = ({chapter, isEnrolled = false, ...props}) => {
           questionName: Array.isArray(chapter.questionnaire.questionID)
             ? chapter.questionnaire.questionID[0].name
             : chapter.questionnaire.questionID.name,
-          totalNumberOfQuestions: Array.isArray(
-            chapter.questionnaire.questionID,
-          )
-            ? chapter.questionnaire.questionID[0].totalNumberOfQuestions
-            : chapter.questionnaire.questionID.totalNumberOfQuestions,
+          totalNumberOfQuestions:
+            chapter.questionnaire.questionID.numberOfQuestions,
           timeDuration: Array.isArray(chapter.questionnaire.questionID)
             ? chapter.questionnaire.questionID[0].timeDuration
             : chapter.questionnaire.questionID.timeDuration,
@@ -159,6 +186,7 @@ const Stepper = ({chapter, isEnrolled = false, ...props}) => {
       questionData={questionData}
       isEnrolled={isEnrolled}
       chapterNumber={chapter.order}
+      onPressIntro={onPressIntro}
     />
   ) : (
     <StepIndicator
@@ -181,6 +209,8 @@ const Stepper = ({chapter, isEnrolled = false, ...props}) => {
           isQuestion={questionData ? position === lessons.length : false}
           questionData={questionData}
           isEnrolled={isEnrolled}
+          onPressIntro={onPressIntro}
+          gotoTest={gotoTest}
         />
       )}
       renderStepIndicator={({position}) =>
@@ -213,7 +243,12 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
   },
-  testIcon: {height: 34, width: 24, marginRight: 21, marginLeft: 7},
+  testIcon: {
+    height: 34,
+    width: 24,
+    marginRight: 21,
+    marginLeft: 7,
+  },
   lessonDetailsContainer: {
     flexDirection: 'row',
     // width: '85%',

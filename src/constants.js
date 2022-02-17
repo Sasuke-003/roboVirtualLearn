@@ -33,9 +33,12 @@ export const NAVIGATION_ROUTES = {
   PRIVACY_AND_TERMS_SCREEN: 'privacyAndTerms',
   TERMS_SCREEN: 'termsAndSerice',
   NOTIFICATION_SCREEN: 'notification',
+  MODULE_TEST_SCREEN: 'ModuleTest',
+  RESULT_SCREEN: 'result',
 
   COURSE_DETAILS_SCREEN: 'courseDetailsScreen',
 
   COURSE_DETAILS_OVERVIEW_TAB: 'courseDetailsOverviewTab',
   COURSE_DETAILS_CHAPTERS_TAB: 'courseDetailsChaptersTab',
+  VIDIO_PLAYER: 'vidioPlayer',
 };

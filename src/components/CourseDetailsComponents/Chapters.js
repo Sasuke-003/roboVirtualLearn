@@ -5,7 +5,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 import Stepper from './Stepper';
 
-const ChapterContent = ({chapter}) => {
+const ChapterContent = ({chapter, onPressIntro, courseId, courseName}) => {
   const [showContent, setShowContent] = useState(false);
   const [position, setPosition] = useState(-1);
 
@@ -24,12 +24,20 @@ const ChapterContent = ({chapter}) => {
   return (
     <View style={styles.chapterContainer}>
       {renderTitle()}
-      {showContent && <Stepper position={position} chapter={chapter} />}
+      {showContent && (
+        <Stepper
+          position={position}
+          chapter={chapter}
+          onPressIntro={onPressIntro}
+          courseId={courseId}
+          courseName={courseName}
+        />
+      )}
     </View>
   );
 };
 
-const Chapters = ({course}) => {
+const Chapters = ({course, onPressIntro}) => {
   const renderCourseContent = () => (
     <View style={styles.courseContentContainer}>
       <Text style={styles.courseContentTitle}>
@@ -57,7 +65,13 @@ const Chapters = ({course}) => {
       {renderCourseContent()}
       <View style={styles.courseContentsContainer}>
         {chapters.map((chapter, index) => (
-          <ChapterContent key={index} chapter={chapter.chapterID} />
+          <ChapterContent
+            key={index}
+            chapter={chapter.chapterID}
+            onPressIntro={onPressIntro}
+            courseId={course?._id}
+            courseName={course?.name}
+          />
         ))}
       </View>
     </View>

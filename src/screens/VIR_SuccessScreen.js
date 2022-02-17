@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   message: {
     color: colors.secondaryText,
     fontFamily: fonts.proximaNovaRegular,
-    fontSize: 18,
+    fontSize: 16,
     letterSpacing: 0,
     lineHeight: 25,
     textAlign: 'center',

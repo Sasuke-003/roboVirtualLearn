@@ -31,13 +31,16 @@ export const colors = {
   cardBg: '#FEFEFF',
   cardShadow: 'rgba(0,0,0,0.15)',
   dobText: '#72727290',
-  modalBg: 'rgba(0,0,0,0.4)',
+  modalBg: 'rgba(0,0,0,0.6)',
   seperator: '#00000080',
   categoryBackground: '#FCBE4B',
 
   switchFalse: '#767577',
   switchTrue: '#1EAB0D',
   notificationBg: '#F0F6FB',
+
+  optionButton: '#7A7A7A08',
+  optionBorder: '#C5C5C5',
   courseDetailBg: 'rgba(42,41,46,0.5)',
 
   stepCardBgColor: '#F9F9F9',

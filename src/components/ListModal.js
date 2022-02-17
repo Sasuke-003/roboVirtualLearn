@@ -2,19 +2,21 @@ import {
   StyleSheet,
   Text,
   View,
-  Modal,
+  // Modal,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import {colors, fonts, images, strings} from '../assets';
-
+import Modal from 'react-native-modal';
 const ListModal = ({showModal, setShowModal, data, onPressSelectionList}) => {
   return (
     <Modal
-      visible={showModal}
-      transparent
-      onRequestClose={() => setShowModal(false)}>
+      isVisible={showModal}
+      hasBackdrop={true}
+      onBackdropPress={() => setShowModal(false)}
+      onBackButtonPress={() => setShowModal(false)}
+      backdropColor={colors.modalBg}>
       <View style={styles.modalContainer}>
         <View style={styles.dataContainer}>
           <FlatList
@@ -46,10 +48,8 @@ export default ListModal;
 
 const styles = StyleSheet.create({
   modalContainer: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.modalBg,
   },
   dataContainer: {
     backgroundColor: colors.background,
