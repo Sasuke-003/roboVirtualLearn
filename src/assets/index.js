@@ -28,7 +28,9 @@ export const images = {
   homeIcon: require('./images/logoutIcon3x.png'),
   hamburgerMenuIcon: require('./images/hamburgerMenuIcon3x.png'),
   searchIcon: require('./images/searchIcon3x.png'),
+  playButton: require('./images/playButton3x.png'),
   dropdown: require('./images/dropdown3x.png'),
+  closeIcon: require('./images/closeIcon3x.png'),
   newAccountScreen: {
     googleIcon: require('./images/googleIcon3x.png'),
     facebookIcon: require('./images/facebook3x.png'),
@@ -85,5 +87,16 @@ export const images = {
   moduleTest: {
     optionChecked: require('./images/optionChecked.png'),
     success: require('./images/moduleTestSuccess.png'),
+  },
+  result: {
+    closeIcon: require('./images/icn_close_white3x.png'),
+    showAns: require('./images/icn_show_answer3x.png'),
+    checked: require('./images/icn_optionChecked3x.png'),
+    wrongAns: require('./images/icn_optionWrong3x.png'),
+    closeModal: require('./images/icn_close_showAnswer3x.png'),
+  },
+  overview: {
+    play: require('./images/playIcon3x.png'),
+    rightArrow: require('./images/playRightIcon.png'),
   },
 };

@@ -26,6 +26,8 @@ import DatePicker from 'react-native-date-picker';
 import {RectangleButton} from '../components';
 import {ListModal} from '../components';
 import ImagePicker from 'react-native-image-crop-picker';
+// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+// import RNFS from 'react-native-fs';
 import {api} from '../network';
 import moment from 'moment';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -257,6 +259,46 @@ const VIR_ProfileEditScreen = ({navigation}) => {
     }
   };
 
+  /******************************************** */
+  // const onPressImageUpload = async () => {
+  //   let options = {
+  //     storageOptions: {
+  //       skipBackup: true,
+  //       path: 'images',
+  //     },
+  //     includeBase64: true,
+  //   };
+  //   try {
+  //     const image = await launchImageLibrary(options);
+  //     if (image) {
+  //       // setProfileImage(image.path); //TODO: incomplete, pending to send image to api
+  //       // console.log(image);
+  //       // const formData = new FormData();
+  //       // formData.append('image', {
+  //       //   uri: image.assets[0].uri,
+  //       //   name: 'image.jpg',
+  //       //   type: 'image/jpg',
+  //       // });
+  //       // console.log('FormData', formData);
+  //       const res = await RNFS.readFile(image.assets[0].uri, 'base64');
+  //       console.log(res);
+  //       utils.saveUserDetails({
+  //         data: {
+  //           ...userDetails.data,
+  //           image: image.path,
+  //         },
+  //         hasCompleted: {...userDetails.hasCompleted},
+  //       });
+  //       const response = await api.profile.uploadProfilePic(res);
+  //       console.log(response);
+  //       console.log('Bello');
+  //     }
+  //   } catch (e) {
+  //     console.log('hello');
+  //     console.log(e);
+  //   }
+  // };
+  /*********************************************** */
   const renderTitle = () => {
     return <Text style={styles.title}>{strings.editProfileScreen.title}</Text>;
   };

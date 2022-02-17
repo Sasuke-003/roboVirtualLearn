@@ -26,10 +26,22 @@ export const NAVIGATION_ROUTES = {
 
   SEARCH_SCREEN: 'searchScreen',
   CHOICE_YOUR_COURSE: 'choiceYourCourse',
+  CATEGORIES_SCREEN: 'categoriesScreen',
+  CATEGORY_COURSES_SCREEN: 'categoryCoursesScreen',
 
   SETTINGS_SCREEN: 'settings',
   PRIVACY_AND_TERMS_SCREEN: 'privacyAndTerms',
   TERMS_SCREEN: 'termsAndSerice',
   NOTIFICATION_SCREEN: 'notification',
+<<<<<<< HEAD
   MODULE_TEST_SCREEN: 'ModuleTest',
+=======
+  RESULT_SCREEN: 'result',
+
+  COURSE_DETAILS_SCREEN: 'courseDetailsScreen',
+
+  COURSE_DETAILS_OVERVIEW_TAB: 'courseDetailsOverviewTab',
+  COURSE_DETAILS_CHAPTERS_TAB: 'courseDetailsChaptersTab',
+  VIDIO_PLAYER: 'vidioPlayer',
+>>>>>>> 9f7feb7a5cfa6db531129aa055df655323e74c14
 };

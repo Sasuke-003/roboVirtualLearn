@@ -103,7 +103,11 @@ const VIR_ChoiceYourCourse = props => {
             {strings.searchScreen.AllCourses}
           </Text>
 
-          <Courses text={enteredText} isSearchScreen={false} />
+          <Courses
+            text={enteredText}
+            isSearchScreen={false}
+            gotoCourseDetailsScreen={props.gotoCourseDetailsScreen}
+          />
         </View>
       </View>
     );

@@ -13,6 +13,8 @@ target 'roboVirtualLearn' do
   )
 
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'roboVirtualLearnTests' do
     inherit! :complete
     # Pods for testing

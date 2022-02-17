@@ -11,11 +11,18 @@
     "getAllCategories": "/api/v1/searches/categories",
     "getUserDetails": "/api/v1/users/displayprofile",
     "getAllOffers": "/api/v1/",
+    "getTopSearchedCategories": "/api/v1/searches/topcategories",
+    "getAllCoursesFromACategory": "/api/v1/searches/getallincategory",
+    "getTopCoursesFromACategory": "/api/v1/searches/topcourses",
     "getAllCourses": "/api/v1/searches",
     "getSearchFilter": "/api/v1/searches/getcoursebymultiplefilters",
     "getTopSearches": "/api/v1/searches/topcategories",
     "getEnrolledCourses": "/api/v1/users/getmycourses",
-    "updateQuestionaireProgress": "/api/v1/users/updatequestionaireprogress"
+    "updateQuestionaireProgress": "/api/v1/users/updatequestionaireprogress",
+
+    "getCourseDetails": "/api/v1/searches/id",
+    "enroll": "/api/v1/users/enroll",
+    "getCourseProgress": "/api/v1/users/getcourseprogress"
   },
   "profile": {
     "changePassword": "/api/v1/users/changepassword/oldpassword",

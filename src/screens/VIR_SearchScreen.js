@@ -36,6 +36,11 @@ const VIR_SearchScreen = props => {
   const onPressFilter = () => {
     dispatch(showSearchScreenModal(true));
   };
+  const onCoursePress = courseId => {
+    props.navigation.navigate(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
+      courseId,
+    });
+  };
 
   const renderHeader = () => {
     return (
@@ -99,7 +104,13 @@ const VIR_SearchScreen = props => {
   };
 
   const renderCourse = () => {
-    return <Courses text={enteredText} isSearchScreen={true} />;
+    return (
+      <Courses
+        text={enteredText}
+        isSearchScreen={true}
+        gotoCourseDetailsScreen={onCoursePress}
+      />
+    );
   };
 
   return (

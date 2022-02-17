@@ -11,8 +11,16 @@ import {
   VIR_PersonalDetailsScreen,
   VIR_CreateNewPasswordScreen,
   VIR_SearchScreen,
+  VIR_CategoriesScreen,
+  VIR_CategoryCoursesScreen,
   VIR_PrivacyPolicyAndTerms,
+<<<<<<< HEAD
   VIR_ModuleTest,
+=======
+  VIR_ResultScreen,
+  VIR_CourseDetails,
+  VIR_VidioPlayer,
+>>>>>>> 9f7feb7a5cfa6db531129aa055df655323e74c14
 } from '../screens';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -36,6 +44,7 @@ const StackNavigator = () => {
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={
+        // NAVIGATION_ROUTES.RESULT_SCREEN
         authToken === ''
           ? isNewInstallation
             ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
@@ -97,12 +106,40 @@ const StackNavigator = () => {
         component={VIR_SearchScreen}
       />
       <Stack.Screen
+        name={NAVIGATION_ROUTES.CATEGORIES_SCREEN}
+        component={VIR_CategoriesScreen}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.CATEGORY_COURSES_SCREEN}
+        component={VIR_CategoryCoursesScreen}
+        initialParams={{
+          categoryName: '',
+          categoryId: '',
+        }}
+      />
+      <Stack.Screen
         name={NAVIGATION_ROUTES.PRIVACY_AND_TERMS_SCREEN}
         component={VIR_PrivacyPolicyAndTerms}
       />
       <Stack.Screen
+<<<<<<< HEAD
         name={NAVIGATION_ROUTES.MODULE_TEST_SCREEN}
         component={VIR_ModuleTest}
+=======
+        name={NAVIGATION_ROUTES.RESULT_SCREEN}
+        component={VIR_ResultScreen}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN}
+        component={VIR_CourseDetails}
+        initialParams={{
+          courseId: '',
+        }}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.VIDIO_PLAYER}
+        component={VIR_VidioPlayer}
+>>>>>>> 9f7feb7a5cfa6db531129aa055df655323e74c14
       />
     </Stack.Navigator>
   );
