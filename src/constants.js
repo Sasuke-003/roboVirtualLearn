@@ -33,9 +33,7 @@ export const NAVIGATION_ROUTES = {
   PRIVACY_AND_TERMS_SCREEN: 'privacyAndTerms',
   TERMS_SCREEN: 'termsAndSerice',
   NOTIFICATION_SCREEN: 'notification',
-<<<<<<< HEAD
   MODULE_TEST_SCREEN: 'ModuleTest',
-=======
   RESULT_SCREEN: 'result',
 
   COURSE_DETAILS_SCREEN: 'courseDetailsScreen',
@@ -43,5 +41,4 @@ export const NAVIGATION_ROUTES = {
   COURSE_DETAILS_OVERVIEW_TAB: 'courseDetailsOverviewTab',
   COURSE_DETAILS_CHAPTERS_TAB: 'courseDetailsChaptersTab',
   VIDIO_PLAYER: 'vidioPlayer',
->>>>>>> 9f7feb7a5cfa6db531129aa055df655323e74c14
 };

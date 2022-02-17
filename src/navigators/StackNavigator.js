@@ -14,13 +14,11 @@ import {
   VIR_CategoriesScreen,
   VIR_CategoryCoursesScreen,
   VIR_PrivacyPolicyAndTerms,
-<<<<<<< HEAD
   VIR_ModuleTest,
-=======
   VIR_ResultScreen,
   VIR_CourseDetails,
   VIR_VidioPlayer,
->>>>>>> 9f7feb7a5cfa6db531129aa055df655323e74c14
+  VIR_ResultScreen,
 } from '../screens';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -122,10 +120,11 @@ const StackNavigator = () => {
         component={VIR_PrivacyPolicyAndTerms}
       />
       <Stack.Screen
-<<<<<<< HEAD
         name={NAVIGATION_ROUTES.MODULE_TEST_SCREEN}
         component={VIR_ModuleTest}
-=======
+      />
+
+      <Stack.Screen
         name={NAVIGATION_ROUTES.RESULT_SCREEN}
         component={VIR_ResultScreen}
       />
@@ -139,7 +138,6 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.VIDIO_PLAYER}
         component={VIR_VidioPlayer}
->>>>>>> 9f7feb7a5cfa6db531129aa055df655323e74c14
       />
     </Stack.Navigator>
   );

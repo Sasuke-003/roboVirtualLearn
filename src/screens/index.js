@@ -18,11 +18,8 @@ export {default as VIR_CategoryCoursesScreen} from './VIR_CategoryCoursesScreen'
 export {default as VIR_SettingsScreen} from './VIR_SettingsScreen';
 export {default as VIR_PrivacyPolicyAndTerms} from './VIR_PrivacyPolicyAndTerms';
 export {default as VIR_NotificationScreen} from './VIR_NotificationScreen';
-<<<<<<< HEAD
 export {default as VIR_ModuleTest} from './VIR_ModuleTest';
-=======
 export {default as VIR_ResultScreen} from './VIR_ResultScreen';
 
 export {default as VIR_CourseDetails} from './VIR_CourseDetails';
 export {default as VIR_VidioPlayer} from './VIR_VidioPlayer';
->>>>>>> 9f7feb7a5cfa6db531129aa055df655323e74c14
