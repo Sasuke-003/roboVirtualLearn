@@ -22,6 +22,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import {dispatch} from 'jest-circus/build/state';
 import {ModuleTestSubmitModal} from '../components';
+import {NAVIGATION_ROUTES} from '../constants';
 Icon.loadFont().then();
 
 const data = {
@@ -108,10 +109,26 @@ const ModuleTest = ({navigation, route}) => {
   const totalQuestions = data.totalNumberOfQuestions;
   const questionName = data.questionName;
 
+  const onPressBack = () => {
+    Alert.alert('Are you sure you want to quit the exam', '', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'Quit',
+        onPress: () =>
+          navigation.navigate(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
+            courseId: courseID,
+          }),
+      },
+    ]);
+  };
   const renderHeader = () => {
     return (
       <View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPressBack}>
           <Image
             source={images.searchScreen.modalClose}
             style={styles.backButton}

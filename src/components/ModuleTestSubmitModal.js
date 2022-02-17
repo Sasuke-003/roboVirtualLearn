@@ -34,7 +34,7 @@ const ModuleTestSubmitModal = props => {
   const onPressCancel = () => {
     dispatch(setModalVisible(false));
   };
-  const approvalRate = (right / (right + wrong)) * 100;
+  const approvalRate = (right / props.totalQuestions) * 100;
   const passingGrade = approvalRate > 50 ? approvalRate : 0;
   const data = [
     {
@@ -49,7 +49,10 @@ const ModuleTestSubmitModal = props => {
       questionAnswers: questionAnswer,
     },
   ];
-  const onPressButton = () => {};
+  const onPressButton = () => {
+    navigation.navigate(NAVIGATION_ROUTES.RESULT_SCREEN, data);
+  };
+  console.log(questionAnswer);
   const navData = {
     image: images.moduleTest.success,
     title: 'Congratulations!',
@@ -70,7 +73,12 @@ const ModuleTestSubmitModal = props => {
       );
 
       if (response.status === 200) {
-        navigation.navigate(NAVIGATION_ROUTES.SUCCESS_SCREEN, navData);
+        if (approvalRate > 75) {
+          //navData.passingGrade=response.data.passingGrade;
+          navigation.navigate(NAVIGATION_ROUTES.SUCCESS_SCREEN, navData);
+        } else {
+          alert('You did not meet the passing criteria. Retake the test');
+        }
       }
     } catch (error) {
       if (error.response.status === 401) {

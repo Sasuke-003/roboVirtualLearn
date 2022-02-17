@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {
   View,
@@ -19,10 +20,18 @@ import {
 
 import {useSelector} from 'react-redux';
 import {colors, images, fonts, strings} from '../assets';
+import {NAVIGATION_ROUTES} from '../constants';
 import {getEnrolledCourses} from '../redux/reducers/MyCourseReducer';
 
 const OngoingCourse = props => {
   const course = props.course;
+  const navigation = props.navigation;
+  const courseId = props.progress._id;
+  const onPressContinue = () => {
+    /* navigation.navigate(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
+      courseId: courseId,
+    });*/
+  };
 
   return (
     <View style={styles.innerContainer}>
@@ -38,7 +47,7 @@ const OngoingCourse = props => {
             <Text style={styles.chapterNO}>
               {course.courseContent.chapter} Chapters
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onPressContinue}>
               <View style={styles.button}>
                 <Text style={styles.continue}>
                   {strings.myCourses.continue}
@@ -53,6 +62,7 @@ const OngoingCourse = props => {
 };
 
 const OngoingScreen = () => {
+  const navigation = useNavigation();
   const enrolledCourses = useSelector(getEnrolledCourses);
   const ongoingCourses = enrolledCourses.filter(
     course => course.progress.courseCompletionRate < 100,
@@ -63,7 +73,9 @@ const OngoingScreen = () => {
       <FlatList
         data={ongoingCourses}
         showsVerticalScrollIndicator={false}
-        renderItem={({item}) => <OngoingCourse {...item} />}
+        renderItem={({item}) => (
+          <OngoingCourse {...item} navigation={navigation} />
+        )}
       />
     </View>
   );
