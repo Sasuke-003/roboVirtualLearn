@@ -21,6 +21,7 @@ const Category = props => {
   const dispatch = useDispatch();
   const index = categories.findIndex(value => value === props.id);
   const isSelected = index >= 0 ? true : false;
+
   const onPressCatgeory = () => {
     if (props.isModal === true) {
       dispatch(setCategories(props.id));

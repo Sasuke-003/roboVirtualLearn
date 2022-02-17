@@ -14,7 +14,8 @@
     "getAllCourses": "/api/v1/searches",
     "getSearchFilter": "/api/v1/searches/getcoursebymultiplefilters",
     "getTopSearches": "/api/v1/searches/topcategories",
-    "getEnrolledCourses": "/api/v1/users/getenrolledcourses"
+    "getEnrolledCourses": "/api/v1/users/getmycourses",
+    "updateQuestionaireProgress": "/api/v1/users/updatequestionaireprogress"
   },
   "profile": {
     "changePassword": "/api/v1/users/changepassword/oldpassword",
@@ -22,7 +23,6 @@
     "uploadCoverPic": "/api/v1/users/uploadcoverimage",
     "updateDetails": "/api/v1/users/updateprofile"
   },
-  "getAllCourses": "/api/v1/searches",
 
   "notification": {
     "getNotification": "/api/v1/users/notifications",

@@ -199,4 +199,9 @@ export default en = {
   notification: {
     title: 'Notifications',
   },
+  moduleTest: {
+    endTest: `Do you want to end the test?`,
+    checkAnswer:
+      'If you want to check your answer again, press cancel button. If you want to end the test and submit your answers you can press submit button.',
+  },
 };

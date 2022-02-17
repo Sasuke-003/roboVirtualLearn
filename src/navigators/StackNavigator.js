@@ -12,6 +12,7 @@ import {
   VIR_CreateNewPasswordScreen,
   VIR_SearchScreen,
   VIR_PrivacyPolicyAndTerms,
+  VIR_ModuleTest,
 } from '../screens';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -40,9 +41,7 @@ const StackNavigator = () => {
             ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
             : NAVIGATION_ROUTES.LANDING_SCREEN
           : NAVIGATION_ROUTES.DRAWER_NAVIGATOR
-      }
-      //initialRouteName={NAVIGATION_ROUTES.SEARCH_SCREEN}
-    >
+      }>
       <Stack.Screen
         name={NAVIGATION_ROUTES.ON_BOARDING_SCREEN}
         component={VIR_OnBoardingScreen}
@@ -100,6 +99,10 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.PRIVACY_AND_TERMS_SCREEN}
         component={VIR_PrivacyPolicyAndTerms}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.MODULE_TEST_SCREEN}
+        component={VIR_ModuleTest}
       />
     </Stack.Navigator>
   );

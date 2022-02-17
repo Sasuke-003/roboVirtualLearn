@@ -82,4 +82,8 @@ export const images = {
     CourseCompleted: require('./images/CourseCompleted.png'),
     CourseOngoing: require('./images/CourseOngoing.png'),
   },
+  moduleTest: {
+    optionChecked: require('./images/optionChecked.png'),
+    success: require('./images/moduleTestSuccess.png'),
+  },
 };
