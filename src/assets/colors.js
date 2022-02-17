@@ -39,4 +39,7 @@ export const colors = {
   switchTrue: '#1EAB0D',
   notificationBg: '#F0F6FB',
   courseDetailBg: 'rgba(42,41,46,0.5)',
+
+  stepCardBgColor: '#F9F9F9',
+  stepUnFinishedColor: '#E1E1E1',
 };
