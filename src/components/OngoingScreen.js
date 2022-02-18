@@ -25,12 +25,9 @@ import {getEnrolledCourses} from '../redux/reducers/MyCourseReducer';
 
 const OngoingCourse = props => {
   const course = props.course;
-  const navigation = props.navigation;
-  const courseId = props.progress._id;
+
   const onPressContinue = () => {
-    /* navigation.navigate(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
-      courseId: courseId,
-    });*/
+    props.gotoCourseDetailsScreen(course._id);
   };
 
   return (
@@ -61,7 +58,7 @@ const OngoingCourse = props => {
   );
 };
 
-const OngoingScreen = () => {
+const OngoingScreen = props => {
   const navigation = useNavigation();
   const enrolledCourses = useSelector(getEnrolledCourses);
   const ongoingCourses = enrolledCourses.filter(
@@ -74,7 +71,11 @@ const OngoingScreen = () => {
         data={ongoingCourses}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
-          <OngoingCourse {...item} navigation={navigation} />
+          <OngoingCourse
+            {...item}
+            navigation={navigation}
+            gotoCourseDetailsScreen={props.gotoCourseDetailsScreen}
+          />
         )}
       />
     </View>

@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   Image,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 
 import {Categories, DrawerHeader} from '../components';
@@ -30,7 +31,11 @@ const headerLeftIcon = () => (
 const headerRightIcon = () => (
   <Image style={styles.headerRightIcon} source={images.searchIcon} />
 );
-const VIR_MyCourses = ({navigation, goToSearchScreen}) => {
+const VIR_MyCourses = ({
+  navigation,
+  goToSearchScreen,
+  gotoCourseDetailsScreen,
+}) => {
   const enrolledCourses = useSelector(getEnrolledCourses);
 
   const dispatch = useDispatch();
@@ -71,7 +76,11 @@ const VIR_MyCourses = ({navigation, goToSearchScreen}) => {
   }, []);
 
   const renderCourses = () => {
-    return <MyCoursesTopTabNavigator />;
+    return (
+      <MyCoursesTopTabNavigator
+        gotoCourseDetailsScreen={gotoCourseDetailsScreen}
+      />
+    );
   };
 
   const renderStartPage = () => {
