@@ -37,20 +37,19 @@ const ModuleTestSubmitModal = props => {
     dispatch(clearQuestionAnswer());
   };
   const approvalRate = (right / props.totalQuestions) * 100;
-  const passingGrade = approvalRate > 50 ? approvalRate : 0;
-  const data = [
-    {
-      approvalRate: approvalRate,
-      chapterNo: props.chapterNumber,
-      chapterName: props.chapterName,
-      courseName: props.courseName,
-      totalQsns: props.totalQuestions,
-      passingGrade: passingGrade,
-      totalCorrectAnswers: right,
-      totalWrongAnswers: wrong,
-      questionAnswers: questionAnswer,
-    },
-  ];
+  const passingGrade = 75;
+  const data = {
+    approvalRate: Math.round(approvalRate),
+    chapterNo: props.chapterNumber,
+    chapterName: props.chapterName,
+    courseName: props.courseName,
+    totalQsns: props.totalQuestions,
+    passingGrade: passingGrade,
+    totalCorrectAnswers: right,
+    totalWrongAnswers: wrong,
+    questionAnswers: questionAnswer,
+  };
+
   const onPressButton = () => {
     navigation.navigate(NAVIGATION_ROUTES.RESULT_SCREEN, data);
     dispatch(clearQuestionAnswer());

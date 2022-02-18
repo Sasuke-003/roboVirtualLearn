@@ -92,12 +92,6 @@ const VIR_SearchScreen = props => {
             enteredText={enteredText}
             isModal={false}
           />
-          <Button
-            title="test"
-            onPress={() =>
-              props.navigation.navigate(NAVIGATION_ROUTES.MODULE_TEST_SCREEN)
-            }
-          />
         </View>
       </ScrollView>
     );

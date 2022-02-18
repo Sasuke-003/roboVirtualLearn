@@ -20,40 +20,12 @@ import {
 import {getQuestionAnswer} from '../redux/reducers/questionAnswerReducer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
-import {dispatch} from 'jest-circus/build/state';
+
 import {ModuleTestSubmitModal} from '../components';
 import {NAVIGATION_ROUTES} from '../constants';
 import {StackActions} from '@react-navigation/native';
 
 Icon.loadFont().then();
-
-const data = {
-  courseID: '61f9582925cc6ed00c14af41',
-  courseName: 'python',
-  chapterNumber: '2',
-  chapterName: 'Setting up new project',
-  chapterId: '61f9504d25cc6ed00c14af07', //added
-  questionID: '61f94fed25cc6ed00c14af01', //added
-  questionName: 'Module test 1', //added
-  totalNumberOfQuestions: 2,
-  timeDuration: 10,
-  questionAnswers: [
-    {
-      order: 1,
-      question:
-        'The space agency of which country has recently released the images of the “The Lost Galaxy” of the Virgo Cluster?',
-      options: ['India', 'U.S.A', 'Japan', 'China'],
-      answer: 'U.S.A',
-    },
-    {
-      order: 2,
-      question:
-        'As per the recent study by NASA and German Aerospace Center, some microbes are found on the Earth may survive in which planet?',
-      options: ['Jupiter', 'Venus', 'Mars', 'Mercury'],
-      answer: 'Mars',
-    },
-  ],
-};
 
 const Options = props => {
   const dispatch = useDispatch();
@@ -99,7 +71,6 @@ const ModuleTest = ({
     params: {data},
   },
 }) => {
-  //const data=route.params;
   const courseID = data.courseID;
   const chapterID = data.chapterId;
   const questionaireID = data.questionID;
