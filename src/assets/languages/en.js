@@ -221,5 +221,7 @@ export default en = {
   courseDetailsSCreen: {
     overViewTabName: 'Overview',
     chaptersTabName: 'Chapters',
+    courseContentText: 'Course Content',
+    chapterText: 'Chapter',
   },
 };

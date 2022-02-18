@@ -93,7 +93,12 @@ const Options = props => {
   );
 };
 
-const ModuleTest = ({navigation, route}) => {
+const ModuleTest = ({
+  navigation,
+  route: {
+    params: {data},
+  },
+}) => {
   //const data=route.params;
   const courseID = data.courseID;
   const chapterID = data.chapterId;
@@ -110,7 +115,6 @@ const ModuleTest = ({navigation, route}) => {
   const totalNumberOfQuestions = data.totalNumberOfQuestions;
   const totalQuestions = data.totalNumberOfQuestions;
   const questionName = data.questionName;
-
   const onPressBack = () => {
     Alert.alert('Are you sure you want to quit the exam', '', [
       {

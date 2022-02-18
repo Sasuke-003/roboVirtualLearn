@@ -116,6 +116,9 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.PRIVACY_AND_TERMS_SCREEN}
         component={VIR_PrivacyPolicyAndTerms}
+        initialParams={{
+          data: {},
+        }}
       />
       <Stack.Screen
         name={NAVIGATION_ROUTES.MODULE_TEST_SCREEN}
