@@ -53,6 +53,7 @@ const ModuleTestSubmitModal = props => {
   ];
   const onPressButton = () => {
     navigation.navigate(NAVIGATION_ROUTES.RESULT_SCREEN, data);
+    dispatch(clearQuestionAnswer());
   };
   console.log(questionAnswer);
   const navData = {
