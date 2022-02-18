@@ -11,12 +11,13 @@ const VIR_VidioPlayer = ({
 }) => {
   const [sendProgress, setSendProgress] = useState(false);
   const [progress, setProgress] = useState('');
-
+  const [pauseState, setPauseState] = useState(false);
+  console.log(progress);
   const onLoad = data => {
     console.log('Data', data);
   };
   const onProgress = data => {
-    console.log('Progress', data);
+    // console.log('Progress', data.currentTime);
     setProgress(data.currentTime);
   };
   const onSeek = seek => {
@@ -27,7 +28,7 @@ const VIR_VidioPlayer = ({
     navigation.goBack();
   };
   const onPause = () => {
-    setSendProgress(true);
+    setPauseState(true);
   };
 
   return (
@@ -36,14 +37,15 @@ const VIR_VidioPlayer = ({
       style={styles.backgroundVideo}
       navigator={navigation}
       tapAnywhereToPause={true}
-      onProgress={sendProgress && onProgress}
+      onProgress={onProgress}
       playInBackground={false}
       playWhenInactive={false}
       // onLoad={onLoad}
       onSeek={onSeek}
       // seek={100}
-      onPause={onPause}
+      // onPause={onPause}
       onBack={onBack}
+      paused={pauseState}
     />
   );
 };
