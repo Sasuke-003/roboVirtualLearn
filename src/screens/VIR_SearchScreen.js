@@ -9,7 +9,7 @@ import {
   Image,
   TextInput,
   Platform,
-  Modal,
+  Button,
 } from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -91,6 +91,12 @@ const VIR_SearchScreen = props => {
             title={strings.searchScreen.searchCategories}
             enteredText={enteredText}
             isModal={false}
+          />
+          <Button
+            title="test"
+            onPress={() =>
+              props.navigation.navigate(NAVIGATION_ROUTES.MODULE_TEST_SCREEN)
+            }
           />
         </View>
       </ScrollView>

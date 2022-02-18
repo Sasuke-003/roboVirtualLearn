@@ -7,19 +7,21 @@ import {
   ScrollView,
   SafeAreaView,
   Image,
-  ScrollViewBase,
+  ActivityIndicator,
 } from 'react-native';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+
 import {Categories, DrawerHeader} from '../components';
 import {images, colors, strings, fonts} from '../assets';
 import {api} from '../network';
-import {OngoingScreen, CompletedScreen} from '../components';
+
 import {useDispatch, useSelector} from 'react-redux';
 import {
   clearEnrolledCourses,
   getEnrolledCourses,
   setEnrolledCourses,
 } from '../redux/reducers/MyCourseReducer';
+
+import MyCoursesTopTabNavigator from '../navigators/MyCoursesTopTabNavigator';
 
 const headerLeftIcon = () => (
   <Image style={styles.headerLeftIcon} source={images.hamburgerMenuIcon} />
@@ -30,9 +32,9 @@ const headerRightIcon = () => (
 );
 const VIR_MyCourses = ({navigation, goToSearchScreen}) => {
   const enrolledCourses = useSelector(getEnrolledCourses);
+
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const Tab = createMaterialTopTabNavigator();
 
   const headerLeftIconOnPress = () => {
     navigation.openDrawer();
@@ -48,12 +50,11 @@ const VIR_MyCourses = ({navigation, goToSearchScreen}) => {
         setIsLoading(true);
         const response = await api.course.getEnrolledCourses();
         if (response.status === 200) {
-          console.log(response);
-          dispatch(setEnrolledCourses(response.data));
+          dispatch(setEnrolledCourses(response.data.coursesEnrolled));
           setIsLoading(false);
         }
       } catch (error) {
-        if (error.response.status === 404) {
+        if (error.response.status === 409) {
           dispatch(clearEnrolledCourses());
         } else if (error.response.status === 401) {
           console.warn('Authentication failed');
@@ -70,38 +71,7 @@ const VIR_MyCourses = ({navigation, goToSearchScreen}) => {
   }, []);
 
   const renderCourses = () => {
-    return (
-      <View style={{paddingTop: 20, flex: 1}}>
-        <Tab.Navigator
-          screenOptions={({route}) => ({
-            tabBarStyle: {
-              width: '65%',
-              borderRadius: 10,
-            },
-            tabBarLabelStyle: {
-              fontFamily: fonts.proximaNovaMedium,
-              fontSize: 12,
-              fontWeight: '500',
-              letterSpacing: 0,
-              lineHeight: 15,
-              textAlign: 'center',
-            },
-
-            tabBarIndicatorStyle: {
-              backgroundColor: null,
-            },
-          })}>
-          <Tab.Screen
-            name="Ongoing"
-            component={OngoingScreen}
-            options={{
-              tabBarLabel: 'Ongoing',
-            }}
-          />
-          <Tab.Screen name="Completed" component={CompletedScreen} />
-        </Tab.Navigator>
-      </View>
-    );
+    return <MyCoursesTopTabNavigator />;
   };
 
   const renderStartPage = () => {
@@ -122,6 +92,19 @@ const VIR_MyCourses = ({navigation, goToSearchScreen}) => {
       </ScrollView>
     );
   };
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <ActivityIndicator size={70} style={styles.indicator} color="black" />
+      );
+    } else {
+      if (enrolledCourses.length > 0) {
+        return renderCourses();
+      } else {
+        return renderStartPage();
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -133,7 +116,7 @@ const VIR_MyCourses = ({navigation, goToSearchScreen}) => {
           rightIconOnPress={headerRightIconOnPress}
         />
         <Text style={styles.title}>{strings.myCourses.title}</Text>
-        {enrolledCourses.length <= 0 ? renderCourses() : renderStartPage()}
+        {renderContent()}
       </View>
     </View>
   );
@@ -195,6 +178,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     paddingBottom: 20,
+  },
+  indicator: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 50,
   },
 });
 export default VIR_MyCourses;

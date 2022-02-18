@@ -19,6 +19,7 @@ export {default as Duration} from './Duration';
 export {default as TopSearches} from './TopSearches';
 export {default as OngoingScreen} from './OngoingScreen';
 export {default as CompletedScreen} from './CompletedScreen';
+export {default as ModuleTestSubmitModal} from './ModuleTestSubmitModal';
 export {default as ResultModal} from './ResultModal';
 export {default as Overview} from './CourseDetailsComponents/Overview';
 export {default as Chapters} from './CourseDetailsComponents/Chapters';

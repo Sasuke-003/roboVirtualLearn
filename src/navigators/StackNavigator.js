@@ -14,6 +14,7 @@ import {
   VIR_CategoriesScreen,
   VIR_CategoryCoursesScreen,
   VIR_PrivacyPolicyAndTerms,
+  VIR_ModuleTest,
   VIR_ResultScreen,
   VIR_CourseDetails,
   VIR_VidioPlayer,
@@ -40,15 +41,12 @@ const StackNavigator = () => {
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={
-        // NAVIGATION_ROUTES.RESULT_SCREEN
         authToken === ''
           ? isNewInstallation
             ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
             : NAVIGATION_ROUTES.LANDING_SCREEN
           : NAVIGATION_ROUTES.DRAWER_NAVIGATOR
-      }
-      //initialRouteName={NAVIGATION_ROUTES.SEARCH_SCREEN}
-    >
+      }>
       <Stack.Screen
         name={NAVIGATION_ROUTES.ON_BOARDING_SCREEN}
         component={VIR_OnBoardingScreen}
@@ -118,7 +116,15 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.PRIVACY_AND_TERMS_SCREEN}
         component={VIR_PrivacyPolicyAndTerms}
+        initialParams={{
+          data: {},
+        }}
       />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.MODULE_TEST_SCREEN}
+        component={VIR_ModuleTest}
+      />
+
       <Stack.Screen
         name={NAVIGATION_ROUTES.RESULT_SCREEN}
         component={VIR_ResultScreen}

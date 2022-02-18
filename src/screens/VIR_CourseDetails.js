@@ -104,10 +104,10 @@ const VIR_CourseDetails = ({
             </View>
             <Text style={styles.chapterLessonText}>
               {`${courseData?.courseContent?.chapter} Chapter${
-                courseData?.courseContent?.chapter > 1 && 's'
+                courseData?.courseContent?.chapter ? 's' : ''
               } | `}
               {`${courseData?.courseContent?.lesson} Lesson${
-                courseData?.courseContent?.lesson > 1 && 's'
+                courseData?.courseContent?.lesson ? 's' : ''
               }`}
             </Text>
           </View>
@@ -172,7 +172,7 @@ const VIR_CourseDetails = ({
         style={[styles.tabContainer, HideJoinCourseBtn && {paddingBottom: 30}]}>
         {renderTabBar()}
         {tabName === TABS.CHAPTERS ? (
-          <Chapters />
+          <Chapters course={courseData} onPressIntro={onPressIntro} />
         ) : (
           <Overview data={courseData.overview} onPressIntro={onPressIntro} />
         )}

@@ -6,22 +6,29 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {colors, images, fonts, strings} from '../assets';
 import {getEnrolledCourses} from '../redux/reducers/MyCourseReducer';
 
 const CompletedCourse = props => {
+  const course = props.course;
+  const progress = props.progress;
   return (
     <View style={styles.innerContainer}>
       <ImageBackground
-        source={images.myCourses.CourseCompleted}
+        source={{uri: course.courseImageUrl}}
         style={styles.bgImage}>
         <View style={styles.content}>
           <Text style={styles.ongoingText}>{strings.myCourses.completed}</Text>
           <View style={styles.bottomPart}>
-            <Text style={styles.courseName}>Art & Illustration</Text>
-            <Text style={styles.chapterNO}>100% Approval Rate</Text>
+            <Text style={styles.courseName} numberOfLines={1}>
+              {course.name}
+            </Text>
+            <Text style={styles.chapterNO}>
+              {progress.courseApprovalRate}% Approval Rate
+            </Text>
             <TouchableOpacity>
               <View style={styles.button}>
                 <Text style={styles.continue}>
@@ -38,11 +45,17 @@ const CompletedCourse = props => {
 
 const CompletedScreen = () => {
   const enrolledCourses = useSelector(getEnrolledCourses);
+  const CompletedCourses = enrolledCourses.filter(
+    course => course.progress.courseCompletionRate === 100,
+  );
 
   return (
     <View style={styles.container}>
-      <CompletedCourse />
-      <CompletedCourse />
+      <FlatList
+        data={CompletedCourses}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item}) => <CompletedCourse {...item} />}
+      />
     </View>
   );
 };
@@ -72,6 +85,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 45,
     paddingHorizontal: 30,
+    backgroundColor: '#00000060',
   },
 
   ongoingText: {
@@ -101,7 +115,7 @@ const styles = StyleSheet.create({
     color: colors.background,
     fontFamily: fonts.proximaNovaRegular,
     fontWeight: '500',
-    fontSize: 11.8,
+    fontSize: 12.5,
     letterSpacing: 0,
     lineHeight: 15,
     textAlign: 'left',

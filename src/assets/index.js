@@ -31,6 +31,9 @@ export const images = {
   playButton: require('./images/playButton3x.png'),
   dropdown: require('./images/dropdown3x.png'),
   closeIcon: require('./images/closeIcon3x.png'),
+  greyPlayIcon: require('./images/greyPlayIcon3x.png'),
+  redPlayIcon: require('./images/redPlayIcon3x.png'),
+  testIcon: require('./images/testIcon.png'),
   newAccountScreen: {
     googleIcon: require('./images/googleIcon3x.png'),
     facebookIcon: require('./images/facebook3x.png'),
@@ -83,6 +86,10 @@ export const images = {
     CourseEmpty: require('./images/my_course_empty.png'),
     CourseCompleted: require('./images/CourseCompleted.png'),
     CourseOngoing: require('./images/CourseOngoing.png'),
+  },
+  moduleTest: {
+    optionChecked: require('./images/optionChecked.png'),
+    success: require('./images/moduleTestSuccess.png'),
   },
   result: {
     closeIcon: require('./images/icn_close_white3x.png'),
