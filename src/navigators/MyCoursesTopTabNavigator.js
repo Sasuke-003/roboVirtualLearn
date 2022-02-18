@@ -54,7 +54,7 @@ function MyTabBar({state, descriptors, navigation, position}) {
   );
 }
 const Tab = createMaterialTopTabNavigator();
-const MyCoursesTopTabNavigator = () => {
+const MyCoursesTopTabNavigator = ({gotoCourseDetailsScreen}) => {
   return (
     <View style={{paddingTop: 20, flex: 1}}>
       <Tab.Navigator
@@ -64,7 +64,14 @@ const MyCoursesTopTabNavigator = () => {
           },
         })}
         tabBar={props => <MyTabBar {...props} />}>
-        <Tab.Screen name="Ongoing" component={OngoingScreen} />
+        <Tab.Screen name="Ongoing">
+          {props => (
+            <OngoingScreen
+              {...props}
+              gotoCourseDetailsScreen={gotoCourseDetailsScreen}
+            />
+          )}
+        </Tab.Screen>
         <Tab.Screen name="Completed" component={CompletedScreen} />
       </Tab.Navigator>
     </View>

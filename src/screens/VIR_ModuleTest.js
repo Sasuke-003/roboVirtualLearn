@@ -23,6 +23,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {dispatch} from 'jest-circus/build/state';
 import {ModuleTestSubmitModal} from '../components';
 import {NAVIGATION_ROUTES} from '../constants';
+import {StackActions} from '@react-navigation/native';
+
 Icon.loadFont().then();
 
 const data = {
@@ -119,9 +121,11 @@ const ModuleTest = ({navigation, route}) => {
       {
         text: 'Quit',
         onPress: () =>
-          navigation.navigate(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
-            courseId: courseID,
-          }),
+          navigation.dispatch(
+            StackActions.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
+              courseId: courseID,
+            }),
+          ),
       },
     ]);
   };

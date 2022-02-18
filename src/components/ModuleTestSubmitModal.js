@@ -7,6 +7,7 @@ import Modal from 'react-native-modal';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {
+  clearQuestionAnswer,
   getQuestionAnswer,
   getShowModal,
   setModalVisible,
@@ -33,6 +34,7 @@ const ModuleTestSubmitModal = props => {
 
   const onPressCancel = () => {
     dispatch(setModalVisible(false));
+    dispatch(clearQuestionAnswer());
   };
   const approvalRate = (right / props.totalQuestions) * 100;
   const passingGrade = approvalRate > 50 ? approvalRate : 0;

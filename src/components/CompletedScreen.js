@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {
   View,
@@ -44,6 +45,7 @@ const CompletedCourse = props => {
 };
 
 const CompletedScreen = () => {
+  const navigation = useNavigation();
   const enrolledCourses = useSelector(getEnrolledCourses);
   const CompletedCourses = enrolledCourses.filter(
     course => course.progress.courseCompletionRate === 100,
