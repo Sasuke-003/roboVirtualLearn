@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useRef, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {colors, images, fonts} from '../assets';
+import {colors, images, fonts, strings} from '../assets';
 import {DrawerHeader} from '../components';
 import Icon from 'react-native-vector-icons/Feather';
 import {NAVIGATION_ROUTES} from '../constants';
@@ -18,14 +18,16 @@ import RNFetchBlob from 'rn-fetch-blob';
 import RNImageToPdf from 'react-native-image-to-pdf';
 import CameraRoll from '@react-native-community/cameraroll';
 import uuid from 'react-native-uuid';
+import {utils} from '../utils';
 
 const VIR_CertificateScreen = ({navigation}) => {
   const {height, width} = useWindowDimensions();
-  const portrait = height > width;
   const viewShotRef = useRef();
   const today = new Date();
+  // uuid.v4().split('-').pop() (Optional Unique number)
+  let authToken = utils.getAuthToken();
   const certificateNo =
-    today.getFullYear() + uuid.v4().split('-').pop().toUpperCase();
+    today.getFullYear() + authToken.slice(-12).toUpperCase();
 
   const data = {
     name: 'Mahendra Singh Dhoni',
@@ -44,8 +46,8 @@ const VIR_CertificateScreen = ({navigation}) => {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
           {
-            title: 'Storage Permission Required',
-            message: 'App needs access to your storage to download certificate',
+            title: strings.certificate.androidPermissionTitle,
+            message: strings.certificate.androidPermissionMessage,
           },
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
@@ -53,7 +55,7 @@ const VIR_CertificateScreen = ({navigation}) => {
           //   downloadImage();
           savePicture(imageURI);
         } else {
-          alert('Storage Permission Denied');
+          alert(strings.certificate.androidPermissionDenied);
         }
       } catch (e) {
         console.log(e);
@@ -62,9 +64,8 @@ const VIR_CertificateScreen = ({navigation}) => {
   };
 
   async function savePicture(imageURI) {
-    console.log(typeof imageURI, imageURI);
     CameraRoll.save(imageURI);
-    alert('Certificate Saved to Gallery');
+    alert(strings.certificate.savingAlert);
   }
 
   //   const myAsyncPDFFunction = async () => {
@@ -128,39 +129,51 @@ const VIR_CertificateScreen = ({navigation}) => {
     );
   };
 
+  const renderCertificateTopPart = () => {
+    return (
+      <View style={styles(height, width).topPart}>
+        <Text style={styles().title}>{strings.certificate.title}</Text>
+        <Text style={styles().userName}>{data.name}</Text>
+        <Text style={styles().course}>{data.courseName}</Text>
+        <View style={styles().detailsView}>
+          <Text style={styles().details}>
+            {strings.certificate.joined} {data.joinedOn}
+          </Text>
+          <Text style={styles().dots}> {'\u2022'} </Text>
+          <Text style={styles().details}>
+            {strings.certificate.completed} {data.completedOn}
+          </Text>
+          <Text style={styles().dots}> {'\u2022'} </Text>
+          <Text style={styles().details}>{data.totalCourseDuration}</Text>
+        </View>
+        <Text style={styles().certificateNo}>
+          {strings.certificate.certificateNo} {certificateNo}
+        </Text>
+      </View>
+    );
+  };
+  const renderCertificateBottomPart = () => {
+    return (
+      <View style={styles().bottomPart}>
+        <View>
+          <Image source={images.trophy} style={styles().trophy} />
+        </View>
+        <Image source={images.whiteLogo} style={styles().logo} />
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles(height, width).safeareaContainer}>
       {renderHeader()}
       <ViewShot ref={viewShotRef} style={styles().containerView}>
         <View style={styles().containerView}>
           <View style={styles(height, width).container}>
-            <View style={styles(height, width).topPart}>
-              <Text style={styles().title}>Certificate of Completion</Text>
-              <Text style={styles().userName}>{data.name}</Text>
-              <Text style={styles().course}>{data.courseName}</Text>
-              <View style={styles().detailsView}>
-                <Text style={styles().details}>Joined : {data.joinedOn}</Text>
-                <Text style={styles().dots}> {'\u2022'} </Text>
-                <Text style={styles().details}>
-                  Completed : {data.completedOn}
-                </Text>
-                <Text style={styles().dots}> {'\u2022'} </Text>
-                <Text style={styles().details}>{data.totalCourseDuration}</Text>
-              </View>
-              <Text style={styles().certificateNo}>
-                Certificate No: {certificateNo}
-              </Text>
-            </View>
-            <View style={styles().bottomPart}>
-              <View>
-                <Image source={images.trophy} style={styles().trophy} />
-              </View>
-              <Image source={images.whiteLogo} style={styles().logo} />
-            </View>
+            {renderCertificateTopPart()}
+            {renderCertificateBottomPart()}
           </View>
         </View>
       </ViewShot>
-      {/* <Image source={{uri: image}} style={{width: width, height: 300}} /> */}
     </SafeAreaView>
   );
 };
@@ -183,7 +196,7 @@ const styles = (height = 300, width = 200) =>
       justifyContent: 'space-between',
     },
     topPart: {
-      backgroundColor: '#fff',
+      backgroundColor: colors.background,
       paddingHorizontal: 24,
       paddingTop: 30,
     },
@@ -231,7 +244,6 @@ const styles = (height = 300, width = 200) =>
       fontSize: 8,
       fontWeight: '500',
       lineHeight: 17,
-      //   marginBottom: 16,
     },
     dots: {
       color: colors.secondaryText,
