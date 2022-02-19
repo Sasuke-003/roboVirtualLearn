@@ -37,11 +37,9 @@ const ModuleTestSubmitModal = props => {
     dispatch(clearQuestionAnswer());
   };
   const approvalRate = (right / props.totalQuestions) * 100;
-  // const passingGrade = approvalRate > 50 ? approvalRate : 0;//not needed
-  const passingGrade = 50; //changed
+  const passingGrade = 75;
   const data = {
-    //changed array to obj
-    approvalRate: Math.round(approvalRate), //changed
+    approvalRate: Math.round(approvalRate),
     chapterNo: props.chapterNumber,
     chapterName: props.chapterName,
     courseName: props.courseName,
@@ -77,7 +75,7 @@ const ModuleTestSubmitModal = props => {
       );
 
       if (response.status === 200) {
-        if (approvalRate > passingGrade /*CHANGED*/) {
+        if (approvalRate > passingGrade) {
           //navData.passingGrade=response.data.passingGrade;
           navigation.navigate(NAVIGATION_ROUTES.SUCCESS_SCREEN, navData);
         } else {
