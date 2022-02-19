@@ -41,4 +41,5 @@ export const NAVIGATION_ROUTES = {
   COURSE_DETAILS_OVERVIEW_TAB: 'courseDetailsOverviewTab',
   COURSE_DETAILS_CHAPTERS_TAB: 'courseDetailsChaptersTab',
   VIDIO_PLAYER: 'vidioPlayer',
+  CERTIFICATE: 'certificate',
 };

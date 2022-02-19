@@ -37,20 +37,21 @@ const ModuleTestSubmitModal = props => {
     dispatch(clearQuestionAnswer());
   };
   const approvalRate = (right / props.totalQuestions) * 100;
-  const passingGrade = approvalRate > 50 ? approvalRate : 0;
-  const data = [
-    {
-      approvalRate: approvalRate,
-      chapterNo: props.chapterNumber,
-      chapterName: props.chapterName,
-      courseName: props.courseName,
-      totalQsns: props.totalQuestions,
-      passingGrade: passingGrade,
-      totalCorrectAnswers: right,
-      totalWrongAnswers: wrong,
-      questionAnswers: questionAnswer,
-    },
-  ];
+  // const passingGrade = approvalRate > 50 ? approvalRate : 0;//not needed
+  const passingGrade = 50; //changed
+  const data = {
+    //changed array to obj
+    approvalRate: Math.round(approvalRate), //changed
+    chapterNo: props.chapterNumber,
+    chapterName: props.chapterName,
+    courseName: props.courseName,
+    totalQsns: props.totalQuestions,
+    passingGrade: passingGrade,
+    totalCorrectAnswers: right,
+    totalWrongAnswers: wrong,
+    questionAnswers: questionAnswer,
+  };
+
   const onPressButton = () => {
     navigation.navigate(NAVIGATION_ROUTES.RESULT_SCREEN, data);
     dispatch(clearQuestionAnswer());
@@ -76,7 +77,7 @@ const ModuleTestSubmitModal = props => {
       );
 
       if (response.status === 200) {
-        if (approvalRate > 75) {
+        if (approvalRate > passingGrade /*CHANGED*/) {
           //navData.passingGrade=response.data.passingGrade;
           navigation.navigate(NAVIGATION_ROUTES.SUCCESS_SCREEN, navData);
         } else {

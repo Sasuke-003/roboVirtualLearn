@@ -76,14 +76,17 @@ const ResultOptions = ({item, onPressCard}) => {
   );
 };
 
-const VIR_ResultScreen = ({navigation}) => {
+const VIR_ResultScreen = ({navigation, route: {params}}) => {
+  const data = params;
+  const questionAnswers = data.questionAnswers;
+  console.log(JSON.stringify(data, null, 2));
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(null);
   const {height, width} = useWindowDimensions();
   const portrait = height > width;
 
   const onBackPress = () => {
-    navigation.goBack();
+    navigation.pop(3);
   };
   const renderLeftIcon = () => {
     return (
@@ -113,15 +116,13 @@ const VIR_ResultScreen = ({navigation}) => {
         {renderHeader()}
         <View style={styles.detailsView}>
           <View style={styles.approvalRateView}>
-            <Text style={styles.approvalRate}>80</Text>
+            <Text style={styles.approvalRate}>{data.approvalRate}</Text>
           </View>
           <Text style={styles.chapter}>
-            Chapter 3: Setting up a new project
+            Chapter {data.chapterNo}: {data.chapterName}
           </Text>
         </View>
-        <Text style={styles.courseName}>
-          Course: Learn Figma - UI/UX Design Essential Training
-        </Text>
+        <Text style={styles.courseName}>Course: {data.courseName}</Text>
       </SafeAreaView>
     );
   };
@@ -131,17 +132,17 @@ const VIR_ResultScreen = ({navigation}) => {
       <View style={styles.numberCardContainer}>
         <View style={styles.cardView}>
           <Text style={styles.heading}>Passsing Grade</Text>
-          <Text style={styles.numbers}>75/100</Text>
+          <Text style={styles.numbers}>{data.passingGrade}/100</Text>
         </View>
         <Seperator />
         <View style={styles.cardView}>
           <Text style={styles.heading}>Correct</Text>
-          <Text style={styles.numbers}>20/25</Text>
+          <Text style={styles.numbers}>{data.totalCorrectAnswers}/25</Text>
         </View>
         <Seperator />
         <View style={styles.cardView}>
           <Text style={styles.heading}>Wrong</Text>
-          <Text style={styles.numbers}>05/25</Text>
+          <Text style={styles.numbers}>{data.totalWrongAnswers}/25</Text>
         </View>
       </View>
     );
@@ -151,7 +152,7 @@ const VIR_ResultScreen = ({navigation}) => {
     return (
       <View style={styles.qsnView}>
         <Text style={styles.subHeading}>List of Questions</Text>
-        {data.map((item, index) => {
+        {questionAnswers.map((item, index) => {
           return (
             <ResultOptions item={item} key={index} onPressCard={onPressCard} />
           );

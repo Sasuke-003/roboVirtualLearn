@@ -18,6 +18,7 @@ import {
   VIR_ResultScreen,
   VIR_CourseDetails,
   VIR_VidioPlayer,
+  VIR_CertificateScreen,
 } from '../screens';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -41,6 +42,7 @@ const StackNavigator = () => {
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={
+        // NAVIGATION_ROUTES.CERTIFICATE
         authToken === ''
           ? isNewInstallation
             ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN
@@ -139,6 +141,10 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.VIDIO_PLAYER}
         component={VIR_VidioPlayer}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.CERTIFICATE}
+        component={VIR_CertificateScreen}
       />
     </Stack.Navigator>
   );

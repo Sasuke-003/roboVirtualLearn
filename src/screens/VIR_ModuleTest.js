@@ -100,6 +100,7 @@ const ModuleTest = ({
   },
 }) => {
   //const data=route.params;
+  // console.log(console.log(JSON.stringify(data, null, 2)));
   const courseID = data.courseID;
   const chapterID = data.chapterId;
   const questionaireID = data.questionID;

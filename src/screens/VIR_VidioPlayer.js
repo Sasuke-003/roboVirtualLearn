@@ -13,6 +13,7 @@ const VIR_VidioPlayer = ({
   const [progress, setProgress] = useState('');
   const [pauseState, setPauseState] = useState(false);
   console.log(progress);
+
   const onLoad = data => {
     console.log('Data', data);
   };
@@ -25,7 +26,7 @@ const VIR_VidioPlayer = ({
   };
   const onBack = () => {
     // setSendProgress(true);
-    console.log(progress);
+    // console.log(progress);
     navigation.goBack();
   };
   const onPause = () => {
