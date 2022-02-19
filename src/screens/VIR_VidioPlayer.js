@@ -25,6 +25,7 @@ const VIR_VidioPlayer = ({
   };
   const onBack = () => {
     // setSendProgress(true);
+    console.log(progress);
     navigation.goBack();
   };
   const onPause = () => {
