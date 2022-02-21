@@ -8,7 +8,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import React from 'react';
-import {colors, fonts, images} from '../../assets';
+import {colors, fonts, images, strings} from '../../assets';
 import {RectangleButton, ShowMore} from '..';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
@@ -23,7 +23,7 @@ const Overview = ({data, onPressIntro}) => {
   const renderPreviewSection = () => {
     return (
       <>
-        <Text style={styles.previewTitle}>Preview this course</Text>
+        <Text style={styles.previewTitle}>{strings.overview.previewTitle}</Text>
         <View style={styles.previewContainer}>
           <TouchableOpacity
             onPress={() => onPressIntro({url: data.previewVideoUrl})}>
@@ -34,7 +34,9 @@ const Overview = ({data, onPressIntro}) => {
                 <View style={styles.previewLeftPart}>
                   <Image source={images.overview.play} style={styles.playBtn} />
                   <View style={styles.introView}>
-                    <Text style={styles.introText}>Introduction</Text>
+                    <Text style={styles.introText}>
+                      {strings.overview.introduction}
+                    </Text>
                     <Text style={styles.time}>3min</Text>
                   </View>
                 </View>
@@ -59,7 +61,9 @@ const Overview = ({data, onPressIntro}) => {
   const renderCourseIncludes = () => {
     return (
       <View style={styles.courseContent}>
-        <Text style={styles.contentTitle}>Course Includes</Text>
+        <Text style={styles.contentTitle}>
+          {strings.overview.courseIncludes}
+        </Text>
         {data?.courseIncludes.map((item, index) => {
           return (
             <View key={index} style={styles.itemView}>
@@ -74,7 +78,9 @@ const Overview = ({data, onPressIntro}) => {
   const renderWhatYouWillLearn = () => {
     return (
       <View style={styles.learningView}>
-        <Text style={styles.contentTitle}>What you’ll learn</Text>
+        <Text style={styles.contentTitle}>
+          {strings.overview.whatYouWillLearn}
+        </Text>
         {data?.whatYouWillLearn.map((item, index) => {
           return (
             <View key={index} style={styles.learningItemView}>
@@ -90,7 +96,7 @@ const Overview = ({data, onPressIntro}) => {
   const renderRequirements = () => {
     return (
       <View style={styles.requirementContainer}>
-        <Text style={styles.contentTitle}>Requirments</Text>
+        <Text style={styles.contentTitle}>{strings.overview.requirements}</Text>
         {data?.requirements.map((item, index) => {
           return (
             <View key={index} style={styles.requirementView}>
@@ -106,7 +112,7 @@ const Overview = ({data, onPressIntro}) => {
   const renderInstructorSection = () => {
     return (
       <View style={styles.instructorContainer}>
-        <Text style={styles.contentTitle}>Instructor</Text>
+        <Text style={styles.contentTitle}>{strings.overview.instructor}</Text>
         <View style={styles.instructorDetailsView}>
           <Image
             source={{uri: data?.instructorImageUrl}}

@@ -23,3 +23,4 @@ export {default as VIR_ResultScreen} from './VIR_ResultScreen';
 
 export {default as VIR_CourseDetails} from './VIR_CourseDetails';
 export {default as VIR_VidioPlayer} from './VIR_VidioPlayer';
+export {default as VIR_CertificateScreen} from './VIR_CertificateScreen';

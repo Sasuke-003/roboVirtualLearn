@@ -40,6 +40,8 @@
 	<!-- added for profile pic upload permission -->
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>VirtualLearn app requires photo gallery access</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>VirtualLearn app requires photo gallery access</string>
 	<key>NSCameraUsageDescription</key>
 	<string>VirtualLearn app requires camera access to take photo</string>
 

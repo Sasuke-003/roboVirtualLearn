@@ -40,7 +40,7 @@ const VIR_CourseDetails = ({
   const [HideJoinCourseBtn, setHideJoinCourseBtn] = useState(false);
   const {height, width} = useWindowDimensions();
 
-  console.log(courseId);
+  // console.log(JSON.stringify(courseData, null, 2));
   useEffect(() => {
     setIsLoading(true);
     const getCourseData = async () => {

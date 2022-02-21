@@ -7,7 +7,7 @@ import Stepper from './Stepper';
 
 const ChapterContent = ({chapter, onPressIntro, courseId, courseName}) => {
   const [showContent, setShowContent] = useState(false);
-  const [position, setPosition] = useState(-1);
+  const [position, setPosition] = useState(0);
 
   const renderTitle = () => (
     <View style={styles.chapterNameContainer}>

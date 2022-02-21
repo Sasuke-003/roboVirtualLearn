@@ -35,27 +35,6 @@ import {colors, fonts, images, strings} from '../assets';
  *
  */
 
-const data = [
-  {
-    order: 1,
-    question:
-      'The space agency of which country has recently released the images of the “The Lost Galaxy” of the Virgo Cluster?',
-    options: ['India', 'U.S.A', 'Japan', 'China'],
-    answer: 'U.S.A',
-    userAnswer: 'U.S.A',
-    type: 'Correct',
-  },
-  {
-    order: 2,
-    question:
-      'As per the recent study by NASA and German Aerospace Center, some microbes are found on the Earth may survive in which planet?',
-    options: ['Jupiter', 'Venus', 'Mars', 'Mercury'],
-    answer: 'Mars',
-    userAnswer: 'Venus',
-    type: 'Wrong',
-  },
-];
-
 const ResultOptions = ({item, onPressCard}) => {
   return (
     <TouchableOpacity onPress={() => onPressCard(item)}>
@@ -67,7 +46,9 @@ const ResultOptions = ({item, onPressCard}) => {
               styles.answer,
               item?.type === 'Wrong' && {color: colors.inputTextWrongBorder},
             ]}>
-            {item?.type === 'Correct' ? 'Correct Answer' : 'Wrong Answer'}
+            {item?.type === 'Correct'
+              ? strings.ResultScreen.correctOption
+              : strings.ResultScreen.wrongOption}
           </Text>
         </View>
         <Image source={images.result.showAns} style={styles.showIcon} />
@@ -76,14 +57,17 @@ const ResultOptions = ({item, onPressCard}) => {
   );
 };
 
-const VIR_ResultScreen = ({navigation}) => {
+const VIR_ResultScreen = ({navigation, route: {params}}) => {
+  const data = params;
+  const questionAnswers = data?.questionAnswers;
+  console.log(JSON.stringify(data, null, 2));
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(null);
   const {height, width} = useWindowDimensions();
   const portrait = height > width;
 
   const onBackPress = () => {
-    navigation.goBack();
+    navigation.pop(3);
   };
   const renderLeftIcon = () => {
     return (
@@ -113,14 +97,15 @@ const VIR_ResultScreen = ({navigation}) => {
         {renderHeader()}
         <View style={styles.detailsView}>
           <View style={styles.approvalRateView}>
-            <Text style={styles.approvalRate}>80</Text>
+            <Text style={styles.approvalRate}>{data?.approvalRate}</Text>
           </View>
           <Text style={styles.chapter}>
-            Chapter 3: Setting up a new project
+            {strings.ResultScreen.chapter} {data?.chapterNo}:{' '}
+            {data?.chapterName}
           </Text>
         </View>
         <Text style={styles.courseName}>
-          Course: Learn Figma - UI/UX Design Essential Training
+          {strings.ResultScreen.course} {data?.courseName}
         </Text>
       </SafeAreaView>
     );
@@ -130,18 +115,24 @@ const VIR_ResultScreen = ({navigation}) => {
     return (
       <View style={styles.numberCardContainer}>
         <View style={styles.cardView}>
-          <Text style={styles.heading}>Passsing Grade</Text>
-          <Text style={styles.numbers}>75/100</Text>
+          <Text style={styles.heading}>
+            {strings.ResultScreen.passingGrade}
+          </Text>
+          <Text style={styles.numbers}>{data?.passingGrade}/100</Text>
         </View>
         <Seperator />
         <View style={styles.cardView}>
-          <Text style={styles.heading}>Correct</Text>
-          <Text style={styles.numbers}>20/25</Text>
+          <Text style={styles.heading}>{strings.ResultScreen.correct}</Text>
+          <Text style={styles.numbers}>
+            {data?.totalCorrectAnswers}/{data?.totalQsns}
+          </Text>
         </View>
         <Seperator />
         <View style={styles.cardView}>
-          <Text style={styles.heading}>Wrong</Text>
-          <Text style={styles.numbers}>05/25</Text>
+          <Text style={styles.heading}>{strings.ResultScreen.wrong}</Text>
+          <Text style={styles.numbers}>
+            {data?.totalWrongAnswers}/{data?.totalQsns}
+          </Text>
         </View>
       </View>
     );
@@ -150,8 +141,8 @@ const VIR_ResultScreen = ({navigation}) => {
   const renderListOfQuestions = () => {
     return (
       <View style={styles.qsnView}>
-        <Text style={styles.subHeading}>List of Questions</Text>
-        {data.map((item, index) => {
+        <Text style={styles.subHeading}>{strings.ResultScreen.listOfQsn}</Text>
+        {questionAnswers?.map((item, index) => {
           return (
             <ResultOptions item={item} key={index} onPressCard={onPressCard} />
           );
