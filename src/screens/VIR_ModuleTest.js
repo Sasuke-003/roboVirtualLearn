@@ -26,6 +26,7 @@ import {ModuleTestSubmitModal} from '../components';
 import {NAVIGATION_ROUTES} from '../constants';
 import {StackActions} from '@react-navigation/native';
 Icon.loadFont().then();
+Icons.loadFont().then();
 
 const Options = props => {
   const dispatch = useDispatch();
