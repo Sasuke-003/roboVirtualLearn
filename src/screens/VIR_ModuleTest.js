@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,6 @@ import {
   ScrollView,
 } from 'react-native';
 import {images, colors, strings, fonts} from '../assets';
-import {api} from '../network';
 import {
   setQuestionAnswer,
   clearQuestionAnswer,
@@ -19,12 +18,13 @@ import {
 } from '../redux/reducers/questionAnswerReducer';
 import {getQuestionAnswer} from '../redux/reducers/questionAnswerReducer';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icons from 'react-native-vector-icons/EvilIcons';
 import {useDispatch, useSelector} from 'react-redux';
-
+import useCountDown from 'react-countdown-hook';
+import {api} from '../network';
 import {ModuleTestSubmitModal} from '../components';
 import {NAVIGATION_ROUTES} from '../constants';
 import {StackActions} from '@react-navigation/native';
-
 Icon.loadFont().then();
 
 const Options = props => {
@@ -84,8 +84,118 @@ const ModuleTest = ({
   const chapterNumber = data.chapterNumber;
   const chapterName = data.chapterName;
   const totalNumberOfQuestions = data.totalNumberOfQuestions;
-  const totalQuestions = data.totalNumberOfQuestions;
   const questionName = data.questionName;
+  const initialTime = data.timeDuration * 60000; // initial time in milliseconds, defaults to 60000
+  const interval = 1000; // interval to change remaining time amount, defaults to 1000
+  const [initialRender, setInitialRender] = useState(true);
+  const [timeLeft, {start, pause, resume, reset}] = useCountDown(
+    initialTime,
+    interval,
+  );
+
+  let time;
+  const millis = timeLeft;
+  let minutes =
+    timeLeft > 60000 ? Math.ceil(millis / 60000) : Math.floor(timeLeft / 60000);
+  let seconds = ((millis % 60000) / 1000).toFixed(0);
+
+  if (minutes >= 1) {
+    time = minutes + (minutes === 1 ? ' min' : ' mins');
+  } else {
+    time = (seconds < 10 ? '0' : '') + seconds + ' secs';
+  }
+
+  // start the timer during the first render
+  React.useEffect(() => {
+    start();
+    setInitialRender(false);
+  }, []);
+
+  const totalRightAnswers = questionAnswer.filter(
+    answer => answer.type === 'Correct',
+  );
+  const totalWrongAnswers = questionAnswer.filter(
+    answer => answer.type === 'Wrong',
+  );
+  const right = totalRightAnswers.length;
+  const wrong = totalWrongAnswers.length;
+
+  const approvalRate = (right / totalNumberOfQuestions) * 100;
+  const passingGrade = 75;
+  const TestData = {
+    approvalRate: Math.round(approvalRate),
+    chapterNo: chapterNumber,
+    chapterName: chapterName,
+    courseName: courseName,
+    totalQsns: totalNumberOfQuestions,
+    passingGrade: passingGrade,
+    totalCorrectAnswers: right,
+    totalWrongAnswers: wrong,
+    questionAnswers: questionAnswer,
+  };
+  const onPressButton = () => {
+    navigation.dispatch(
+      StackActions.replace(NAVIGATION_ROUTES.RESULT_SCREEN, TestData),
+    );
+    dispatch(clearQuestionAnswer());
+  };
+  const navData = {
+    image: images.moduleTest.success,
+    title: 'Congratulations!',
+    message: `You have completed Chapter ${chapterNumber} - ${chapterName}, ${courseName}`,
+    buttonName: 'Result',
+    onPressButton: onPressButton,
+  };
+  const updateResult = async () => {
+    try {
+      const response = await api.course.updateQuestionairProgress(
+        courseID,
+        chapterID,
+        questionaireID,
+        approvalRate,
+        right,
+        wrong,
+      );
+
+      if (response.status === 200) {
+        if (approvalRate > 75) {
+          navigation.dispatch(
+            StackActions.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, navData),
+          );
+        } else {
+          alert('You did not meet the passing criteria');
+          navigation.dispatch(
+            StackActions.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
+              courseId: courseID,
+            }),
+          );
+          dispatch(clearQuestionAnswer());
+        }
+      }
+    } catch (error) {
+      if (error.response.status === 401) {
+        console.warn('Authentication Failed');
+      } else {
+        console.warn('Internal Server Error');
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (timeLeft === 0 && initialRender === false) {
+      updateResult();
+    }
+  }, [timeLeft]);
+
+  const onPressQuit = () => {
+    navigation.dispatch(
+      StackActions.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
+        courseId: courseID,
+      }),
+    );
+    dispatch(clearQuestionAnswer());
+  };
+
   const onPressBack = () => {
     Alert.alert('Are you sure you want to quit the exam', '', [
       {
@@ -95,15 +205,11 @@ const ModuleTest = ({
       },
       {
         text: 'Quit',
-        onPress: () =>
-          navigation.dispatch(
-            StackActions.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
-              courseId: courseID,
-            }),
-          ),
+        onPress: onPressQuit,
       },
     ]);
   };
+
   const renderHeader = () => {
     return (
       <View>
@@ -121,7 +227,7 @@ const ModuleTest = ({
     const quesNo = currentQuestion.order;
     const question = currentQuestion.question;
     const options = currentQuestion.options;
-    const header = `Question ${quesNo} of ${totalQuestions}`;
+    const header = `Question ${quesNo} of ${totalNumberOfQuestions}`;
     return (
       <View>
         <Text style={styles.header}>{header}</Text>
@@ -148,7 +254,7 @@ const ModuleTest = ({
     return;
   };
   const onPressNext = () => {
-    if (questionNumber !== totalQuestions - 1) {
+    if (questionNumber !== totalNumberOfQuestions - 1) {
       setQuestionNumber(previous => previous + 1);
     }
     return;
@@ -160,8 +266,8 @@ const ModuleTest = ({
   const renderTiming = () => {
     return (
       <View style={styles.timerContainer}>
-        <Image />
-        <Text>8 mins remaining</Text>
+        <Icons name="clock" color="grey" size={23} />
+        <Text style={styles.time}>{time} remaining</Text>
       </View>
     );
   };
@@ -169,9 +275,11 @@ const ModuleTest = ({
   const renderFooter = () => {
     return (
       <View style={styles.footerContainer}>
-        <View>
+        <View style={styles.chapterContainer}>
           <Text style={styles.chapNo}>Chapter {chapterNumber}</Text>
-          <Text style={styles.chapName}>{chapterName}</Text>
+          <Text style={styles.chapName} numberOfLines={2}>
+            {chapterName}
+          </Text>
         </View>
         <View style={styles.arrowContainer}>
           {questionNumber + 1 !== 1 ? (
@@ -206,15 +314,7 @@ const ModuleTest = ({
             {renderHeader()}
             {renderTiming()}
             {showModal && (
-              <ModuleTestSubmitModal
-                courseID={courseID}
-                chapterID={chapterID}
-                questionaireID={questionaireID}
-                chapterNumber={chapterNumber}
-                chapterName={chapterName}
-                courseName={courseName}
-                totalQuestions={totalNumberOfQuestions}
-              />
+              <ModuleTestSubmitModal updateResult={updateResult} time={time} />
             )}
             {renderContent(currentQuestion)}
           </View>
@@ -263,6 +363,9 @@ const styles = StyleSheet.create({
   timerContainer: {
     alignSelf: 'flex-end',
     paddingVertical: 20,
+    flexDirection: 'row',
+    paddingHorizontal: 7,
+    alignItems: 'center',
   },
   question: {
     color: colors.primaryText,
@@ -283,6 +386,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     lineHeight: 20,
     textAlign: 'left',
+    width: '80%',
   }),
   optionContainer: bgColor => ({
     backgroundColor: bgColor,
@@ -319,7 +423,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 10,
+    paddingRight: 10,
+  },
+  chapterContainer: {
+    width: '50%',
   },
   chapNo: {
     color: colors.background,
@@ -353,6 +460,17 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     lineHeight: 20,
     textAlign: 'center',
+  },
+  timerText: {
+    textAlign: 'right',
+    color: '#2BB5F4',
+    fontSize: 16,
+  },
+  time: {
+    color: '#2BB5F4',
+    fontFamily: fonts.proximaNovaBold,
+    fontSize: 14,
+    paddingLeft: 5,
   },
 });
 export default ModuleTest;

@@ -4744,7 +4744,7 @@
   "resolved" "https://registry.npmjs.org/lodash.throttle/-/lodash.throttle-4.1.1.tgz"
   "version" "4.1.1"
 
-"lodash@^4.16.4", "lodash@^4.17.10", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.21", "lodash@^4.7.0":
+"lodash@^4.16.4", "lodash@^4.17.10", "lodash@^4.17.13", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.21", "lodash@^4.7.0":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -5787,7 +5787,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.5.10", "prop-types@^15.6.2", "prop-types@^15.7.2":
+"prop-types@^15.5.10", "prop-types@^15.5.8", "prop-types@^15.6.2", "prop-types@^15.7.2":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -5840,6 +5840,11 @@
   "integrity" "sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg=="
   "resolved" "https://registry.npmjs.org/range-parser/-/range-parser-1.2.1.tgz"
   "version" "1.2.1"
+
+"react-countdown-hook@^1.1.1":
+  "integrity" "sha512-+/vH6zK2H0yM9dPWJOa3hnLsBWWjwwi/6KOXDBc6F65lrc8vmuMozjTOlLhG4AtyyOTJAd2bvJhlph8IPqrXxg=="
+  "resolved" "https://registry.npmjs.org/react-countdown-hook/-/react-countdown-hook-1.1.1.tgz"
+  "version" "1.1.1"
 
 "react-devtools-core@^4.13.0":
   "integrity" "sha512-KkzneT1LczFtebbTJlvRphIRvzuHLhI9ghfrseVv9ktBs+l2cXy8Svw5U16lzQnwU9okVEcURmGPgH79WWrlaw=="
@@ -5902,10 +5907,24 @@
     "jscodeshift" "^0.11.0"
     "nullthrows" "^1.1.1"
 
+"react-native-countdown-component@^2.7.1":
+  "integrity" "sha512-H7D/YvMjY1hCJf9xFrNh5CsIwkcel/Suno2gYR6ulWwoa2xnUgmltFWoMyEIODsUy7lIK1KCPm+Zn26QajbRaw=="
+  "resolved" "https://registry.npmjs.org/react-native-countdown-component/-/react-native-countdown-component-2.7.1.tgz"
+  "version" "2.7.1"
+  dependencies:
+    "lodash" "^4.17.13"
+    "prop-types" "^15.5.8"
+    "sprintf-js" "^1.1.1"
+
 "react-native-date-picker@^4.1.3":
   "integrity" "sha512-ct1SR9LqQ9qczdKV4K/fWuV9wOVrlENMc3GyvwASP+obNbRid09OOJ6YHXIGx3B6CzZ1dAbzF++Jtxuo85XW8A=="
   "resolved" "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.1.3.tgz"
   "version" "4.1.3"
+
+"react-native-element-timer@^1.3.4":
+  "integrity" "sha512-INPFhRGt/wK95oAYx2zejkEz6cg3DLua+kOWhERhp7lF4u6oKGV8ZCGpsDi0cg4vCZ9WgRpf7/8Uai6AFulS5g=="
+  "resolved" "https://registry.npmjs.org/react-native-element-timer/-/react-native-element-timer-1.3.4.tgz"
+  "version" "1.3.4"
 
 "react-native-feather@^1.1.2":
   "integrity" "sha512-qBc0+XegKkX4JV6ykgScasguEV3RdlbYp9IrCMnbozngOgJ7vi76pyRpb+dnZ1AZVkYsbYnpdA9JXeP7EJbMCA=="
@@ -6731,6 +6750,11 @@
   "version" "3.1.0"
   dependencies:
     "extend-shallow" "^3.0.0"
+
+"sprintf-js@^1.1.1":
+  "integrity" "sha512-VE0SOVEHCk7Qc8ulkWw3ntAzXuqf7S2lvwQaDLRnUeIEaKNQJzV6BwmLKhOqT61aGhfUMrXeaBk+oDGCzvhcug=="
+  "resolved" "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.1.2.tgz"
+  "version" "1.1.2"
 
 "sprintf-js@~1.0.2":
   "integrity" "sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw="
