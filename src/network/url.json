@@ -19,10 +19,11 @@
     "getTopSearches": "/api/v1/searches/topcategories",
     "getEnrolledCourses": "/api/v1/users/getmycourses",
     "updateQuestionaireProgress": "/api/v1/users/updatequestionaireprogress",
-
+    "updateVideoProgress": "/api/v1/users/updatevideoprogress",
     "getCourseDetails": "/api/v1/searches/id",
     "enroll": "/api/v1/users/enroll",
-    "getCourseProgress": "/api/v1/users/getcourseprogress"
+    "getCourseProgress": "/api/v1/users/getcourseprogress",
+    "getCourseVideoDetails": "/api/v1/users/getallprogress"
   },
   "profile": {
     "changePassword": "/api/v1/users/changepassword/oldpassword",

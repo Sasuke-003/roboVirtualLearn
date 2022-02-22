@@ -38,6 +38,8 @@ const VIR_CourseDetails = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [HideJoinCourseBtn, setHideJoinCourseBtn] = useState(false);
+
+  const [isEnrolled, setIsEnrolled] = useState(false);
   const {height, width} = useWindowDimensions();
 
   // console.log(JSON.stringify(courseData, null, 2));
@@ -61,7 +63,9 @@ const VIR_CourseDetails = ({
     const getProgress = async () => {
       try {
         const progress = await api.course.getCourseProgress(courseId);
+        // console.warn(progress.data);
         progress.status === 200 && setHideJoinCourseBtn(true);
+        progress.status === 200 && setIsEnrolled(true);
       } catch (error) {
         console.log(error);
       }
@@ -172,7 +176,11 @@ const VIR_CourseDetails = ({
         style={[styles.tabContainer, HideJoinCourseBtn && {paddingBottom: 30}]}>
         {renderTabBar()}
         {tabName === TABS.CHAPTERS ? (
-          <Chapters course={courseData} onPressIntro={onPressIntro} />
+          <Chapters
+            course={courseData}
+            onPressIntro={onPressIntro}
+            isEnrolled={isEnrolled}
+          />
         ) : (
           <Overview data={courseData.overview} onPressIntro={onPressIntro} />
         )}

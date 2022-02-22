@@ -140,6 +140,7 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_ROUTES.VIDIO_PLAYER}
         component={VIR_VidioPlayer}
+        // options={{gestureEnabled: false, swipeEnabled: false}}
       />
       <Stack.Screen
         name={NAVIGATION_ROUTES.CERTIFICATE}

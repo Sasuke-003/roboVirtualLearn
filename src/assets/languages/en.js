@@ -139,6 +139,9 @@ export default en = {
     sortTypeAll: 'All',
     sortTypePopular: 'Popular',
     sortTypeNewest: 'Newest',
+    completeProfileTitle: 'Complete profile',
+    completeProfileDesc:
+      'Your profile is incomplete, please complete your profile',
   },
   categoriesScreen: {
     title: 'Categories',
@@ -223,6 +226,10 @@ export default en = {
     chaptersTabName: 'Chapters',
     courseContentText: 'Course Content',
     chapterText: 'Chapter',
+    lessonText: 'Lesson',
+    continue: 'Continue',
+    continueWatching: 'Continue Watching',
+    watchFromBeginning: 'Watch from Beginning',
   },
   certificate: {
     title: 'Certificate of Completion',
