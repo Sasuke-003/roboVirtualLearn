@@ -26,10 +26,12 @@ import DatePicker from 'react-native-date-picker';
 import {RectangleButton} from '../components';
 import {ListModal} from '../components';
 import ImagePicker from 'react-native-image-crop-picker';
-// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-// import RNFS from 'react-native-fs';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import RNFS from 'react-native-fs';
 import {api} from '../network';
 import moment from 'moment';
+import RNFetchBlob from 'rn-fetch-blob';
+
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const data = [{value: 'Male'}, {value: 'Female'}, {value: 'Others'}];
@@ -230,16 +232,20 @@ const VIR_ProfileEditScreen = ({navigation}) => {
         width: 300,
         height: 300,
         cropping: true,
-        includeBase64: true,
+        // includeBase64: true,
       });
       if (image) {
         setProfileImage(image.path); //TODO: incomplete, pending to send image to api
         console.log(image.data);
+        // const res = await RNFS.readFile(image.sourceURL, 'base64');
+        // console.log(res);
         const formData = new FormData();
+        // formData.append('image', image, 'image134.jpeg');
         formData.append('image', {
-          uri: image.sourceURL,
-          type: image.mime,
-          name: image.filename,
+          name: 'image.jpg',
+          type: 'image/jpg',
+          uri: image.path,
+          fileName: 'image',
         });
         console.log('FormData', formData._parts[0]);
         utils.saveUserDetails({
@@ -251,7 +257,7 @@ const VIR_ProfileEditScreen = ({navigation}) => {
         });
         const response = await api.profile.uploadProfilePic(formData);
         console.log(response);
-        console.log('Bello');
+        // console.log('Bello');
       }
     } catch (e) {
       console.log('hello');
@@ -266,22 +272,30 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   //       skipBackup: true,
   //       path: 'images',
   //     },
-  //     includeBase64: true,
+  //     saveToPhotos: true,
+  //     // includeBase64: true,
   //   };
   //   try {
   //     const image = await launchImageLibrary(options);
   //     if (image) {
-  //       // setProfileImage(image.path); //TODO: incomplete, pending to send image to api
-  //       // console.log(image);
-  //       // const formData = new FormData();
-  //       // formData.append('image', {
-  //       //   uri: image.assets[0].uri,
-  //       //   name: 'image.jpg',
-  //       //   type: 'image/jpg',
-  //       // });
-  //       // console.log('FormData', formData);
-  //       const res = await RNFS.readFile(image.assets[0].uri, 'base64');
-  //       console.log(res);
+  //       setProfileImage(image.path); //TODO: incomplete, pending to send image to api
+  //       console.log(image);
+  //       const formData = new FormData();
+  //       formData.append(
+  //         'image',
+  //         {
+  //           name: image.assets[0].fileName,
+  //           type: image.assets[0].type,
+  //           uri:
+  //             Platform.OS === 'ios'
+  //               ? image.assets[0].uri.replace('file://', '')
+  //               : image.assets[0].uri,
+  //         },
+  //         image.assets[0].fileName,
+  //       );
+  //       console.log('FormData', formData._parts[0]);
+  //       // const res = await RNFS.readFile(image.assets[0].uri, 'base64');
+  //       // console.log(res);
   //       utils.saveUserDetails({
   //         data: {
   //           ...userDetails.data,
@@ -289,7 +303,7 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   //         },
   //         hasCompleted: {...userDetails.hasCompleted},
   //       });
-  //       const response = await api.profile.uploadProfilePic(res);
+  //       const response = await api.profile.uploadProfilePic(formData);
   //       console.log(response);
   //       console.log('Bello');
   //     }

@@ -19,23 +19,25 @@ import RNImageToPdf from 'react-native-image-to-pdf';
 import CameraRoll from '@react-native-community/cameraroll';
 import uuid from 'react-native-uuid';
 import {utils} from '../utils';
-
-const VIR_CertificateScreen = ({navigation}) => {
+import moment from 'moment';
+const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   const {height, width} = useWindowDimensions();
   const viewShotRef = useRef();
   const today = new Date();
+
+  const {completed, courseLength, joined, name, courseName, courseId} = params;
   // uuid.v4().split('-').pop() (Optional Unique number)
   let authToken = utils.getAuthToken();
-  const certificateNo =
-    today.getFullYear() + authToken.slice(-12).toUpperCase();
 
-  const data = {
-    name: 'Mahendra Singh Dhoni',
-    courseName: 'Learn Figma - UI/UX Design Essential Training',
-    joinedOn: '01/04/2021',
-    completedOn: '02/06/2021',
-    totalCourseDuration: '4h30m',
-  };
+  const certificateNo = today.getFullYear() + courseId.slice(-12).toUpperCase();
+
+  let time = new Date(courseLength * 60 * 1000)
+    .toISOString()
+    .substr(11, 8)
+    .split(':');
+  let hour = time[0] != '00' ? time[0] + 'h' : '';
+  let min = time[1] != '00' ? time[1] + 'm' : '';
+  let sec = time[2] != '00' ? time[2] + 's' : '';
 
   const checkPermission = async imageURI => {
     if (Platform.OS === 'ios') {
@@ -92,7 +94,8 @@ const VIR_CertificateScreen = ({navigation}) => {
   //   };
 
   const onBackPress = () => {
-    navigation.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN);
+    // navigation.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {courseId});
+    navigation.pop(3);
   };
   const onDownloadPress = async () => {
     console.log('Downloading...');
@@ -133,18 +136,23 @@ const VIR_CertificateScreen = ({navigation}) => {
     return (
       <View style={styles(height, width).topPart}>
         <Text style={styles().title}>{strings.certificate.title}</Text>
-        <Text style={styles().userName}>{data.name}</Text>
-        <Text style={styles().course}>{data.courseName}</Text>
+        <Text style={styles().userName}>{name}</Text>
+        <Text style={styles().course}>{courseName}</Text>
         <View style={styles().detailsView}>
           <Text style={styles().details}>
-            {strings.certificate.joined} {data.joinedOn}
+            {strings.certificate.joined} {moment(joined).format('DD/MM/YYYY')}
           </Text>
           <Text style={styles().dots}> {'\u2022'} </Text>
           <Text style={styles().details}>
-            {strings.certificate.completed} {data.completedOn}
+            {strings.certificate.completed}{' '}
+            {moment(completed).format('DD/MM/YYYY')}
           </Text>
           <Text style={styles().dots}> {'\u2022'} </Text>
-          <Text style={styles().details}>{data.totalCourseDuration}</Text>
+          <Text style={styles().details}>
+            {hour}
+            {min}
+            {sec}
+          </Text>
         </View>
         <Text style={styles().certificateNo}>
           {strings.certificate.certificateNo} {certificateNo}

@@ -11,6 +11,7 @@ import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {DrawerHeader, ResultModal} from '../components';
 import {colors, fonts, images, strings} from '../assets';
+import {NAVIGATION_ROUTES} from '../constants';
 
 /**
  * [{
@@ -60,14 +61,35 @@ const ResultOptions = ({item, onPressCard}) => {
 const VIR_ResultScreen = ({navigation, route: {params}}) => {
   const data = params;
   const questionAnswers = data?.questionAnswers;
+  // const courseCompleted = true;
   console.log(JSON.stringify(data, null, 2));
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(null);
   const {height, width} = useWindowDimensions();
   const portrait = height > width;
 
+  const completedData = {
+    courseId: '61f9582925cc6ed00c14af41',
+    name: 'Mahendra Singh Dhoni',
+    joinedOn: new Date(),
+    completedOn: new Date(),
+    totalCourseLength: 90,
+    courseCompleted: true,
+  };
+
   const onBackPress = () => {
-    navigation.pop(3);
+    if (completedData.courseCompleted) {
+      navigation.replace(NAVIGATION_ROUTES.CERTIFICATE, {
+        name: completedData.name,
+        joined: completedData.joinedOn,
+        completed: completedData.completedOn,
+        courseLength: completedData.totalCourseLength,
+        courseName: data.courseName,
+        courseId: completedData.courseId,
+      });
+    } else {
+      navigation.pop(3);
+    }
   };
   const renderLeftIcon = () => {
     return (

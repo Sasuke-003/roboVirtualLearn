@@ -40,15 +40,23 @@ export const profile = {
       config(),
     );
   },
-  uploadProfilePic: async formData => {
-    console.log('api', formData);
-    return await virtualLearn.patch(URL.profile.uploadProfilePic, formData, {
-      headers: {
-        // Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-        Authorization: authToken,
-      },
-    });
+  uploadProfilePic: async image => {
+    console.log('api', image);
+    // console.log('token', authToken);
+    return await virtualLearn.patch(
+      URL.profile.uploadProfilePic,
+      image,
+      config(),
+      //   {
+      //   headers: {
+      //     // Accept: 'image/jpeg',
+      //     Authorization: authToken,
+      //     // 'Content-Type': 'multipart/form-data',
+      //   },
+      // }
+    );
+    // virtualLearn.interceptors.request.use(config => console.log(config));
+    // return res;
   },
   uploadCoverPic: async formData => {
     return await virtualLearn.patch(URL.profile.uploadCoverPic, formData, {

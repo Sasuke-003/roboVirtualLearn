@@ -15,7 +15,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 const Overview = ({data, onPressIntro}) => {
   const {height, width} = useWindowDimensions();
   const portrait = height > width;
-
+  console.log(JSON.stringify(data, null, 2));
   const renderShortDescription = () => {
     return <Text style={styles.shortDesc}>{data?.shortDescription}</Text>;
   };
@@ -37,7 +37,9 @@ const Overview = ({data, onPressIntro}) => {
                     <Text style={styles.introText}>
                       {strings.overview.introduction}
                     </Text>
-                    <Text style={styles.time}>3min</Text>
+                    <Text style={styles.time}>
+                      {data?.previewVideoDuration}min
+                    </Text>
                   </View>
                 </View>
                 <Image
