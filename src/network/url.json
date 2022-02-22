@@ -15,7 +15,7 @@
     "getAllCoursesFromACategory": "/api/v1/searches/getallincategory",
     "getTopCoursesFromACategory": "/api/v1/searches/topcourses",
     "getAllCourses": "/api/v1/searches",
-    "getSearchFilter": "/api/v1/searches/getcoursebymultiplefilters",
+    "getSearchFilter": "/api/v1/searches/getmulticategorychaptercourses",
     "getTopSearches": "/api/v1/searches/topcategories",
     "getEnrolledCourses": "/api/v1/users/getmycourses",
     "updateQuestionaireProgress": "/api/v1/users/updatequestionaireprogress",

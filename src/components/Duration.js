@@ -8,26 +8,33 @@ import {getChapters, setChapters} from '../redux/reducers/filterSearchReducer';
 const durationArray = [
   {
     id: 1,
-    name: '1/2 Chapters',
-    chapters: [1, 2],
+    range: '1/2',
   },
 
-  {id: 2, name: '2/3 Chapters', chapters: [2, 3]},
-  {id: 3, name: '3/4 Chapters', chapters: [3, 4]},
-  {id: 4, name: '4/5 Chapters', chapters: [4, 5]},
-  {id: 5, name: '5/10 Chapters', chapters: [5, 6, 7, 8, 9, 10]},
+  {id: 2, range: '2/3'},
+  {id: 3, range: '3/4'},
+  {id: 4, range: '4/5'},
+  {id: 5, range: '5/10'},
 ];
 const DisplayDuration = props => {
   const chapters = useSelector(getChapters);
   const dispatch = useDispatch();
 
+  const index = chapters.findIndex(value => value === props.range);
+  const isSelected = index >= 0 ? true : false;
   const onPressDuration = () => {
-    dispatch(setChapters({chapters: props.chapters, id: props.id}));
+    dispatch(setChapters(props.range));
   };
   return (
     <TouchableOpacity onPress={onPressDuration}>
-      <View style={[styles.duration, {backgroundColor: null}]}>
-        <Text style={styles.name}>{props.name}</Text>
+      <View
+        style={[
+          styles.duration,
+          {
+            backgroundColor: isSelected ? colors.categoryBackground : null,
+          },
+        ]}>
+        <Text style={styles.name}>{props.range} Chapters</Text>
       </View>
     </TouchableOpacity>
   );
@@ -39,11 +46,7 @@ const Duration = () => {
       <Text style={styles.title}>{strings.searchScreen.duration}</Text>
       <View style={styles.list}>
         {durationArray.map(duration => (
-          <DisplayDuration
-            key={duration.id}
-            name={duration.name}
-            chapters={duration.chapters}
-          />
+          <DisplayDuration key={duration.id} range={duration.range} />
         ))}
       </View>
     </View>
