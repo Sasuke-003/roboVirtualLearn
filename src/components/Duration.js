@@ -8,13 +8,13 @@ import {getChapters, setChapters} from '../redux/reducers/filterSearchReducer';
 const durationArray = [
   {
     id: 1,
-    range: '1/2',
+    range: '2/3',
   },
 
-  {id: 2, range: '2/3'},
-  {id: 3, range: '3/4'},
-  {id: 4, range: '4/5'},
-  {id: 5, range: '5/10'},
+  {id: 2, range: '3/4'},
+  {id: 3, range: '4/5'},
+  {id: 4, range: '5/10'},
+  {id: 5, range: '10/15'},
 ];
 const DisplayDuration = props => {
   const chapters = useSelector(getChapters);
