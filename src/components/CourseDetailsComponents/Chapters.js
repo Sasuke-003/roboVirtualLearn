@@ -78,7 +78,7 @@ const Chapters = ({course, onPressIntro, isEnrolled}) => {
           setIsLoading(true);
           const {data} = await api.course.getCourseVideoDetails(course?._id);
           setCourseVideoProgress(data);
-          console.warn(data);
+          // console.warn(data);
           setIsLoading(false);
         } catch (e) {
           console.warn(e);
@@ -165,7 +165,7 @@ const Chapters = ({course, onPressIntro, isEnrolled}) => {
   const checkIfChapterIsCompleted = (chapterId, chapterVideos) => {
     if (!checkIfAllVideosCompleted(chapterId, chapterVideos)) return false;
     const {questionaire} = courseVideoProgress;
-    console.warn(questionaire);
+    // console.warn(questionaire);
     const currentChapterQuestionaire = questionaire.filter(
       qs => qs.chapterID === chapterId,
     );
@@ -185,7 +185,7 @@ const Chapters = ({course, onPressIntro, isEnrolled}) => {
       .filter(video => video.chapterID === chapterId)
       .slice()
       .sort((a, b) => a.videoOrder - b.videoOrder);
-    console.warn(currentVideos);
+    // console.warn(currentVideos);
     if (currentVideos.length !== chapterVideos.length) return false;
     for (let i = 0; i < chapterVideos.length; i++) {
       if (currentVideos[i].progressRate < 90) return false;

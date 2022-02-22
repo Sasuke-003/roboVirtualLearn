@@ -155,6 +155,7 @@ const VIR_CourseDetails = ({
       const response = await api.course.enroll(courseId);
       if (response.status === 200) {
         utils.showSuccessMessage(response.data.message);
+        setHideJoinCourseBtn(true);
         setTabName(TABS.CHAPTERS);
         setIsButtonDisabled(false);
       }

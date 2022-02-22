@@ -37,7 +37,7 @@ const VIR_ForgotPassword = ({navigation}) => {
 
   const goToVerifyScreen = () => {
     navigation.navigate(NAVIGATION_ROUTES.VERIFY_ACCOUNT_SCREEN, {
-      afterVerifyGoto: NAVIGATION_ROUTES.PERSONAL_DETAILS_SCREEN,
+      afterVerifyGoto: NAVIGATION_ROUTES.CREATE_NEW_PASSWORD_SCREEN,
       phoneNumber,
     });
   };
