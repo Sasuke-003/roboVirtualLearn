@@ -25,7 +25,10 @@ const ResultModal = ({showModal, setShowModal, data, setModalData}) => {
   const renderHeader = () => {
     return (
       <View style={styles.headerView}>
-        <Text style={styles.title}>Question{data?.order}</Text>
+        <Text style={styles.title}>
+          {strings.ResultScreen.qsn}
+          {data?.order}
+        </Text>
         <TouchableOpacity onPress={onCancel}>
           <Image source={images.result.closeModal} style={styles.closeIcon} />
         </TouchableOpacity>
@@ -85,7 +88,9 @@ const ResultModal = ({showModal, setShowModal, data, setModalData}) => {
   const renderAnswerType = () => {
     return (
       <Text style={[styles.answer, data?.type === 'Wrong' && styles.wrongText]}>
-        {data.type === 'Correct' ? 'Correct Answer' : 'Wrong Answer'}
+        {data.type === 'Correct'
+          ? strings.ResultScreen.correctOption
+          : strings.ResultScreen.wrongOption}
       </Text>
     );
   };
@@ -97,7 +102,7 @@ const ResultModal = ({showModal, setShowModal, data, setModalData}) => {
       onBackdropPress={onCancel}
       onBackButtonPress={onCancel}
       backdropColor={colors.modalBg}
-      style={{margin: 0, justifyContent: 'flex-end'}}>
+      style={styles.modalStyle}>
       <SafeAreaView
         style={styles.modalContainer(portrait)}
         edges={['left', 'right']}>
@@ -126,6 +131,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   }),
+  modalStyle: {margin: 0, justifyContent: 'flex-end'},
   headerView: {
     width: '100%',
     flexDirection: 'row',

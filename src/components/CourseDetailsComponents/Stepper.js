@@ -210,8 +210,7 @@ const Stepper = ({
           questionName: Array.isArray(chapter.questionnaire.questionID)
             ? chapter.questionnaire.questionID[0].name
             : chapter.questionnaire.questionID.name,
-          totalNumberOfQuestions:
-            chapter.questionnaire.questionID.numberOfQuestions,
+          totalNumberOfQuestions: chapter.numberOfQuestions,
           timeDuration: Array.isArray(chapter.questionnaire.questionID)
             ? chapter.questionnaire.questionID[0].timeDuration
             : chapter.questionnaire.questionID.timeDuration,

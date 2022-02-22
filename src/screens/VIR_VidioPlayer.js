@@ -49,7 +49,7 @@ const VIR_VidioPlayer = ({
     navigation.goBack();
   };
   const onPause = () => {
-    setSendProgress(true);
+    setPauseState(true);
   };
 
   return (
@@ -63,8 +63,9 @@ const VIR_VidioPlayer = ({
       playWhenInactive={false}
       // onLoad={onLoad}
       // seek={100}
-      onPause={onPause}
+      // onPause={onPause}
       onBack={onBack}
+      paused={pauseState}
     />
   );
 };

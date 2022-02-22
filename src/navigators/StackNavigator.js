@@ -18,6 +18,7 @@ import {
   VIR_ResultScreen,
   VIR_CourseDetails,
   VIR_VidioPlayer,
+  VIR_CertificateScreen,
 } from '../screens';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -140,6 +141,10 @@ const StackNavigator = () => {
         name={NAVIGATION_ROUTES.VIDIO_PLAYER}
         component={VIR_VidioPlayer}
         // options={{gestureEnabled: false, swipeEnabled: false}}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ROUTES.CERTIFICATE}
+        component={VIR_CertificateScreen}
       />
     </Stack.Navigator>
   );
