@@ -38,10 +38,10 @@ export const course = {
     );
   },
 
-  getFilteredSearch: async (category, chapters) => {
+  getFilteredSearch: async (category, chapter) => {
     return await virtualLearn.post(URL.course.getSearchFilter, {
       category,
-      chapters,
+      chapter,
     });
   },
   getTopSearch: async () => {

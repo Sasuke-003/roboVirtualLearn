@@ -3,7 +3,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
 import {useSelector, useDispatch} from 'react-redux';
-import {setTime, getTime} from '../redux/reducers/videoTimeReducer';
+import {setTime, setMaxLength} from '../redux/reducers/videoTimeReducer';
 import {utils} from '../utils';
 import {api} from '../network';
 
@@ -20,24 +20,27 @@ const VIR_VidioPlayer = ({
     console.log('Data', data);
   };
   const onProgress = data => {
+    console.log(data);
     dispatch(setTime(data.currentTime));
+    dispatch(setMaxLength(data.seekableDuration));
   };
   const onBack = async () => {
     // setSendProgress(true);
 
     try {
-      const videoTime = Number.parseInt(
-        videoData.timeDuration.slice(videoData.timeDuration.indexOf('.') + 1),
-      );
+      // const videoTime = Number.parseInt(
+      //   videoData.timeDuration.slice(videoData.timeDuration.indexOf('.') + 1),
+      // );
       const watchedTill = Math.trunc(utils.getVideoTime());
-      // console.warn(watchedTill);
-      // console.warn((100 * watchedTill) / videoTime);
+      console.warn(watchedTill);
+      console.warn(utils.getVideoMaxLength());
+      console.warn((100 * watchedTill) / utils.getVideoMaxLength());
       const data = {
         courseID: courseId,
         chapterID: chapterId,
         videoID: videoData._id,
         videoOrder: videoData.order,
-        progressRate: (100 * watchedTill) / videoTime,
+        progressRate: (100 * watchedTill) / utils.getVideoMaxLength(),
         watchedTill: watchedTill,
       };
       await api.course.updateVideoProgress(data);
@@ -65,7 +68,6 @@ const VIR_VidioPlayer = ({
       // seek={100}
       // onPause={onPause}
       onBack={onBack}
-      paused={pauseState}
     />
   );
 };

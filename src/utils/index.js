@@ -15,7 +15,12 @@ import {
   getAuthToken,
 } from './auth';
 
-import {setVideoTime, getVideoTime} from './videoTime';
+import {
+  setVideoTime,
+  getVideoTime,
+  getVideoMaxLength,
+  setVideoMaxLength,
+} from './videoTime';
 
 export const utils = {
   showErrorMessage,
@@ -33,4 +38,6 @@ export const utils = {
   isValidFacebookLink,
   setVideoTime,
   getVideoTime,
+  getVideoMaxLength,
+  setVideoMaxLength,
 };

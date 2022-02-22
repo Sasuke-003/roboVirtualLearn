@@ -28,16 +28,17 @@ import {api} from '../network';
 
 const SearchModal = props => {
   const showModal = useSelector(getShowSearchModal);
-  const categories = useSelector(getCategory);
-  const chapters = useSelector(getChapters);
+  const category = useSelector(getCategory);
+  const chapter = useSelector(getChapters);
 
   const dispatch = useDispatch();
 
   const onPressApplyFilter = async () => {
     try {
-      const response = await api.course.getFilteredSearch(categories, chapters);
+      const response = await api.course.getFilteredSearch(category, chapter);
+
       if (response.status === 200) {
-        dispatch(setFilteredCourses(response.data.data));
+        dispatch(setFilteredCourses(response.data.courses));
       }
     } catch (error) {
       console.log(error);

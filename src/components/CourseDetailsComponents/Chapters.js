@@ -78,7 +78,6 @@ const Chapters = ({course, onPressIntro, isEnrolled}) => {
           setIsLoading(true);
           const {data} = await api.course.getCourseVideoDetails(course?._id);
           setCourseVideoProgress(data);
-          // console.warn(data);
           setIsLoading(false);
         } catch (e) {
           console.warn(e);
@@ -89,6 +88,74 @@ const Chapters = ({course, onPressIntro, isEnrolled}) => {
       getData();
     }, []),
   );
+
+  const chapters = course?.chapters
+    ?.slice()
+    .sort((a, b) => a.chapterID.order - b.chapterID.order);
+
+  const RenderContinueButton = () => {
+    const {videos} = courseVideoProgress;
+    const currentVideo = videos
+      .slice()
+      .sort((a, b) => b.videoOrder - a.videoOrder)[0];
+
+    const chapterNumber = () => {
+      if (videos.length === 0) {
+        return 1;
+      }
+      for (let i = 0; i < chapters.length; i++) {
+        if (chapters[i].chapterID._id === currentVideo.chapterID)
+          return chapters[i].chapterID.order;
+      }
+    };
+
+    const lessonNumber = () => {
+      if (videos.length === 0) {
+        return 1;
+      }
+      return currentVideo.videoOrder;
+    };
+
+    const currentVideoData = () => {
+      if (videos.length === 0) {
+        return chapters[0].chapterID.videos[0].videoID[0];
+      }
+      for (let i = 0; i < chapters.length; i++) {
+        if (chapters[i].chapterID._id === currentVideo.chapterID) {
+          let videoArray = chapters[i].chapterID.videos[0].videoID;
+          for (let j = 0; j < videoArray.length; j++) {
+            if (videoArray[j]._id === currentVideo.videoId)
+              return videoArray[j];
+          }
+        }
+      }
+      return chapters[0].chapterID.videos[0].videoID[0];
+    };
+
+    const onPressContinue = () => {
+      onPressIntro({
+        videoData: currentVideoData(),
+        courseId: currentVideo ? currentVideo.courseID : course?._id,
+        chapterId: currentVideo
+          ? currentVideo.chapterID
+          : chapters[0].chapterID._id,
+      });
+    };
+
+    return (
+      <TouchableOpacity onPress={onPressContinue}>
+        <View style={styles.continueButton}>
+          <Text style={styles.continueButtonText}>
+            {`${strings.courseDetailsSCreen.continue} ${
+              strings.courseDetailsSCreen.chapterText
+            } ${chapterNumber()} ${
+              strings.courseDetailsSCreen.lessonText
+            } ${lessonNumber()}`}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const renderCourseContent = () => (
     <View style={styles.courseContentContainer}>
@@ -109,9 +176,6 @@ const Chapters = ({course, onPressIntro, isEnrolled}) => {
       </Text>
     </View>
   );
-  const chapters = course?.chapters
-    ?.slice()
-    .sort((a, b) => a.chapterID.order - b.chapterID.order);
 
   const currentPlayingVideo = () => {
     let currentVideo = 0;
@@ -165,7 +229,6 @@ const Chapters = ({course, onPressIntro, isEnrolled}) => {
   const checkIfChapterIsCompleted = (chapterId, chapterVideos) => {
     if (!checkIfAllVideosCompleted(chapterId, chapterVideos)) return false;
     const {questionaire} = courseVideoProgress;
-    // console.warn(questionaire);
     const currentChapterQuestionaire = questionaire.filter(
       qs => qs.chapterID === chapterId,
     );
@@ -180,12 +243,10 @@ const Chapters = ({course, onPressIntro, isEnrolled}) => {
 
   const checkIfAllVideosCompleted = (chapterId, chapterVideos) => {
     const {videos} = courseVideoProgress;
-
     const currentVideos = videos
       .filter(video => video.chapterID === chapterId)
       .slice()
       .sort((a, b) => a.videoOrder - b.videoOrder);
-    // console.warn(currentVideos);
     if (currentVideos.length !== chapterVideos.length) return false;
     for (let i = 0; i < chapterVideos.length; i++) {
       if (currentVideos[i].progressRate < 90) return false;
@@ -202,10 +263,21 @@ const Chapters = ({course, onPressIntro, isEnrolled}) => {
     );
   };
 
+  const chapterProgressVideos = chapterId => {
+    const {videos} = courseVideoProgress;
+    const currentVideos = videos
+      .filter(video => video.chapterID === chapterId)
+      .slice()
+      .sort((a, b) => a.videoOrder - b.videoOrder);
+    console.warn(currentVideos);
+    return currentVideos;
+  };
+
   return isLoading ? (
     loadingComponent()
   ) : (
     <View style={styles.container}>
+      <RenderContinueButton />
       {renderCourseContent()}
       <View style={styles.courseContentsContainer}>
         {chapters.map((chapter, index) => (
@@ -231,6 +303,7 @@ const Chapters = ({course, onPressIntro, isEnrolled}) => {
             )}
             isEnrolled={isEnrolled}
             previousChapterCompleted={checkIfPreviousChapterCompleted(index)}
+            progressVideos={chapterProgressVideos(chapter.chapterID._id)}
           />
         ))}
       </View>
@@ -284,5 +357,21 @@ const styles = StyleSheet.create({
   },
   chapterContainer: {
     marginBottom: 15,
+  },
+  continueButton: {
+    backgroundColor: colors.buttonBackground,
+    height: 46,
+    borderRadius: 6,
+    width: '100%',
+    marginBottom: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  continueButtonText: {
+    color: colors.background,
+    fontFamily: fonts.proximaNovaRegular,
+    fontSize: 16,
+    fontWeight: '600',
+    lineHeight: 20,
   },
 });
