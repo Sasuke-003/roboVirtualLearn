@@ -43,18 +43,13 @@ export const profile = {
   uploadProfilePic: async image => {
     console.log('api', image);
     // console.log('token', authToken);
-    return await virtualLearn.patch(
-      URL.profile.uploadProfilePic,
-      image,
-      config(),
-      //   {
-      //   headers: {
-      //     // Accept: 'image/jpeg',
-      //     Authorization: authToken,
-      //     // 'Content-Type': 'multipart/form-data',
-      //   },
-      // }
-    );
+    return await virtualLearn.patch(URL.profile.uploadProfilePic, image, {
+      headers: {
+        Authorization: authToken,
+        'content-type':
+          'multipart/form-data;boundary=--------------------------299186221864974250459453',
+      },
+    });
     // virtualLearn.interceptors.request.use(config => console.log(config));
     // return res;
   },

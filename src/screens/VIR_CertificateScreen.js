@@ -7,7 +7,7 @@ import {
   PermissionsAndroid,
   Platform,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors, images, fonts, strings} from '../assets';
 import {DrawerHeader} from '../components';
@@ -24,6 +24,7 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   const {height, width} = useWindowDimensions();
   const viewShotRef = useRef();
   const today = new Date();
+  const [URI, setURI] = useState('');
 
   const {completed, courseLength, joined, name, courseName, courseId} = params;
   // uuid.v4().split('-').pop() (Optional Unique number)
@@ -97,11 +98,20 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
     // navigation.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {courseId});
     navigation.pop(3);
   };
-  const onDownloadPress = async () => {
-    console.log('Downloading...');
-    try {
+
+  useEffect(() => {
+    const getImage = async () => {
       const imageURI = await viewShotRef.current.capture();
-      checkPermission(imageURI);
+      imageURI && setURI(imageURI);
+    };
+    getImage();
+  }, []);
+
+  const onDownloadPress = async () => {
+    console.log('Downloading...', URI);
+    try {
+      // const imageURI = await viewShotRef.current.capture();
+      checkPermission(URI);
       //   myAsyncPDFFunction();
     } catch (e) {
       console.log(e);

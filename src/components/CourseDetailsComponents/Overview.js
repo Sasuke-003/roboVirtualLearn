@@ -15,7 +15,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 const Overview = ({data, onPressIntro}) => {
   const {height, width} = useWindowDimensions();
   const portrait = height > width;
-  console.log(JSON.stringify(data, null, 2));
+  // console.log(JSON.stringify(data, null, 2));
   const renderShortDescription = () => {
     return <Text style={styles.shortDesc}>{data?.shortDescription}</Text>;
   };
@@ -170,6 +170,7 @@ export default Overview;
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    paddingHorizontal: 24,
   },
   shortDesc: {
     color: colors.privacy,

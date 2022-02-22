@@ -24,3 +24,4 @@ export {default as ResultModal} from './ResultModal';
 export {default as Overview} from './CourseDetailsComponents/Overview';
 export {default as Chapters} from './CourseDetailsComponents/Chapters';
 export {default as ShowMore} from './ShowMore';
+export {default as SplitDataCard} from './SplitDataCard';

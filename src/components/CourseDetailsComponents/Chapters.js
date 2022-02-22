@@ -1,12 +1,20 @@
-import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+  useWindowDimensions,
+  Image,
+} from 'react-native';
 import React, {useState} from 'react';
 import {strings, fonts, images, colors} from '../../assets';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useFocusEffect} from '@react-navigation/native';
 import {api} from '../../network';
-
+import {SplitDataCard} from '..';
 import Stepper from './Stepper';
-
+import moment from 'moment';
+import Icon from 'react-native-vector-icons/Feather';
 const loadingComponent = () => (
   <View
     style={{height: '100%', justifyContent: 'center', alignItems: 'center'}}>
@@ -67,10 +75,11 @@ const ChapterContent = ({
   );
 };
 
-const Chapters = ({course, onPressIntro, isEnrolled}) => {
+const Chapters = ({course, onPressIntro, isEnrolled, progress}) => {
   const [courseVideoProgress, setCourseVideoProgress] = useState({videos: []});
   const [isLoading, setIsLoading] = useState(false);
-
+  const {height, width} = useWindowDimensions();
+  console.log(JSON.stringify(course, null, 2));
   useFocusEffect(
     React.useCallback(() => {
       const getData = async () => {
@@ -269,52 +278,112 @@ const Chapters = ({course, onPressIntro, isEnrolled}) => {
       .filter(video => video.chapterID === chapterId)
       .slice()
       .sort((a, b) => a.videoOrder - b.videoOrder);
-    console.warn(currentVideos);
+    // console.warn(currentVideos);
     return currentVideos;
+  };
+  console.log('ppppppp', progress);
+  const firstBox = {
+    title: 'Joined',
+    data: moment(progress?.joinedOn).format('DD/MM/YYYY'),
+  };
+  const secondBox = {
+    title: 'Completed',
+    data: moment(progress?.completedOn).format('DD/MM/YYYY'),
+  };
+
+  let time = new Date(course?.courseContent?.totalLength * 60 * 1000)
+    .toISOString()
+    .substr(11, 8)
+    .split(':');
+  let hour = time[0] != '00' ? time[0] + 'h' : '';
+  let min = time[1] != '00' ? time[1] + 'm' : '';
+  let sec = time[2] != '00' ? time[2] + 's' : '';
+
+  const thirdBox = {
+    title: 'Duration',
+    data: `${hour}${min}${sec}`,
   };
 
   return isLoading ? (
     loadingComponent()
   ) : (
-    <View style={styles.container}>
-      <RenderContinueButton />
-      {renderCourseContent()}
-      <View style={styles.courseContentsContainer}>
-        {chapters.map((chapter, index) => (
-          <ChapterContent
-            key={index}
-            chapter={chapter.chapterID}
-            onPressIntro={onPressIntro}
-            courseId={course?._id}
-            courseName={course?.name}
-            isChapterCompleted={checkIfChapterIsCompleted(
-              chapter.chapterID._id,
-              chapter.chapterID.videos[0].videoID,
-            )}
-            currentPlayingVideoOrder={currentPlayingVideoOrder(
-              chapter.chapterID.order,
-              chapter.chapterID.videos[0].videoID,
-              chapter.chapterID._id,
-              index,
-            )}
-            allVideosCompleted={checkIfAllVideosCompleted(
-              chapter.chapterID._id,
-              chapter.chapterID.videos[0].videoID,
-            )}
-            isEnrolled={isEnrolled}
-            previousChapterCompleted={checkIfPreviousChapterCompleted(index)}
-            progressVideos={chapterProgressVideos(chapter.chapterID._id)}
-          />
-        ))}
+    <>
+      <View style={styles.container}>
+        <RenderContinueButton />
+        {renderCourseContent()}
+        <View style={styles.courseContentsContainer}>
+          {chapters.map((chapter, index) => (
+            <ChapterContent
+              key={index}
+              chapter={chapter.chapterID}
+              onPressIntro={onPressIntro}
+              courseId={course?._id}
+              courseName={course?.name}
+              isChapterCompleted={checkIfChapterIsCompleted(
+                chapter.chapterID._id,
+                chapter.chapterID.videos[0].videoID,
+              )}
+              currentPlayingVideoOrder={currentPlayingVideoOrder(
+                chapter.chapterID.order,
+                chapter.chapterID.videos[0].videoID,
+                chapter.chapterID._id,
+                index,
+              )}
+              allVideosCompleted={checkIfAllVideosCompleted(
+                chapter.chapterID._id,
+                chapter.chapterID.videos[0].videoID,
+              )}
+              isEnrolled={isEnrolled}
+              previousChapterCompleted={checkIfPreviousChapterCompleted(index)}
+              progressVideos={chapterProgressVideos(chapter.chapterID._id)}
+            />
+          ))}
+        </View>
       </View>
-    </View>
+      {/* {console.log('dfdf', progress?.hasOwnProperty('completedOn'))} */}
+      {progress?.hasOwnProperty('completedOn') && (
+        <View style={styles.resultContainer}>
+          <Text style={styles.resultTitle}>Course Result</Text>
+          <Text style={styles.resultAppRate}>100%</Text>
+          <Text style={styles.AppRate}>approval rate</Text>
+          <SplitDataCard
+            firstBox={firstBox}
+            secondBox={secondBox}
+            thirdBox={thirdBox}
+            style={{marginHorizontal: 0}}
+          />
+          <View style={styles.certificateView}>
+            <Text style={styles.certificateTitle}>Course Certificate</Text>
+            <Icon
+              name="download"
+              size={25}
+              color={colors.background}
+              style={styles.downloadIcon}
+              // onPress={onDownloadPress}
+            />
+          </View>
+          <View style={styles.certificateContainer}>
+            <Image
+              source={{
+                uri: '/Users/nitheshkumar/Library/Developer/CoreSimulator/Devices/0DBF97FA-CE93-402B-ADE0-BF478BB5B94D/data/Containers/Data/Application/CEF6B401-1774-45BA-B68E-1B2EB5407EC6/tmp/ReactNative/CFA8748B-7A5C-45E7-97F2-657E24A0C998.png',
+              }}
+              style={styles.certificate(width)}
+            />
+          </View>
+        </View>
+      )}
+    </>
   );
 };
 
 export default Chapters;
 
 const styles = StyleSheet.create({
-  container: {marginTop: 30, backgroundColor: colors.background},
+  container: {
+    marginTop: 30,
+    backgroundColor: colors.background,
+    paddingHorizontal: 24,
+  },
   courseContentContainer: {},
   courseContentTitle: {
     color: colors.primaryText,
@@ -374,4 +443,61 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 20,
   },
+  resultContainer: {
+    backgroundColor: colors.phoneNumberActive,
+    paddingHorizontal: 24,
+    paddingVertical: 30,
+  },
+  resultTitle: {
+    color: colors.background,
+    fontFamily: fonts.proximaNovaMedium,
+    fontSize: 18,
+    fontWeight: '600',
+    letterSpacing: 0,
+    lineHeight: 22,
+    marginBottom: 10,
+  },
+  resultAppRate: {
+    color: colors.successColor,
+    fontFamily: fonts.bikoRegular,
+    fontSize: 74,
+    letterSpacing: 0,
+    lineHeight: 90,
+    marginTop: 10,
+  },
+  AppRate: {
+    color: colors.appRate,
+    fontFamily: fonts.bikoRegular,
+    fontSize: 16,
+    letterSpacing: 0,
+    lineHeight: 19,
+    top: -12,
+    marginBottom: 10,
+  },
+  downloadIcon: {},
+  certificateTitle: {
+    color: colors.background,
+    fontFamily: fonts.proximaNovaMedium,
+    fontSize: 18,
+    fontWeight: '600',
+    letterSpacing: 0,
+    lineHeight: 22,
+  },
+  certificateView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 40,
+    alignItems: 'center',
+  },
+  certificateContainer: {
+    height: 250,
+    overflow: 'hidden',
+    borderRadius: 6,
+    marginTop: 20,
+  },
+  certificate: width => ({
+    // width,
+    height: 250,
+    resizeMode: 'cover',
+  }),
 });
