@@ -226,6 +226,10 @@ export default en = {
     chaptersTabName: 'Chapters',
     courseContentText: 'Course Content',
     chapterText: 'Chapter',
+    lessonText: 'Lesson',
+    continue: 'Continue',
+    continueWatching: 'Continue Watching',
+    watchFromBeginning: 'Watch from Beginning',
   },
   certificate: {
     title: 'Certificate of Completion',

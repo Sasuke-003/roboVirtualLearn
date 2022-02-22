@@ -61,7 +61,6 @@ const StepCard = ({
   const time = isQuestion
     ? questionData.timeDuration
     : lessons[position].timeDuration;
-  console.warn(courseName + allVideosCompleted);
   const stepCard = () => (
     <View
       style={[
