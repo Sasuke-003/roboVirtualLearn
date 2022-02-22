@@ -34,6 +34,7 @@ export const images = {
   greyPlayIcon: require('./images/greyPlayIcon3x.png'),
   redPlayIcon: require('./images/redPlayIcon3x.png'),
   testIcon: require('./images/testIcon.png'),
+  profileNextIcon: require('./images/profileNextIcon3x.png'),
   newAccountScreen: {
     googleIcon: require('./images/googleIcon3x.png'),
     facebookIcon: require('./images/facebook3x.png'),

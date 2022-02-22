@@ -139,6 +139,9 @@ export default en = {
     sortTypeAll: 'All',
     sortTypePopular: 'Popular',
     sortTypeNewest: 'Newest',
+    completeProfileTitle: 'Complete profile',
+    completeProfileDesc:
+      'Your profile is incomplete, please complete your profile',
   },
   categoriesScreen: {
     title: 'Categories',

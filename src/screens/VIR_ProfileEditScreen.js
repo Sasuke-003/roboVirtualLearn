@@ -237,7 +237,7 @@ const VIR_ProfileEditScreen = ({navigation}) => {
         console.log(image.data);
         const formData = new FormData();
         formData.append('image', {
-          uri: image.sourceURL,
+          uri: image.path,
           type: image.mime,
           name: image.filename,
         });
