@@ -84,4 +84,12 @@ export const course = {
       config(),
     );
   },
+  updateVideoProgress: async data =>
+    await virtualLearn.post(URL.course.updateVideoProgress, data, config()),
+  getCourseVideoDetails: async courseID =>
+    await virtualLearn.post(
+      URL.course.getCourseVideoDetails,
+      {courseID},
+      config(),
+    ),
 };

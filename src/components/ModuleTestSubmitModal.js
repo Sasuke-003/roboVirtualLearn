@@ -1,98 +1,27 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {api} from '../network';
 
 import Modal from 'react-native-modal';
 
 import {useDispatch, useSelector} from 'react-redux';
 
 import {
-  clearQuestionAnswer,
-  getQuestionAnswer,
   getShowModal,
   setModalVisible,
 } from '../redux/reducers/questionAnswerReducer';
 import {images, strings, fonts, colors} from '../assets';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useNavigation} from '@react-navigation/core';
-import {NAVIGATION_ROUTES} from '../constants';
 
 const ModuleTestSubmitModal = props => {
-  const navigation = useNavigation();
   const dispatch = useDispatch();
   const showModal = useSelector(getShowModal);
-  const questionAnswer = useSelector(getQuestionAnswer);
-  const totalRightAnswers = questionAnswer.filter(
-    answer => answer.type === 'Correct',
-  );
-  const totalWrongAnswers = questionAnswer.filter(
-    answer => answer.type === 'Wrong',
-  );
-  const right = totalRightAnswers.length;
-  const wrong = totalWrongAnswers.length;
-
-  const onPressCancel = () => {
-    dispatch(setModalVisible(false));
-    dispatch(clearQuestionAnswer());
-  };
-  const approvalRate = (right / props.totalQuestions) * 100;
-  const passingGrade = 75;
-  const data = {
-    approvalRate: Math.round(approvalRate),
-    chapterNo: props.chapterNumber,
-    chapterName: props.chapterName,
-    courseName: props.courseName,
-    totalQsns: props.totalQuestions,
-    passingGrade: passingGrade,
-    totalCorrectAnswers: right,
-    totalWrongAnswers: wrong,
-    questionAnswers: questionAnswer,
-  };
-
-  const onPressButton = () => {
-    navigation.navigate(NAVIGATION_ROUTES.RESULT_SCREEN, data);
-    dispatch(clearQuestionAnswer());
-  };
-  console.log(questionAnswer);
-  const navData = {
-    image: images.moduleTest.success,
-    title: 'Congratulations!',
-    message: `You have completed Chapter ${props.chapterNumber} - ${props.chapterName}, ${props.courseName}`,
-    buttonName: 'Result',
-    onPressButton: onPressButton,
-  };
-
-  const updateResult = async () => {
-    try {
-      const response = await api.course.updateQuestionairProgress(
-        props.courseID,
-        props.chapterID,
-        props.questionaireID,
-        approvalRate,
-        right,
-        wrong,
-      );
-
-      if (response.status === 200) {
-        if (approvalRate > passingGrade) {
-          //navData.passingGrade=response.data.passingGrade;
-          navigation.navigate(NAVIGATION_ROUTES.SUCCESS_SCREEN, navData);
-        } else {
-          alert('You did not meet the passing criteria. Retake the test');
-        }
-      }
-    } catch (error) {
-      if (error.response.status === 401) {
-        console.warn('Authentication Failed');
-      } else {
-        console.warn('Internal Server Error');
-      }
-    }
-  };
 
   const onPressSubmit = () => {
-    updateResult();
+    props.updateResult();
+    dispatch(setModalVisible(false));
+  };
+  const onPressCancel = () => {
     dispatch(setModalVisible(false));
   };
   return (
@@ -105,7 +34,9 @@ const ModuleTestSubmitModal = props => {
       <View style={styles.container}>
         <View style={styles.upperPart}>
           <Text style={styles.title}>{strings.moduleTest.endTest}</Text>
-          <Text style={styles.message}>You still have 50 second remaining</Text>
+          <Text style={styles.message}>
+            You still have {props.time} remaining
+          </Text>
           <Text style={styles.description}>
             {strings.moduleTest.checkAnswer}
           </Text>

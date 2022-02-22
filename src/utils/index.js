@@ -15,6 +15,8 @@ import {
   getAuthToken,
 } from './auth';
 
+import {setVideoTime, getVideoTime} from './videoTime';
+
 export const utils = {
   showErrorMessage,
   showSuccessMessage,
@@ -29,4 +31,6 @@ export const utils = {
   toTitleCase,
   isValidTwitterLink,
   isValidFacebookLink,
+  setVideoTime,
+  getVideoTime,
 };

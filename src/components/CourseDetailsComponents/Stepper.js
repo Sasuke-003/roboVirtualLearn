@@ -51,12 +51,17 @@ const StepCard = ({
   chapterNumber,
   onPressIntro,
   gotoTest,
+  courseId,
+  chapterId,
+  allVideosCompleted,
+  isChapterCompleted,
+  courseName,
 }) => {
   const name = isQuestion ? questionData.questionName : lessons[position].name;
   const time = isQuestion
     ? questionData.timeDuration
     : lessons[position].timeDuration;
-
+  console.warn(courseName + allVideosCompleted);
   const stepCard = () => (
     <View
       style={[
@@ -87,16 +92,42 @@ const StepCard = ({
       </View>
       {!isQuestion && (
         <TouchableOpacity
-          onPress={() => onPressIntro({url: lessons[position].url})}>
+          onPress={() =>
+            isEnrolled
+              ? position > currentPosition
+                ? () => {}
+                : onPressIntro({
+                    videoData: lessons[position],
+                    courseId,
+                    chapterId,
+                  })
+              : () => {}
+          }
+          // onPress={() =>
+          //   !isEnrolled
+          //     ? chapterNumber === 1 && position <= currentPosition
+          //       ? onPressIntro({
+          //           videoData: lessons[position],
+          //           courseId,
+          //           chapterId,
+          //         })
+          //       : () => {}
+          //     : position > currentPosition
+          //     ? () => {}
+          //     : onPressIntro({
+          //         videoData: lessons[position],
+          //         courseId,
+          //         chapterId,
+          //       })
+          // }
+        >
           <Image
             source={
-              !isEnrolled
-                ? chapterNumber === 1 && position <= currentPosition
-                  ? images.redPlayIcon
-                  : images.greyPlayIcon
-                : position > currentPosition
-                ? images.greyPlayIcon
-                : images.redPlayIcon
+              isEnrolled
+                ? position > currentPosition
+                  ? images.greyPlayIcon
+                  : images.redPlayIcon
+                : images.greyPlayIcon
             }
             style={styles.playBtn}
           />
@@ -105,7 +136,10 @@ const StepCard = ({
     </View>
   );
 
-  return isEnrolled && isQuestion ? (
+  return isEnrolled &&
+    isQuestion &&
+    !isChapterCompleted &&
+    allVideosCompleted ? (
     <TouchableOpacity onPress={() => gotoTest(questionData)}>
       {stepCard()}
     </TouchableOpacity>
@@ -121,6 +155,8 @@ const LessonCardNotEnrolled = ({
   isEnrolled,
   chapterNumber,
   onPressIntro,
+  courseId,
+  chapterId,
 }) => {
   return (
     <View>
@@ -135,6 +171,8 @@ const LessonCardNotEnrolled = ({
           isEnrolled={isEnrolled}
           chapterNumber={chapterNumber}
           onPressIntro={onPressIntro}
+          courseId={courseId}
+          chapterId={chapterId}
         />
       ))}
     </View>
@@ -143,10 +181,12 @@ const LessonCardNotEnrolled = ({
 
 const Stepper = ({
   chapter,
-  isEnrolled = true,
+  isEnrolled = false,
   onPressIntro,
   courseId,
   courseName,
+  allVideosCompleted,
+  isChapterCompleted,
   ...props
 }) => {
   const navigation = useNavigation();
@@ -180,6 +220,8 @@ const Stepper = ({
         };
   return !isEnrolled ? (
     <LessonCardNotEnrolled
+      courseId={courseId}
+      chapterId={chapter._id}
       lessonCountArray={[...lessons, questionData && {}]}
       lessons={lessons}
       questionData={questionData}
@@ -202,6 +244,8 @@ const Stepper = ({
       direction="vertical"
       renderLabel={({position}) => (
         <StepCard
+          courseId={courseId}
+          chapterId={chapter._id}
           position={position}
           currentPosition={props.position}
           lessons={lessons}
@@ -210,6 +254,9 @@ const Stepper = ({
           isEnrolled={isEnrolled}
           onPressIntro={onPressIntro}
           gotoTest={gotoTest}
+          isChapterCompleted={isChapterCompleted}
+          allVideosCompleted={allVideosCompleted}
+          courseName={chapter.name}
         />
       )}
       renderStepIndicator={({position}) =>
