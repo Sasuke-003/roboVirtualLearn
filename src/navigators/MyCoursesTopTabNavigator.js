@@ -72,7 +72,14 @@ const MyCoursesTopTabNavigator = ({gotoCourseDetailsScreen}) => {
             />
           )}
         </Tab.Screen>
-        <Tab.Screen name="Completed" component={CompletedScreen} />
+        <Tab.Screen name="Completed">
+          {props => (
+            <CompletedScreen
+              {...props}
+              gotoCourseDetailsScreen={gotoCourseDetailsScreen}
+            />
+          )}
+        </Tab.Screen>
       </Tab.Navigator>
     </View>
   );
