@@ -11,7 +11,7 @@ import React from 'react';
 import {images, strings, fonts, colors} from '../assets';
 
 const VIR_SuccessScreen = ({navigation, route}) => {
-  const {
+  let {
     image,
     title,
     message,
@@ -19,6 +19,8 @@ const VIR_SuccessScreen = ({navigation, route}) => {
     onPressButton,
     approvalRate = 90,
   } = route.params;
+  console.log(image, approvalRate);
+  // image = images.successScreen.courseComplete;
   const renderContent = () => {
     return (
       <View style={styles.innerContainer}>
@@ -30,7 +32,7 @@ const VIR_SuccessScreen = ({navigation, route}) => {
   };
   const renderButton = () => {
     return (
-      <View style={styles.buttonContainer}>
+      <View style={styles.buttonContainer(approvalRate)}>
         <TouchableOpacity onPress={onPressButton}>
           <Text style={styles.buttonText}>{buttonName}</Text>
         </TouchableOpacity>
@@ -39,7 +41,7 @@ const VIR_SuccessScreen = ({navigation, route}) => {
   };
   const renderApprovalRate = () => {
     return (
-      <View style={{paddingVertical: 20}}>
+      <View style={{marginTop: 20}}>
         <Text style={styles.appRate}>{approvalRate}%</Text>
         <Text style={styles.appRateText}>approval rate</Text>
       </View>
@@ -52,8 +54,8 @@ const VIR_SuccessScreen = ({navigation, route}) => {
       showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         {renderContent()}
+        {approvalRate ? renderApprovalRate() : null}
         {renderButton()}
-        {approvalRate !== null ? renderApprovalRate() : null}
       </View>
     </ScrollView>
   );
@@ -102,10 +104,10 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     textAlign: 'center',
   },
-  buttonContainer: {
-    paddingTop: 50,
+  buttonContainer: approvalRate => ({
+    paddingTop: approvalRate !== null ? 10 : 70,
     paddingBottom: 30,
-  },
+  }),
   buttonText: {
     color: colors.buttonBackground,
     fontFamily: fonts.proximaNovaBold,
@@ -130,6 +132,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     lineHeight: 19,
     textAlign: 'center',
-    paddingVertical: 10,
+    top: -20,
+    // paddingVertical: 10,
   },
 });

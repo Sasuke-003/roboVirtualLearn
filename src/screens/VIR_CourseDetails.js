@@ -38,10 +38,11 @@ const VIR_CourseDetails = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [HideJoinCourseBtn, setHideJoinCourseBtn] = useState(false);
-
   const [isEnrolled, setIsEnrolled] = useState(false);
-  const {height, width} = useWindowDimensions();
+  const [progressData, setProgressData] = useState(null);
 
+  const {height, width} = useWindowDimensions();
+  console.log(courseId);
   // console.log(JSON.stringify(courseData, null, 2));
   useEffect(() => {
     setIsLoading(true);
@@ -59,13 +60,23 @@ const VIR_CourseDetails = ({
         console.warn(error);
         setCourseData([]);
       }
+      return () => {
+        setIsLoading(false);
+      };
     };
     const getProgress = async () => {
       try {
         const progress = await api.course.getCourseProgress(courseId);
         // console.warn(progress.data);
-        progress.status === 200 && setHideJoinCourseBtn(true);
-        progress.status === 200 && setIsEnrolled(true);
+        if (progress.status === 200) {
+          // console.log(
+          //   'Progress',
+          //   JSON.stringify(progress.data.progressData, null, 2),
+          // );
+          setProgressData(progress.data.progressData);
+          setHideJoinCourseBtn(true);
+          setIsEnrolled(true);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -155,6 +166,7 @@ const VIR_CourseDetails = ({
       const response = await api.course.enroll(courseId);
       if (response.status === 200) {
         utils.showSuccessMessage(response.data.message);
+        setHideJoinCourseBtn(true);
         setTabName(TABS.CHAPTERS);
         setIsButtonDisabled(false);
       }
@@ -180,6 +192,8 @@ const VIR_CourseDetails = ({
             course={courseData}
             onPressIntro={onPressIntro}
             isEnrolled={isEnrolled}
+            progress={progressData}
+            navigation={navigation}
           />
         ) : (
           <Overview data={courseData.overview} onPressIntro={onPressIntro} />
@@ -243,11 +257,12 @@ const styles = StyleSheet.create({
     color: colors.background,
   },
   tabContainer: {
-    paddingHorizontal: 24,
+    // paddingHorizontal: 24,
     paddingTop: 10,
     marginTop: 20,
   },
   tabBtnContainer: {
+    paddingHorizontal: 24,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

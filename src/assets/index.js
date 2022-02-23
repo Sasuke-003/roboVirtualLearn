@@ -63,6 +63,7 @@ export const images = {
   successScreen: {
     registerSuccess: require('./images/img_Register_success.png'),
     passwordChangeSuccess: require('./images/password_change_sucess3x.png'),
+    courseComplete: require('./images/courseComplete3x.png'),
   },
   profileScreen: {
     profileBg: require('./images/profilepic3x.png'),

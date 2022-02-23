@@ -9,7 +9,7 @@ import {api} from '../network';
 
 const VIR_VidioPlayer = ({
   route: {
-    params: {url, videoData, courseId, chapterId},
+    params: {url = null, videoData, courseId, chapterId},
   },
   navigation,
 }) => {
@@ -26,27 +26,28 @@ const VIR_VidioPlayer = ({
   };
   const onBack = async () => {
     // setSendProgress(true);
-
-    try {
-      // const videoTime = Number.parseInt(
-      //   videoData.timeDuration.slice(videoData.timeDuration.indexOf('.') + 1),
-      // );
-      const watchedTill = Math.trunc(utils.getVideoTime());
-      console.warn(watchedTill);
-      console.warn(utils.getVideoMaxLength());
-      console.warn((100 * watchedTill) / utils.getVideoMaxLength());
-      const data = {
-        courseID: courseId,
-        chapterID: chapterId,
-        videoID: videoData._id,
-        videoOrder: videoData.order,
-        progressRate: (100 * watchedTill) / utils.getVideoMaxLength(),
-        watchedTill: watchedTill,
-      };
-      await api.course.updateVideoProgress(data);
-    } catch (e) {
-      console.warn(e.response);
-      console.warn(e);
+    if (!url) {
+      try {
+        // const videoTime = Number.parseInt(
+        //   videoData.timeDuration.slice(videoData.timeDuration.indexOf('.') + 1),
+        // );
+        const watchedTill = Math.trunc(utils.getVideoTime());
+        console.warn(watchedTill);
+        console.warn(utils.getVideoMaxLength());
+        console.warn((100 * watchedTill) / utils.getVideoMaxLength());
+        const data = {
+          courseID: courseId,
+          chapterID: chapterId,
+          videoID: videoData._id,
+          videoOrder: videoData.order,
+          progressRate: (100 * watchedTill) / utils.getVideoMaxLength(),
+          watchedTill: watchedTill,
+        };
+        await api.course.updateVideoProgress(data);
+      } catch (e) {
+        console.warn(e.response);
+        console.warn(e);
+      }
     }
 
     navigation.goBack();
@@ -57,11 +58,11 @@ const VIR_VidioPlayer = ({
 
   return (
     <VideoPlayer
-      source={{uri: videoData.url}}
+      source={{uri: url ? url : videoData.url}}
       style={styles.backgroundVideo}
       // navigator={navigation}
       tapAnywhereToPause={true}
-      onProgress={onProgress}
+      onProgress={!url && onProgress}
       playInBackground={false}
       playWhenInactive={false}
       // onLoad={onLoad}

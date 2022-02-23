@@ -72,6 +72,14 @@ const ModuleTest = ({
     params: {data},
   },
 }) => {
+  const order = data?.order;
+  const totalChapter = data?.totalChapter;
+  const joinedOn = data?.progress?.joinedOn;
+  const courseApprovalRate = data?.progress?.courseApprovalRate;
+  const completedOn = data?.progress?.hasOwnProperty('completedOn')
+    ? data?.progress?.completedOn
+    : new Date();
+  const totalLength = data?.totalLength;
   const courseID = data.courseID;
   const chapterID = data.chapterId;
   const questionaireID = data.questionID;
@@ -133,6 +141,12 @@ const ModuleTest = ({
     totalCorrectAnswers: right,
     totalWrongAnswers: wrong,
     questionAnswers: questionAnswer,
+    joinedOn,
+    completedOn,
+    totalLength,
+    courseID,
+    courseApprovalRate,
+    courseCompleted: order === totalChapter ? true : false,
   };
   const onPressButton = () => {
     navigation.dispatch(
@@ -189,11 +203,12 @@ const ModuleTest = ({
   }, [timeLeft]);
 
   const onPressQuit = () => {
-    navigation.dispatch(
-      StackActions.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
-        courseId: courseID,
-      }),
-    );
+    // navigation.dispatch(
+    //   StackActions.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
+    //     courseId: courseID,
+    //   }),
+    // );
+    navigation.pop(1);
     dispatch(clearQuestionAnswer());
   };
 

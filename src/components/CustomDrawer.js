@@ -22,8 +22,8 @@ import {useSelector, useDispatch} from 'react-redux';
 const drawerHeader = userDetails => (
   <ImageBackground
     source={{
-      uri: userDetails
-        ? userDetails.data.coverImage
+      uri: userDetails?.data?.hasOwnProperty('coverImage')
+        ? userDetails?.data?.coverImage
         : 'https://images.unsplash.com/photo-1467685790346-20bfe73a81f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80',
     }}
     resizeMode="cover"
@@ -32,8 +32,8 @@ const drawerHeader = userDetails => (
       <View style={styles.profileWrapper}>
         <Image
           source={{
-            uri: userDetails
-              ? userDetails.data.image
+            uri: userDetails?.data?.hasOwnProperty('image')
+              ? userDetails?.data?.image
               : 'https://images.unsplash.com/photo-1467685790346-20bfe73a81f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80',
           }}
           style={styles.image}

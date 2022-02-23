@@ -45,4 +45,5 @@ export const colors = {
 
   stepCardBgColor: '#F9F9F9',
   stepUnFinishedColor: '#E1E1E1',
+  appRate: '#DDDDDD',
 };

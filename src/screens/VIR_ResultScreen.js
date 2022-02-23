@@ -9,8 +9,11 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {DrawerHeader, ResultModal} from '../components';
+import {DrawerHeader, ResultModal, SplitDataCard} from '../components';
 import {colors, fonts, images, strings} from '../assets';
+import {NAVIGATION_ROUTES} from '../constants';
+import {useEffect} from 'react';
+import {api} from '../network';
 
 /**
  * [{
@@ -60,14 +63,64 @@ const ResultOptions = ({item, onPressCard}) => {
 const VIR_ResultScreen = ({navigation, route: {params}}) => {
   const data = params;
   const questionAnswers = data?.questionAnswers;
+  // const courseCompleted = true;
   console.log(JSON.stringify(data, null, 2));
   const [showModal, setShowModal] = useState(false);
-  const [modalData, setModalData] = useState(null);
   const {height, width} = useWindowDimensions();
+  const [modalData, setModalData] = useState(null);
+  const [progressData, setProgressData] = useState(null);
   const portrait = height > width;
 
+  // const completedData = {
+  //   courseId: '61f9582925cc6ed00c14af41',
+  //   joinedOn: new Date(),
+  //   completedOn: new Date(),
+  //   totalCourseLength: 90,
+  //   courseCompleted: true,
+  // };
+
+  useEffect(() => {
+    const getProgress = async () => {
+      try {
+        const progress = await api.course.getCourseProgress(data.courseID);
+        // console.warn(progress.data);
+        if (progress.status === 200) {
+          console.log(
+            'Progress',
+            JSON.stringify(progress.data.progressData, null, 2),
+          );
+          setProgressData(progress.data.progressData);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProgress();
+  }, []);
+  console.log('pppppppp', progressData);
   const onBackPress = () => {
-    navigation.pop(3);
+    if (data.courseCompleted) {
+      navigation.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, {
+        image: images.successScreen.courseComplete,
+        title: 'Congratulations!',
+        message: `You have completed the Course: ${data?.courseName} with`,
+        approvalRate: progressData?.courseApprovalRate,
+        buttonName: 'View Certificate',
+        onPressButton: () => {
+          navigation.replace(NAVIGATION_ROUTES.CERTIFICATE, {
+            joined: progressData.joinedOn,
+            completed: progressData.completedOn
+              ? progressData.completedOn
+              : new Date(),
+            courseLength: data.totalLength,
+            courseName: data.courseName,
+            courseId: data.courseID,
+          });
+        },
+      });
+    } else {
+      navigation.pop(1);
+    }
   };
   const renderLeftIcon = () => {
     return (
@@ -78,10 +131,6 @@ const VIR_ResultScreen = ({navigation, route: {params}}) => {
     return (
       <DrawerHeader leftIcon={renderLeftIcon} leftIconOnPress={onBackPress} />
     );
-  };
-
-  const Seperator = () => {
-    return <View style={styles.seperator}></View>;
   };
 
   const onPressCard = item => {
@@ -111,33 +160,6 @@ const VIR_ResultScreen = ({navigation, route: {params}}) => {
     );
   };
 
-  const renderResultCountCard = () => {
-    return (
-      <View style={styles.numberCardContainer}>
-        <View style={styles.cardView}>
-          <Text style={styles.heading}>
-            {strings.ResultScreen.passingGrade}
-          </Text>
-          <Text style={styles.numbers}>{data?.passingGrade}/100</Text>
-        </View>
-        <Seperator />
-        <View style={styles.cardView}>
-          <Text style={styles.heading}>{strings.ResultScreen.correct}</Text>
-          <Text style={styles.numbers}>
-            {data?.totalCorrectAnswers}/{data?.totalQsns}
-          </Text>
-        </View>
-        <Seperator />
-        <View style={styles.cardView}>
-          <Text style={styles.heading}>{strings.ResultScreen.wrong}</Text>
-          <Text style={styles.numbers}>
-            {data?.totalWrongAnswers}/{data?.totalQsns}
-          </Text>
-        </View>
-      </View>
-    );
-  };
-
   const renderListOfQuestions = () => {
     return (
       <View style={styles.qsnView}>
@@ -159,6 +181,19 @@ const VIR_ResultScreen = ({navigation, route: {params}}) => {
     );
   };
 
+  const firstBox = {
+    title: strings.ResultScreen.passingGrade,
+    data: `${data?.passingGrade}/100`,
+  };
+  const secondBox = {
+    title: strings.ResultScreen.correct,
+    data: `${data?.totalCorrectAnswers}/${data?.totalQsns}`,
+  };
+  const thirdBox = {
+    title: strings.ResultScreen.wrong,
+    data: `${data?.totalWrongAnswers}/${data?.totalQsns}`,
+  };
+
   return (
     <ScrollView
       style={styles.container}
@@ -169,7 +204,12 @@ const VIR_ResultScreen = ({navigation, route: {params}}) => {
         edges={['left', 'right']}
         style={styles.viewContainer(width)}>
         <View>
-          {renderResultCountCard()}
+          <SplitDataCard
+            firstBox={firstBox}
+            secondBox={secondBox}
+            thirdBox={thirdBox}
+            style={styles.splitDataCard}
+          />
           {renderListOfQuestions()}
         </View>
       </SafeAreaView>
@@ -236,50 +276,6 @@ const styles = StyleSheet.create({
     lineHeight: 17,
     marginBottom: 70,
   },
-  numberCardContainer: {
-    flexDirection: 'row',
-    backgroundColor: colors.background,
-    marginHorizontal: 24,
-    justifyContent: 'space-between',
-    paddingTop: 16,
-    paddingLeft: 20,
-    paddingBottom: 20,
-    paddingRight: 30,
-    alignItems: 'center',
-    borderRadius: 6,
-    position: 'relative',
-    top: -40,
-    shadowColor: colors.cardShadow,
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 3,
-    shadowRadius: 4,
-  },
-  seperator: {
-    backgroundColor: colors.secondaryText,
-    height: '100%',
-    width: 1,
-    opacity: 0.3,
-  },
-  cardView: {
-    alignItems: 'center',
-  },
-  heading: {
-    color: colors.skipLabel,
-    fontFamily: fonts.proximaNovaMedium,
-    fontSize: 12,
-    fontWeight: '500',
-    lineHeight: 16,
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  numbers: {
-    color: colors.privacy,
-    fontFamily: fonts.proximaNovaMedium,
-    fontSize: 16,
-    fontWeight: '500',
-    lineHeight: 20,
-    textAlign: 'center',
-  },
   qsnView: {
     marginHorizontal: 24,
   },
@@ -319,5 +315,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
     lineHeight: 15,
+  },
+  splitDataCard: {
+    top: -40,
   },
 });

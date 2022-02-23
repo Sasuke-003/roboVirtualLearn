@@ -186,10 +186,13 @@ const Stepper = ({
   courseName,
   allVideosCompleted,
   isChapterCompleted,
+  progress,
+  totalLength,
+  totalChapter,
   ...props
 }) => {
   const navigation = useNavigation();
-
+  // console.log('dsd', chapter);
   const gotoTest = data => {
     navigation.navigate(NAVIGATION_ROUTES.MODULE_TEST_SCREEN, {data});
   };
@@ -216,7 +219,12 @@ const Stepper = ({
           questionAnswers: Array.isArray(chapter.questionnaire.questionID)
             ? chapter.questionnaire.questionID[0].questionAnswers
             : chapter.questionnaire.questionID.questionAnswers,
+          progress: progress,
+          totalLength: totalLength,
+          order: chapter.order,
+          totalChapter: totalChapter,
         };
+  // console.log(chapter.order);
   return !isEnrolled ? (
     <LessonCardNotEnrolled
       courseId={courseId}

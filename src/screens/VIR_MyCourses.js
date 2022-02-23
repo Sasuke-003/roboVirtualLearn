@@ -64,7 +64,7 @@ const VIR_MyCourses = ({
         } else if (error.response.status === 401) {
           console.warn('Authentication failed');
         } else {
-          console.warn('Internal server error');
+          console.log('Internal server error');
         }
         setIsLoading(false);
       }
