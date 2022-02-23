@@ -17,7 +17,7 @@ const VIR_SuccessScreen = ({navigation, route}) => {
     message,
     buttonName,
     onPressButton,
-    approvalRate = null,
+    approvalRate = 90,
   } = route.params;
   const renderContent = () => {
     return (
@@ -53,7 +53,7 @@ const VIR_SuccessScreen = ({navigation, route}) => {
       <View style={styles.container}>
         {renderContent()}
         {renderButton()}
-        {approvalRate ? renderApprovalRate() : null}
+        {approvalRate !== null ? renderApprovalRate() : null}
       </View>
     </ScrollView>
   );
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 10,
     backgroundColor: colors.background,
   },
 
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   buttonContainer: {
-    paddingTop: 100,
+    paddingTop: 50,
     paddingBottom: 30,
   },
   buttonText: {
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   appRate: {
     color: '#1EAB0D',
     fontFamily: fonts.bikoRegular,
-    fontSize: 74,
+    fontSize: 70,
     letterSpacing: 0,
     lineHeight: 90,
     textAlign: 'center',

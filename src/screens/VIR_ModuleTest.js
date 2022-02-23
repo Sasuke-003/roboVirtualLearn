@@ -164,12 +164,12 @@ const ModuleTest = ({
             StackActions.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, navData),
           );
         } else {
-          alert('You did not meet the passing criteria');
-          navigation.dispatch(
-            StackActions.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
-              courseId: courseID,
-            }),
-          );
+          if (timeLeft === 0 && initialRender === false) {
+            alert('Time out. You did not meet the passing criteria');
+          } else {
+            alert('You did not meet the passing criteria');
+          }
+          navigation.pop();
           dispatch(clearQuestionAnswer());
         }
       }
