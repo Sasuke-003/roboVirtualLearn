@@ -17,7 +17,7 @@ const VIR_SuccessScreen = ({navigation, route}) => {
     message,
     buttonName,
     onPressButton,
-    approvalRate = 90,
+    approvalRate = null,
   } = route.params;
   console.log(image, approvalRate);
   // image = images.successScreen.courseComplete;
