@@ -68,24 +68,22 @@ const VIR_ResultScreen = ({navigation, route: {params}}) => {
   const {height, width} = useWindowDimensions();
   const portrait = height > width;
 
-  const completedData = {
-    courseId: '61f9582925cc6ed00c14af41',
-    name: 'Mahendra Singh Dhoni',
-    joinedOn: new Date(),
-    completedOn: new Date(),
-    totalCourseLength: 90,
-    courseCompleted: false,
-  };
+  // const completedData = {
+  //   courseId: '61f9582925cc6ed00c14af41',
+  //   joinedOn: new Date(),
+  //   completedOn: new Date(),
+  //   totalCourseLength: 90,
+  //   courseCompleted: true,
+  // };
 
   const onBackPress = () => {
-    if (completedData.courseCompleted) {
+    if (data.courseCompleted) {
       navigation.replace(NAVIGATION_ROUTES.CERTIFICATE, {
-        name: completedData.name,
-        joined: completedData.joinedOn,
-        completed: completedData.completedOn,
-        courseLength: completedData.totalCourseLength,
+        joined: data.joinedOn,
+        completed: data.completedOn,
+        courseLength: data.totalLength,
         courseName: data.courseName,
-        courseId: completedData.courseId,
+        courseId: data.courseID,
       });
     } else {
       navigation.pop(1);

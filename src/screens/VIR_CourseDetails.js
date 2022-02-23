@@ -42,7 +42,7 @@ const VIR_CourseDetails = ({
   const [progressData, setProgressData] = useState(null);
 
   const {height, width} = useWindowDimensions();
-
+  console.log(courseId);
   // console.log(JSON.stringify(courseData, null, 2));
   useEffect(() => {
     setIsLoading(true);
@@ -193,6 +193,7 @@ const VIR_CourseDetails = ({
             onPressIntro={onPressIntro}
             isEnrolled={isEnrolled}
             progress={progressData}
+            navigation={navigation}
           />
         ) : (
           <Overview data={courseData.overview} onPressIntro={onPressIntro} />

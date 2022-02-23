@@ -25,9 +25,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import DatePicker from 'react-native-date-picker';
 import {RectangleButton} from '../components';
 import {ListModal} from '../components';
-// import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-// import * as ImagePicker from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
 import {api} from '../network';
 import moment from 'moment';
@@ -78,8 +77,39 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   const [showModal, setShowModal] = useState(false);
   const [profileImage, setProfileImage] = useState(0);
   const [coverImg, setCoverImg] = useState(0);
-
   let authToken = utils.getAuthToken();
+  const realPath =
+    '/Users/nitheshkumar/Library/Developer/CoreSimulator/Devices/0DBF97FA-CE93-402B-ADE0-BF478BB5B94D/data/Containers/Data/Application/35A1CDAD-8CB7-44A1-AEEF-DBE3BD70F8C6/tmp/ReactNative/7D1C4586-1AAF-4DA8-8480-985203785E1E.png';
+  // useEffect(() => {
+  //   console.log(authToken);
+  //   const uploadCertificate = async () => {
+  //     try {
+  //       const response = await RNFetchBlob.fetch(
+  //         'PATCH',
+  //         'https://virtual-learn-api.herokuapp.com/api/v1/users/uploadcertificate',
+  //         {
+  //           Authorization: authToken,
+  //           'Content-Type': 'multipart/form-data',
+  //         },
+  //         [
+  //           {
+  //             name: 'image',
+  //             filename: '7D1C4586-1AAF-4DA8-8480-985203785E1E.png',
+  //             type: 'image/png',
+  //             data: RNFetchBlob.wrap(realPath),
+  //           },
+  //           {name: 'courseID', data: '61f9582925cc6ed00c14af41'},
+  //           {name: 'image_tag', data: 'profile1', data: 'Nithu12'},
+  //         ],
+  //       );
+  //       console.log(response.data);
+  //     } catch (e) {
+  //       console.log('dvhfvsjh', e);
+  //     }
+  //   };
+  //   uploadCertificate();
+  // }, []);
+
   useEffect(() => {
     userDetails.data.hasOwnProperty('image')
       ? setProfileImage(userDetails.data.image)
@@ -195,97 +225,76 @@ const VIR_ProfileEditScreen = ({navigation}) => {
     }
   };
 
+  let options = {
+    quality: 1.0,
+    maxWidth: 500,
+    maxHeight: 500,
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+      cameraRoll: true,
+      waitUntilSaved: true,
+    },
+  };
+
   const onPressCoverUpload = async () => {
     try {
-      const image = await ImagePicker.openPicker({
-        width: 300,
-        height: 300,
-        cropping: true,
-      });
-      if (image) {
-        setCoverImg(image.path); //TODO: incomplete, pending to send image to api
-        console.log(image);
-        const formData = new FormData();
-        formData.append('coverImage', {
-          name: image.filename,
-          uri: image.path,
-          type: image.mime,
-        });
-        console.log('FormData', formData._parts[0]);
+      const cvrImage = await launchImageLibrary(options);
+      if (cvrImage) {
+        setCoverImg(cvrImage.assets[0].uri.replace('file://', '')); //TODO: incomplete, pending to send image to api
+        console.log(cvrImage);
         utils.saveUserDetails({
           data: {
             ...userDetails.data,
-            coverImage: image.path,
+            coverImage: cvrImage.assets[0].uri.replace('file://', ''),
           },
           hasCompleted: {...userDetails.hasCompleted},
         });
-        const response = await api.profile.uploadCoverPic(formData);
-        console.log(response.data);
+        const response = await RNFetchBlob.fetch(
+          'PATCH',
+          'https://virtual-learn-api.herokuapp.com/api/v1/users/uploadcoverimage',
+          {
+            Authorization: authToken,
+            'Content-Type': 'multipart/form-data',
+          },
+          [
+            {
+              name: 'image',
+              filename: cvrImage.assets[0].fileName,
+              type: cvrImage.assets[0].type,
+              data: RNFetchBlob.wrap(
+                cvrImage.assets[0].uri.replace('file://', ''),
+              ),
+            },
+            {name: 'image_tag', data: 'cvrProfile', data: 'Nithu12'},
+          ],
+        );
+        console.log(response);
+        console.log(JSON.parse(response.data).message);
+        if (response) {
+          utils.showSuccessMessage(JSON.parse(response.data).message);
+        }
       }
     } catch (e) {
       console.log(e);
     }
   };
 
-  // const onPressImageUpload = async () => {
-  //   try {
-  //     const image = await ImagePicker.openPicker({
-  //       width: 300,
-  //       height: 300,
-  //       cropping: true,
-  //       // includeBase64: true,
-  //     });
-  //     if (image) {
-  //       setProfileImage(image.path); //TODO: incomplete, pending to send image to api
-  //       console.log(image);
-  //       // const res = await RNFS.readFile(image.sourceURL, 'base64');
-  //       // console.log(res);
-  //       const formData = new FormData();
-  //       // formData.append('image', image, 'image134.jpeg');
-  //       formData.append('file', {
-  //         name: 'image.jpg',
-  //         type: 'image/jpg',
-  //         path: image.path,
-  //       });
-  //       console.log('FormData', formData._parts[0]);
-  //       // utils.saveUserDetails({
-  //       //   data: {
-  //       //     ...userDetails.data,
-  //       //     image: image.path,
-  //       //   },
-  //       //   hasCompleted: {...userDetails.hasCompleted},
-  //       // });
-  //       const response = await api.profile.uploadProfilePic(formData);
-  //       console.log(response);
-  //       // console.log('Bello');
-  //     }
-  //   } catch (e) {
-  //     console.log('hello');
-  //     console.log(e);
-  //   }
-  // };
-
   /******************************************** */
-
   const onPressImageUpload = async () => {
-    let options = {
-      quality: 1.0,
-      maxWidth: 500,
-      maxHeight: 500,
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-        cameraRoll: true,
-        waitUntilSaved: true,
-      },
-    };
     try {
       const image = await launchImageLibrary(options);
       if (image) {
-        setProfileImage(image.path); //TODO: incomplete, pending to send image to api
-        console.log(image);
-        // 88888888888888888
-        RNFetchBlob.fetch(
+        setProfileImage(image.assets[0].uri.replace('file://', '')); //TODO: incomplete, pending to send image to api
+        // console.log(image);
+        utils.saveUserDetails({
+          data: {
+            ...userDetails.data,
+            image: image.assets[0].uri.replace('file://', ''),
+          },
+          hasCompleted: {...userDetails.hasCompleted},
+        });
+        const response = await RNFetchBlob.fetch(
           'PATCH',
           'https://virtual-learn-api.herokuapp.com/api/v1/users/uploadimage',
           {
@@ -303,43 +312,17 @@ const VIR_ProfileEditScreen = ({navigation}) => {
             },
             {name: 'image_tag', data: 'profile', data: 'Nithu12'},
           ],
-        )
-          .then(resp => {
-            console.log(resp);
-            console.log(JSON.parse(resp.data).message);
-            utils.showSuccessMessage(JSON.parse(resp.data).message);
-          })
-          .catch(err => {
-            console.log(err);
-          });
+        );
+        console.log(response);
+        console.log(JSON.parse(response.data).message);
+        if (response) {
+          utils.showSuccessMessage(JSON.parse(response.data).message);
+        }
 
-        // 888888888888888
-        // const formData = new FormData();
-        // formData.append('file', {
-        //   name: image.assets[0].fileName,
-        //   type: image.assets[0].type,
-        //   uri:
-        //     Platform.OS === 'ios'
-        //       ? image.assets[0].uri.replace('file://', '')
-        //       : image.assets[0].uri,
-        // });
-        // console.log('FormData', formData._parts[0]);
-        // const res = await RNFS.readFile(image.assets[0].uri, 'base64');
-        // console.log(res);
-        setProfileImage(image.assets[0].uri.replace('file://', ''));
-        utils.saveUserDetails({
-          data: {
-            ...userDetails.data,
-            image: image.assets[0].uri.replace('file://', ''),
-          },
-          hasCompleted: {...userDetails.hasCompleted},
-        });
-        // const response = await api.profile.uploadProfilePic(formData);
-        // console.log(response);
-        console.log('Bello');
+        console.log('Success');
       }
     } catch (e) {
-      console.log('hello');
+      console.log('Error');
       console.log(e);
     }
   };

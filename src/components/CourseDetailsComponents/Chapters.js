@@ -5,16 +5,22 @@ import {
   ActivityIndicator,
   useWindowDimensions,
   Image,
+  PermissionsAndroid,
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import {strings, fonts, images, colors} from '../../assets';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useFocusEffect} from '@react-navigation/native';
 import {api} from '../../network';
-import {SplitDataCard} from '..';
+import {DownloadModal, SplitDataCard} from '..';
 import Stepper from './Stepper';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Feather';
+import {Navigation} from 'react-native-feather';
+import {NAVIGATION_ROUTES} from '../../constants';
+import CameraRoll from '@react-native-community/cameraroll';
+
 const loadingComponent = () => (
   <View
     style={{height: '100%', justifyContent: 'center', alignItems: 'center'}}>
@@ -32,6 +38,9 @@ const ChapterContent = ({
   allVideosCompleted,
   isChapterCompleted,
   previousChapterCompleted,
+  progress,
+  totalLength,
+  totalChapter,
 }) => {
   const [showContent, setShowContent] = useState(false);
   const [position, setPosition] = useState(
@@ -69,17 +78,21 @@ const ChapterContent = ({
           currentPlayingVideoOrder={currentPlayingVideoOrder}
           isChapterCompleted={isChapterCompleted}
           allVideosCompleted={allVideosCompleted}
+          progress={progress}
+          totalLength={totalLength}
+          totalChapter={totalChapter}
         />
       )}
     </View>
   );
 };
 
-const Chapters = ({course, onPressIntro, isEnrolled, progress}) => {
+const Chapters = ({course, onPressIntro, isEnrolled, progress, navigation}) => {
   const [courseVideoProgress, setCourseVideoProgress] = useState({videos: []});
   const [isLoading, setIsLoading] = useState(false);
   const {height, width} = useWindowDimensions();
-  console.log(JSON.stringify(course, null, 2));
+  const [showModal, setShowModal] = useState(false);
+  // console.log(JSON.stringify(course, null, 2));
   useFocusEffect(
     React.useCallback(() => {
       const getData = async () => {
@@ -281,7 +294,7 @@ const Chapters = ({course, onPressIntro, isEnrolled, progress}) => {
     // console.warn(currentVideos);
     return currentVideos;
   };
-  console.log('ppppppp', progress);
+  // console.log('ppppppp', progress);
   const firstBox = {
     title: 'Joined',
     data: moment(progress?.joinedOn).format('DD/MM/YYYY'),
@@ -304,6 +317,62 @@ const Chapters = ({course, onPressIntro, isEnrolled, progress}) => {
     data: `${hour}${min}${sec}`,
   };
 
+  //certificate section
+  const onPressCertificate = () => {
+    navigation.navigate(NAVIGATION_ROUTES.CERTIFICATE, {
+      url: progress?.courseCertificateUrl,
+      courseId: course._id,
+    });
+  };
+
+  const checkPermission = async imageURI => {
+    if (Platform.OS === 'ios') {
+      //   downloadImage();
+      savePicture(imageURI);
+    } else {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: strings.certificate.androidPermissionTitle,
+            message: strings.certificate.androidPermissionMessage,
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('Storage Permission Granted');
+          //   downloadImage();
+          savePicture(imageURI);
+        } else {
+          alert(strings.certificate.androidPermissionDenied);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  async function savePicture(imageURI) {
+    try {
+      setShowModal(true);
+      await CameraRoll.save(imageURI);
+      setShowModal(false);
+      alert(strings.certificate.savingAlert);
+    } catch (e) {
+      console.log(e);
+      setShowModal(false);
+      alert(strings.certificate.errorAlert);
+    }
+  }
+
+  const onDownloadPress = async () => {
+    console.log('Downloading...', progress?.courseCertificateUrl);
+    try {
+      checkPermission(progress?.courseCertificateUrl);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return isLoading ? (
     loadingComponent()
   ) : (
@@ -319,6 +388,9 @@ const Chapters = ({course, onPressIntro, isEnrolled, progress}) => {
               onPressIntro={onPressIntro}
               courseId={course?._id}
               courseName={course?.name}
+              progress={progress}
+              totalChapter={course.courseContent.chapter}
+              totalLength={course?.courseContent?.totalLength}
               isChapterCompleted={checkIfChapterIsCompleted(
                 chapter.chapterID._id,
                 chapter.chapterID.videos[0].videoID,
@@ -344,7 +416,9 @@ const Chapters = ({course, onPressIntro, isEnrolled, progress}) => {
       {progress?.hasOwnProperty('completedOn') && (
         <View style={styles.resultContainer}>
           <Text style={styles.resultTitle}>Course Result</Text>
-          <Text style={styles.resultAppRate}>100%</Text>
+          <Text style={styles.resultAppRate}>
+            {progress?.courseApprovalRate}%
+          </Text>
           <Text style={styles.AppRate}>approval rate</Text>
           <SplitDataCard
             firstBox={firstBox}
@@ -359,16 +433,19 @@ const Chapters = ({course, onPressIntro, isEnrolled, progress}) => {
               size={25}
               color={colors.background}
               style={styles.downloadIcon}
-              // onPress={onDownloadPress}
+              onPress={onDownloadPress}
             />
           </View>
+          <DownloadModal showModal={showModal} setShowModal={setShowModal} />
           <View style={styles.certificateContainer}>
-            <Image
-              source={{
-                uri: '/Users/nitheshkumar/Library/Developer/CoreSimulator/Devices/0DBF97FA-CE93-402B-ADE0-BF478BB5B94D/data/Containers/Data/Application/CEF6B401-1774-45BA-B68E-1B2EB5407EC6/tmp/ReactNative/CFA8748B-7A5C-45E7-97F2-657E24A0C998.png',
-              }}
-              style={styles.certificate(width)}
-            />
+            <TouchableOpacity onPress={onPressCertificate}>
+              <Image
+                source={{
+                  uri: progress?.courseCertificateUrl,
+                }}
+                style={styles.certificate(width)}
+              />
+            </TouchableOpacity>
           </View>
         </View>
       )}

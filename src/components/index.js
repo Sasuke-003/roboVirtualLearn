@@ -25,3 +25,4 @@ export {default as Overview} from './CourseDetailsComponents/Overview';
 export {default as Chapters} from './CourseDetailsComponents/Chapters';
 export {default as ShowMore} from './ShowMore';
 export {default as SplitDataCard} from './SplitDataCard';
+export {default as DownloadModal} from './DownloadModal';

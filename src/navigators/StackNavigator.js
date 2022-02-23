@@ -43,7 +43,7 @@ const StackNavigator = () => {
     <Stack.Navigator
       screenOptions={screenOptions}
       initialRouteName={
-        // NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN
+        // NAVIGATION_ROUTES.CERTIFICATE
         authToken === ''
           ? isNewInstallation
             ? NAVIGATION_ROUTES.ON_BOARDING_SCREEN

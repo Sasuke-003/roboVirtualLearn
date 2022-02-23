@@ -10,7 +10,7 @@ import {
 import React, {useEffect, useRef, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors, images, fonts, strings} from '../assets';
-import {DrawerHeader} from '../components';
+import {DownloadModal, DrawerHeader} from '../components';
 import Icon from 'react-native-vector-icons/Feather';
 import {NAVIGATION_ROUTES} from '../constants';
 import ViewShot from 'react-native-view-shot';
@@ -20,13 +20,25 @@ import CameraRoll from '@react-native-community/cameraroll';
 import uuid from 'react-native-uuid';
 import {utils} from '../utils';
 import moment from 'moment';
+import {useSelector, useDispatch} from 'react-redux';
+import {getUserDetails} from '../redux/reducers/userReducer';
+
 const VIR_CertificateScreen = ({navigation, route: {params}}) => {
+  const userDetails = useSelector(getUserDetails);
   const {height, width} = useWindowDimensions();
   const viewShotRef = useRef();
   const today = new Date();
-  const [URI, setURI] = useState('');
-
-  const {completed, courseLength, joined, name, courseName, courseId} = params;
+  const [URI, setURI] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  // console.log(userDetails.data);
+  const {
+    completed = null,
+    courseLength = null,
+    joined = null,
+    courseName = null,
+    courseId = null,
+    url = null,
+  } = params;
   // uuid.v4().split('-').pop() (Optional Unique number)
   let authToken = utils.getAuthToken();
 
@@ -39,6 +51,45 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   let hour = time[0] != '00' ? time[0] + 'h' : '';
   let min = time[1] != '00' ? time[1] + 'm' : '';
   let sec = time[2] != '00' ? time[2] + 's' : '';
+
+  const uploadCertificate = async url => {
+    try {
+      const response = await RNFetchBlob.fetch(
+        'PATCH',
+        'https://virtual-learn-api.herokuapp.com/api/v1/users/uploadcertificate',
+        {
+          Authorization: authToken,
+          'Content-Type': 'multipart/form-data',
+        },
+        [
+          {
+            name: 'image',
+            filename: url.split('/').pop(),
+            type: 'image/' + url.split('.').pop(),
+            data: RNFetchBlob.wrap(url),
+          },
+          {name: 'courseID', data: courseId},
+          {name: 'image_tag', data: 'profile1', data: 'Nithu12'},
+        ],
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.log('dvhfvsjh', e);
+    }
+  };
+
+  useEffect(() => {
+    const getImage = async () => {
+      const imageURI = await viewShotRef.current.capture();
+      imageURI && setURI(imageURI);
+      uploadCertificate(imageURI);
+    };
+    url
+      ? setURI(url)
+      : setTimeout(() => {
+          getImage();
+        }, 2000);
+  }, []);
 
   const checkPermission = async imageURI => {
     if (Platform.OS === 'ios') {
@@ -67,8 +118,16 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   };
 
   async function savePicture(imageURI) {
-    CameraRoll.save(imageURI);
-    alert(strings.certificate.savingAlert);
+    try {
+      setShowModal(true);
+      await CameraRoll.save(imageURI);
+      setShowModal(false);
+      alert(strings.certificate.savingAlert);
+    } catch (e) {
+      console.log(e);
+      setShowModal(false);
+      alert(strings.certificate.errorAlert);
+    }
   }
 
   //   const myAsyncPDFFunction = async () => {
@@ -91,21 +150,13 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   //       console.log('pdf', pdf);
   //     } catch (e) {
   //       console.log(e);
-  //     }
+  //     }s
   //   };
 
   const onBackPress = () => {
     // navigation.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {courseId});
-    navigation.pop(3);
+    navigation.pop(1);
   };
-
-  useEffect(() => {
-    const getImage = async () => {
-      const imageURI = await viewShotRef.current.capture();
-      imageURI && setURI(imageURI);
-    };
-    getImage();
-  }, []);
 
   const onDownloadPress = async () => {
     console.log('Downloading...', URI);
@@ -146,7 +197,7 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
     return (
       <View style={styles(height, width).topPart}>
         <Text style={styles().title}>{strings.certificate.title}</Text>
-        <Text style={styles().userName}>{name}</Text>
+        <Text style={styles().userName}>{userDetails?.data?.fullname}</Text>
         <Text style={styles().course}>{courseName}</Text>
         <View style={styles().detailsView}>
           <Text style={styles().details}>
@@ -184,14 +235,24 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   return (
     <SafeAreaView style={styles(height, width).safeareaContainer}>
       {renderHeader()}
-      <ViewShot ref={viewShotRef} style={styles().containerView}>
-        <View style={styles().containerView}>
-          <View style={styles(height, width).container}>
-            {renderCertificateTopPart()}
-            {renderCertificateBottomPart()}
-          </View>
+      <DownloadModal showModal={showModal} setShowModal={setShowModal} />
+      {url ? (
+        <View style={styles().showUrlImage}>
+          <Image
+            source={{uri: URI}}
+            style={styles(height, width).certificateImage}
+          />
         </View>
-      </ViewShot>
+      ) : (
+        <ViewShot ref={viewShotRef} style={styles().containerView}>
+          <View style={styles().containerView}>
+            <View style={styles(height, width).container}>
+              {renderCertificateTopPart()}
+              {renderCertificateBottomPart()}
+            </View>
+          </View>
+        </ViewShot>
+      )}
     </SafeAreaView>
   );
 };
@@ -300,5 +361,15 @@ const styles = (height = 300, width = 200) =>
       marginRight: 24,
       marginTop: 10,
       color: colors.background,
+    },
+    showUrlImage: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    certificateImage: {
+      width: height > width ? '100%' : width / 1.2,
+      height: height > width ? '100%' : height * 2,
+      resizeMode: height < width ? 'contain' : 'cover',
     },
   });
