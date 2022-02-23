@@ -75,6 +75,7 @@ const ModuleTest = ({
   const order = data?.order;
   const totalChapter = data?.totalChapter;
   const joinedOn = data?.progress?.joinedOn;
+  const courseApprovalRate = data?.progress?.courseApprovalRate;
   const completedOn = data?.progress?.hasOwnProperty('completedOn')
     ? data?.progress?.completedOn
     : new Date();
@@ -144,6 +145,7 @@ const ModuleTest = ({
     completedOn,
     totalLength,
     courseID,
+    courseApprovalRate,
     courseCompleted: order === totalChapter ? true : false,
   };
   const onPressButton = () => {

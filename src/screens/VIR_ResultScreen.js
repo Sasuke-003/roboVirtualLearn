@@ -12,6 +12,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {DrawerHeader, ResultModal, SplitDataCard} from '../components';
 import {colors, fonts, images, strings} from '../assets';
 import {NAVIGATION_ROUTES} from '../constants';
+import {useEffect} from 'react';
+import {api} from '../network';
 
 /**
  * [{
@@ -64,8 +66,9 @@ const VIR_ResultScreen = ({navigation, route: {params}}) => {
   // const courseCompleted = true;
   console.log(JSON.stringify(data, null, 2));
   const [showModal, setShowModal] = useState(false);
-  const [modalData, setModalData] = useState(null);
   const {height, width} = useWindowDimensions();
+  const [modalData, setModalData] = useState(null);
+  const [progressData, setProgressData] = useState(null);
   const portrait = height > width;
 
   // const completedData = {
@@ -76,14 +79,44 @@ const VIR_ResultScreen = ({navigation, route: {params}}) => {
   //   courseCompleted: true,
   // };
 
+  useEffect(() => {
+    const getProgress = async () => {
+      try {
+        const progress = await api.course.getCourseProgress(data.courseID);
+        // console.warn(progress.data);
+        if (progress.status === 200) {
+          console.log(
+            'Progress',
+            JSON.stringify(progress.data.progressData, null, 2),
+          );
+          setProgressData(progress.data.progressData);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProgress();
+  }, []);
+  console.log('pppppppp', progressData);
   const onBackPress = () => {
     if (data.courseCompleted) {
-      navigation.replace(NAVIGATION_ROUTES.CERTIFICATE, {
-        joined: data.joinedOn,
-        completed: data.completedOn,
-        courseLength: data.totalLength,
-        courseName: data.courseName,
-        courseId: data.courseID,
+      navigation.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, {
+        image: images.successScreen.courseComplete,
+        title: 'Congratulations!',
+        message: `You have completed the Course: ${data?.courseName} with`,
+        approvalRate: progressData?.courseApprovalRate,
+        buttonName: 'View Certificate',
+        onPressButton: () => {
+          navigation.replace(NAVIGATION_ROUTES.CERTIFICATE, {
+            joined: progressData.joinedOn,
+            completed: progressData.completedOn
+              ? progressData.completedOn
+              : new Date(),
+            courseLength: data.totalLength,
+            courseName: data.courseName,
+            courseId: data.courseID,
+          });
+        },
       });
     } else {
       navigation.pop(1);
