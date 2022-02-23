@@ -69,7 +69,9 @@ const VIR_CategoriesScreen = ({navigation}) => {
   const headerLeftIconOnPress = () => {
     navigation.goBack();
   };
-  const headerRightIconOnPress = () => {};
+  const headerRightIconOnPress = () => {
+    navigation.navigate(NAVIGATION_ROUTES.SEARCH_SCREEN);
+  };
 
   useEffect(() => {
     const getCategoriesData = async () => {
