@@ -11,7 +11,14 @@ import React from 'react';
 import {images, strings, fonts, colors} from '../assets';
 
 const VIR_SuccessScreen = ({navigation, route}) => {
-  const {image, title, message, buttonName, onPressButton} = route.params;
+  const {
+    image,
+    title,
+    message,
+    buttonName,
+    onPressButton,
+    approvalRate = null,
+  } = route.params;
   const renderContent = () => {
     return (
       <View style={styles.innerContainer}>
@@ -30,6 +37,14 @@ const VIR_SuccessScreen = ({navigation, route}) => {
       </View>
     );
   };
+  const renderApprovalRate = () => {
+    return (
+      <View style={{paddingVertical: 20}}>
+        <Text style={styles.appRate}>{approvalRate}%</Text>
+        <Text style={styles.appRateText}>approval rate</Text>
+      </View>
+    );
+  };
   return (
     <ScrollView
       contentContainerStyle={styles.contentContainerStyle}
@@ -38,6 +53,7 @@ const VIR_SuccessScreen = ({navigation, route}) => {
       <View style={styles.container}>
         {renderContent()}
         {renderButton()}
+        {approvalRate ? renderApprovalRate() : null}
       </View>
     </ScrollView>
   );
@@ -97,5 +113,23 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
     lineHeight: 20,
     textAlign: 'center',
+  },
+  appRate: {
+    color: '#1EAB0D',
+    fontFamily: fonts.bikoRegular,
+    fontSize: 74,
+    letterSpacing: 0,
+    lineHeight: 90,
+    textAlign: 'center',
+    paddingVertical: 10,
+  },
+  appRateText: {
+    color: colors.secondaryText,
+    fontFamily: fonts.bikoRegular,
+    fontSize: 16,
+    letterSpacing: 0,
+    lineHeight: 19,
+    textAlign: 'center',
+    paddingVertical: 10,
   },
 });
