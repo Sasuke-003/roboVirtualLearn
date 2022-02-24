@@ -55,6 +55,7 @@ const VIR_CourseDetails = ({
         // console.log(JSON.stringify(data, null, 2));
         setIsLoading(false);
         setCourseData(data);
+        getProgress();
       } catch (error) {
         setIsLoading(false);
         console.warn(error);
@@ -76,13 +77,13 @@ const VIR_CourseDetails = ({
           setProgressData(progress.data.progressData);
           setHideJoinCourseBtn(true);
           setIsEnrolled(true);
+          setTabName(TABS.CHAPTERS);
         }
       } catch (error) {
         console.log(error);
       }
     };
     getCourseData();
-    getProgress();
   }, []);
 
   const loadingComponent = () => (
