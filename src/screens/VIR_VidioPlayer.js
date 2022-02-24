@@ -35,12 +35,13 @@ const VIR_VidioPlayer = ({
       console.warn(watchedTill);
       console.warn(utils.getVideoMaxLength());
       console.warn((100 * watchedTill) / utils.getVideoMaxLength());
+      const progressRate = (100 * watchedTill) / utils.getVideoMaxLength();
       const data = {
         courseID: courseId,
         chapterID: chapterId,
         videoID: videoData._id,
         videoOrder: videoData.order,
-        progressRate: (100 * watchedTill) / utils.getVideoMaxLength(),
+        progressRate: progressRate >= 90 ? 100 : progressRate,
         watchedTill: watchedTill,
       };
       await api.course.updateVideoProgress(data);
