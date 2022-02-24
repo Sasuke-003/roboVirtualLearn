@@ -41,8 +41,11 @@ const ChapterContent = ({
   progress,
   totalLength,
   totalChapter,
+  progressVideos,
 }) => {
-  const [showContent, setShowContent] = useState(false);
+  const [showContent, setShowContent] = useState(
+    previousChapterCompleted && !isChapterCompleted ? true : false,
+  );
   const [position, setPosition] = useState(
     isChapterCompleted
       ? currentPlayingVideoOrder + 2
@@ -81,6 +84,7 @@ const ChapterContent = ({
           progress={progress}
           totalLength={totalLength}
           totalChapter={totalChapter}
+          progressVideos={progressVideos}
         />
       )}
     </View>
@@ -194,14 +198,12 @@ const Chapters = ({
           for (let j = 0; j < videoArray.length; j++) {
             if (videoArray[j]._id === currentVideo.videoId) {
               if (i < chapters.length) nextChapter = i;
-              console.warn(currentVideo);
               if (currentVideo.progressRate < 90) return videoArray[j];
             }
           }
         }
       }
       if (nextChapter) {
-        console.warn('hello');
         return chapters[nextChapter].chapterID.videos[0].videoID[0];
       }
 
@@ -308,12 +310,26 @@ const Chapters = ({
     const currentChapterQuestionaire = questionaire.filter(
       qs => qs.chapterID === chapterId,
     );
+    const currentChapterPassingGrade = () => {
+      for (let i = 0; i < chapters.length; i++) {
+        if (chapters[i].chapterID._id === chapterId) {
+          return Array.isArray(chapters[i].chapterID.questionnaire.questionID)
+            ? chapters[i].chapterID.questionnaire.questionID[0].passingGrade
+            : chapters[i].chapterID.questionnaire.questionID.passingGrade;
+        }
+      }
+      return 50;
+    };
     if (!currentChapterQuestionaire) return false;
     if (currentChapterQuestionaire.length === 0) return false;
     if (
-      currentChapterQuestionaire[0].right > currentChapterQuestionaire[0].wrong
+      currentChapterQuestionaire[0].approvalRate >= currentChapterPassingGrade()
     )
       return true;
+    // if (
+    //   currentChapterQuestionaire[0].right > currentChapterQuestionaire[0].wrong
+    // )
+    //   return true;
     return false;
   };
 

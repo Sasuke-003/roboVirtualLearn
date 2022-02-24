@@ -9,7 +9,7 @@ import {api} from '../network';
 
 const VIR_VidioPlayer = ({
   route: {
-    params: {url = null, videoData, courseId, chapterId},
+    params: {url = null, videoData, courseId, chapterId, progressRate},
   },
   navigation,
 }) => {
@@ -27,6 +27,11 @@ const VIR_VidioPlayer = ({
   const onBack = async () => {
     // setSendProgress(true);
     if (url) return;
+    if (progressRate >= 90) {
+      navigation.goBack();
+      console.warn('hello');
+      return;
+    }
     try {
       // const videoTime = Number.parseInt(
       //   videoData.timeDuration.slice(videoData.timeDuration.indexOf('.') + 1),
