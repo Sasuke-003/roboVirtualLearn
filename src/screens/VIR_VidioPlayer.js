@@ -26,7 +26,10 @@ const VIR_VidioPlayer = ({
   };
   const onBack = async () => {
     // setSendProgress(true);
-    if (url) return;
+    if (url) {
+      navigation.goBack();
+      return;
+    }
     try {
       // const videoTime = Number.parseInt(
       //   videoData.timeDuration.slice(videoData.timeDuration.indexOf('.') + 1),

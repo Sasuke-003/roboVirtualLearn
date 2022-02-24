@@ -173,7 +173,7 @@ const ModuleTest = ({
       );
 
       if (response.status === 200) {
-        if (approvalRate > 75) {
+        if (approvalRate => 75) {
           navigation.dispatch(
             StackActions.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, navData),
           );

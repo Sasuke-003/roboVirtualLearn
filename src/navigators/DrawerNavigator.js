@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Alert} from 'react-native';
 import React, {useEffect} from 'react';
 import {NAVIGATION_ROUTES} from '../constants';
 import {HomeStackNavigator, ProfileStackNavigator} from './';
@@ -69,7 +69,7 @@ const DrawerNavigator = ({navigation}) => {
       try {
         const {data} = await api.course.getUserDetails();
         setmobNum(data.data.number);
-        console.log('datatatata', data.data.number);
+        // console.log('datatatata', data.data.number);
         utils.saveUserDetails(data);
       } catch (error) {
         logout();
@@ -79,12 +79,24 @@ const DrawerNavigator = ({navigation}) => {
   }, []);
 
   const logout = () => {
-    utils.saveUserDetails(null);
-    utils.clearAuthToken();
-    navigation.reset({
-      index: 0,
-      routes: [{name: NAVIGATION_ROUTES.LANDING_SCREEN}],
-    });
+    Alert.alert('Are you sure you want to quit the exam', '', [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'Quit',
+        onPress: () => {
+          utils.saveUserDetails(null);
+          utils.clearAuthToken();
+          navigation.reset({
+            index: 0,
+            routes: [{name: NAVIGATION_ROUTES.LANDING_SCREEN}],
+          });
+        },
+      },
+    ]);
   };
   const goToSearchScreen = () => {
     navigation.navigate(NAVIGATION_ROUTES.SEARCH_SCREEN);
