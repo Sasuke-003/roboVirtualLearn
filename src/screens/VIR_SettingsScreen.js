@@ -38,7 +38,7 @@ const VIR_SettingsScreen = ({navigation, goToNextScreen, mobNum}) => {
   const notificationData = useSelector(getNotificationData);
   useEffect(() => {
     let data = notificationData.find(item => item.hasOwnProperty(mobNum));
-    console.log(data);
+    // console.log(data);
     if (data) {
       setShowPushNotification(data[mobNum].pushNotification);
       setShowSound(data[mobNum].notificationSound);

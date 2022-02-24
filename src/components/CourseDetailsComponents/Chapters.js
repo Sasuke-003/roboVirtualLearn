@@ -112,6 +112,7 @@ const Chapters = ({
           setIsLoading(true);
           const {data} = await api.course.getCourseVideoDetails(course?._id);
           setCourseVideoProgress(data);
+          console.log('Dataaa');
           setIsLoading(false);
         } catch (e) {
           console.warn(e);
@@ -126,6 +127,7 @@ const Chapters = ({
             //   'Progress',
             //   JSON.stringify(progress.data.progressData, null, 2),
             // );
+            console.log('Progress', progress);
             setProgress(progress.data.progressData);
           }
         } catch (error) {
