@@ -13,6 +13,7 @@ import {
   VIR_NotificationScreen,
   VIR_SettingsScreen,
 } from '../screens';
+import {useState} from 'react';
 
 const Drawer = createDrawerNavigator();
 
@@ -55,6 +56,7 @@ const DrawerIcons = {
 };
 
 const DrawerNavigator = ({navigation}) => {
+  const [mobNum, setmobNum] = useState('');
   const goToCreateNewPassword = authToken => {
     navigation.navigate(
       NAVIGATION_ROUTES.CREATE_NEW_PASSWORD_SCREEN,
@@ -66,7 +68,8 @@ const DrawerNavigator = ({navigation}) => {
     const getUserData = async () => {
       try {
         const {data} = await api.course.getUserDetails();
-
+        setmobNum(data.data.number);
+        console.log('datatatata', data.data.number);
         utils.saveUserDetails(data);
       } catch (error) {
         logout();
@@ -156,7 +159,11 @@ const DrawerNavigator = ({navigation}) => {
           swipeEnabled: false,
         }}>
         {props => (
-          <VIR_SettingsScreen {...props} goToNextScreen={goToNextScreen} />
+          <VIR_SettingsScreen
+            {...props}
+            goToNextScreen={goToNextScreen}
+            mobNum={mobNum}
+          />
         )}
       </Drawer.Screen>
       <Drawer.Screen

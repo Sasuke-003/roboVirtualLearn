@@ -38,8 +38,8 @@ export const NAVIGATION_ROUTES = {
 
   COURSE_DETAILS_SCREEN: 'courseDetailsScreen',
 
-  COURSE_DETAILS_OVERVIEW_TAB: 'courseDetailsOverviewTab',
-  COURSE_DETAILS_CHAPTERS_TAB: 'courseDetailsChaptersTab',
+  COURSE_DETAILS_OVERVIEW_TAB: 'Overview',
+  COURSE_DETAILS_CHAPTERS_TAB: 'Chapters',
   VIDIO_PLAYER: 'vidioPlayer',
   CERTIFICATE: 'certificate',
 };

@@ -97,7 +97,7 @@ const VIR_ResultScreen = ({navigation, route: {params}}) => {
     };
     getProgress();
   }, []);
-  console.log('pppppppp', progressData);
+  // console.log('pppppppp', progressData);
   const onBackPress = () => {
     if (data.courseCompleted) {
       navigation.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, {

@@ -43,7 +43,7 @@ const VIR_CourseDetails = ({
 
   const {height, width} = useWindowDimensions();
   console.log(courseId);
-  // console.log(JSON.stringify(courseData, null, 2));
+  // console.log('crseeee', JSON.stringify(courseData, null, 2));
   useEffect(() => {
     setIsLoading(true);
     const getCourseData = async () => {
@@ -52,8 +52,8 @@ const VIR_CourseDetails = ({
         const {
           data: {data},
         } = await api.course.getCourseDetails(courseId);
-        // console.log(JSON.stringify(data, null, 2));
-        setIsLoading(false);
+        // console.log('dataaa', JSON.stringify(data, null, 2));
+        // setIsLoading(false);
         setCourseData(data);
       } catch (error) {
         setIsLoading(false);
@@ -76,9 +76,11 @@ const VIR_CourseDetails = ({
           setProgressData(progress.data.progressData);
           setHideJoinCourseBtn(true);
           setIsEnrolled(true);
+          setIsLoading(false);
         }
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
     };
     getCourseData();

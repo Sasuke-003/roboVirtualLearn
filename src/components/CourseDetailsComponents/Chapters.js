@@ -294,7 +294,7 @@ const Chapters = ({course, onPressIntro, isEnrolled, progress, navigation}) => {
     // console.warn(currentVideos);
     return currentVideos;
   };
-  // console.log('ppppppp', progress);
+
   const firstBox = {
     title: 'Joined',
     data: moment(progress?.joinedOn).format('DD/MM/YYYY'),
