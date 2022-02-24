@@ -9,7 +9,7 @@ import {api} from '../network';
 
 const VIR_VidioPlayer = ({
   route: {
-    params: {url, videoData, courseId, chapterId},
+    params: {url = null, videoData, courseId, chapterId},
   },
   navigation,
 }) => {
@@ -26,7 +26,7 @@ const VIR_VidioPlayer = ({
   };
   const onBack = async () => {
     // setSendProgress(true);
-
+    if (url) return;
     try {
       // const videoTime = Number.parseInt(
       //   videoData.timeDuration.slice(videoData.timeDuration.indexOf('.') + 1),
@@ -58,11 +58,11 @@ const VIR_VidioPlayer = ({
 
   return (
     <VideoPlayer
-      source={{uri: videoData.url}}
+      source={{uri: url ? url : videoData.url}}
       style={styles.backgroundVideo}
       // navigator={navigation}
       tapAnywhereToPause={true}
-      onProgress={onProgress}
+      onProgress={!url && onProgress}
       playInBackground={false}
       playWhenInactive={false}
       // onLoad={onLoad}

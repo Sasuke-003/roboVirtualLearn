@@ -237,6 +237,7 @@ export default en = {
     completed: 'Completed :',
     certificateNo: 'Certificate No:',
     savingAlert: 'Certificate Saved to Gallery',
+    errorAlert: 'Unable to Download',
     androidPermissionTitle: 'Storage Permission Required',
     androidPermissionMessage:
       'App needs access to your storage to download certificate',

@@ -16,6 +16,9 @@ import {getEnrolledCourses} from '../redux/reducers/MyCourseReducer';
 const CompletedCourse = props => {
   const course = props.course;
   const progress = props.progress;
+  const onPressView = () => {
+    props.gotoCourseDetailsScreen(course._id);
+  };
   return (
     <View style={styles.innerContainer}>
       <ImageBackground
@@ -30,7 +33,7 @@ const CompletedCourse = props => {
             <Text style={styles.chapterNO}>
               {progress.courseApprovalRate}% Approval Rate
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onPressView}>
               <View style={styles.button}>
                 <Text style={styles.continue}>
                   {strings.myCourses.viewCertificate}
@@ -44,7 +47,7 @@ const CompletedCourse = props => {
   );
 };
 
-const CompletedScreen = () => {
+const CompletedScreen = props => {
   const navigation = useNavigation();
   const enrolledCourses = useSelector(getEnrolledCourses);
   const CompletedCourses = enrolledCourses.filter(
@@ -56,7 +59,12 @@ const CompletedScreen = () => {
       <FlatList
         data={CompletedCourses}
         showsVerticalScrollIndicator={false}
-        renderItem={({item}) => <CompletedCourse {...item} />}
+        renderItem={({item}) => (
+          <CompletedCourse
+            {...item}
+            gotoCourseDetailsScreen={props.gotoCourseDetailsScreen}
+          />
+        )}
       />
     </View>
   );

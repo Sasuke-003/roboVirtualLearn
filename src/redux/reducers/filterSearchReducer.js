@@ -31,17 +31,14 @@ const FilterSlice = createSlice({
 
     setChapters: (state, action) => {
       const existingIndex = state.chapters.findIndex(
-        ChapterId => ChapterId === action.payload,
+        range => range === action.payload,
       );
 
       if (existingIndex >= 0) {
-        const updatedChapters = [...state.chapters];
-        updatedChapters.splice(existingIndex, 1);
-        state.chapters = updatedChapters;
+        state.chapters.splice(existingIndex, 1);
       } else {
-        state.chapters = state.chapters.concat([...action.payload]);
+        state.chapters.push(action.payload);
       }
-      // console.log(state.chapters);
     },
     clearFilter: (state, action) => {
       state.chapters = [];

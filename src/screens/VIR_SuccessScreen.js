@@ -11,7 +11,16 @@ import React from 'react';
 import {images, strings, fonts, colors} from '../assets';
 
 const VIR_SuccessScreen = ({navigation, route}) => {
-  const {image, title, message, buttonName, onPressButton} = route.params;
+  let {
+    image,
+    title,
+    message,
+    buttonName,
+    onPressButton,
+    approvalRate = null,
+  } = route.params;
+  console.log(image, approvalRate);
+  // image = images.successScreen.courseComplete;
   const renderContent = () => {
     return (
       <View style={styles.innerContainer}>
@@ -23,10 +32,18 @@ const VIR_SuccessScreen = ({navigation, route}) => {
   };
   const renderButton = () => {
     return (
-      <View style={styles.buttonContainer}>
+      <View style={styles.buttonContainer(approvalRate)}>
         <TouchableOpacity onPress={onPressButton}>
           <Text style={styles.buttonText}>{buttonName}</Text>
         </TouchableOpacity>
+      </View>
+    );
+  };
+  const renderApprovalRate = () => {
+    return (
+      <View style={{marginTop: 20}}>
+        <Text style={styles.appRate}>{approvalRate}%</Text>
+        <Text style={styles.appRateText}>approval rate</Text>
       </View>
     );
   };
@@ -37,6 +54,7 @@ const VIR_SuccessScreen = ({navigation, route}) => {
       showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         {renderContent()}
+        {approvalRate ? renderApprovalRate() : null}
         {renderButton()}
       </View>
     </ScrollView>
@@ -54,7 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 10,
     backgroundColor: colors.background,
   },
 
@@ -86,10 +104,10 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     textAlign: 'center',
   },
-  buttonContainer: {
-    paddingTop: 100,
+  buttonContainer: approvalRate => ({
+    paddingTop: approvalRate !== null ? 10 : 70,
     paddingBottom: 30,
-  },
+  }),
   buttonText: {
     color: colors.buttonBackground,
     fontFamily: fonts.proximaNovaBold,
@@ -97,5 +115,24 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
     lineHeight: 20,
     textAlign: 'center',
+  },
+  appRate: {
+    color: '#1EAB0D',
+    fontFamily: fonts.bikoRegular,
+    fontSize: 70,
+    letterSpacing: 0,
+    lineHeight: 90,
+    textAlign: 'center',
+    paddingVertical: 10,
+  },
+  appRateText: {
+    color: colors.secondaryText,
+    fontFamily: fonts.bikoRegular,
+    fontSize: 16,
+    letterSpacing: 0,
+    lineHeight: 19,
+    textAlign: 'center',
+    top: -20,
+    // paddingVertical: 10,
   },
 });

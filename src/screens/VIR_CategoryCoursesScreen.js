@@ -42,7 +42,9 @@ const VIR_CategoryCoursesScreen = ({
   const headerLeftIconOnPress = () => {
     navigation.goBack();
   };
-  const headerRightIconOnPress = () => {};
+  const headerRightIconOnPress = () => {
+    navigation.navigate(NAVIGATION_ROUTES.SEARCH_SCREEN);
+  };
   const onCoursePress = courseId => {
     navigation.navigate(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {courseId});
   };
