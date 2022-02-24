@@ -6,7 +6,21 @@ import {useReducer} from 'react';
 const initialState = {
   newInstallation: true,
   AuthorizationToken: '',
-  userDetails: null,
+  userDetails: {
+    data: {
+      number: '1',
+      fullname: '1',
+      username: '1',
+      email: '1',
+      occupation: '1',
+      dateOfBirth: new Date(),
+      gender: '1',
+      image:
+        'https://images.unsplash.com/photo-1645584579033-0ed0404624f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+      coverImage:
+        'https://images.unsplash.com/photo-1645610448847-71b25da351b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+    },
+  },
 };
 
 const slice = createSlice({

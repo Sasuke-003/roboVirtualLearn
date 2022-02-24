@@ -348,7 +348,7 @@ const Chapters = ({
     // console.warn(currentVideos);
     return currentVideos;
   };
-  // console.log('ppppppp', progress);
+
   const firstBox = {
     title: 'Joined',
     data: moment(progress?.joinedOn).format('DD/MM/YYYY'),
