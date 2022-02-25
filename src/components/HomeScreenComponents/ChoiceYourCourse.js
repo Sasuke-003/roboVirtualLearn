@@ -50,7 +50,7 @@ const ChoiceYourCourse = ({gotoCourseDetailsScreen}) => {
       } = await api.course.getAllCourses();
       setCourses(courses);
     } catch (error) {
-      console.warn(error);
+      console.log(error);
 
       setCourses([]);
     }

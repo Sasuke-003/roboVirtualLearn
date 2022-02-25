@@ -78,37 +78,6 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   const [profileImage, setProfileImage] = useState(0);
   const [coverImg, setCoverImg] = useState(0);
   let authToken = utils.getAuthToken();
-  const realPath =
-    '/Users/nitheshkumar/Library/Developer/CoreSimulator/Devices/0DBF97FA-CE93-402B-ADE0-BF478BB5B94D/data/Containers/Data/Application/35A1CDAD-8CB7-44A1-AEEF-DBE3BD70F8C6/tmp/ReactNative/7D1C4586-1AAF-4DA8-8480-985203785E1E.png';
-  // useEffect(() => {
-  //   console.log(authToken);
-  //   const uploadCertificate = async () => {
-  //     try {
-  //       const response = await RNFetchBlob.fetch(
-  //         'PATCH',
-  //         'https://virtual-learn-api.herokuapp.com/api/v1/users/uploadcertificate',
-  //         {
-  //           Authorization: authToken,
-  //           'Content-Type': 'multipart/form-data',
-  //         },
-  //         [
-  //           {
-  //             name: 'image',
-  //             filename: '7D1C4586-1AAF-4DA8-8480-985203785E1E.png',
-  //             type: 'image/png',
-  //             data: RNFetchBlob.wrap(realPath),
-  //           },
-  //           {name: 'courseID', data: '61f9582925cc6ed00c14af41'},
-  //           {name: 'image_tag', data: 'profile1', data: 'Nithu12'},
-  //         ],
-  //       );
-  //       console.log(response.data);
-  //     } catch (e) {
-  //       console.log('dvhfvsjh', e);
-  //     }
-  //   };
-  //   uploadCertificate();
-  // }, []);
 
   useEffect(() => {
     userDetails.data.hasOwnProperty('image')
@@ -242,7 +211,7 @@ const VIR_ProfileEditScreen = ({navigation}) => {
       const cvrImage = await launchImageLibrary(options);
       if (cvrImage) {
         setCoverImg(cvrImage.assets[0].uri.replace('file://', '')); //TODO: incomplete, pending to send image to api
-        console.log(cvrImage);
+
         utils.saveUserDetails({
           data: {
             ...userDetails.data,
@@ -269,8 +238,7 @@ const VIR_ProfileEditScreen = ({navigation}) => {
             {name: 'image_tag', data: 'cvrProfile', data: 'Nithu12'},
           ],
         );
-        console.log(response);
-        console.log(JSON.parse(response.data).message);
+
         if (response) {
           utils.showSuccessMessage(JSON.parse(response.data).message);
         }
@@ -285,8 +253,8 @@ const VIR_ProfileEditScreen = ({navigation}) => {
     try {
       const image = await launchImageLibrary(options);
       if (image) {
-        setProfileImage(image.assets[0].uri.replace('file://', '')); //TODO: incomplete, pending to send image to api
-        // console.log(image);
+        setProfileImage(image.assets[0].uri.replace('file://', ''));
+
         utils.saveUserDetails({
           data: {
             ...userDetails.data,
@@ -313,16 +281,12 @@ const VIR_ProfileEditScreen = ({navigation}) => {
             {name: 'image_tag', data: 'profile', data: 'Nithu12'},
           ],
         );
-        console.log(response);
-        console.log(JSON.parse(response.data).message);
+
         if (response) {
           utils.showSuccessMessage(JSON.parse(response.data).message);
         }
-
-        console.log('Success');
       }
     } catch (e) {
-      console.log('Error');
       console.log(e);
     }
   };
@@ -413,7 +377,6 @@ const VIR_ProfileEditScreen = ({navigation}) => {
             onConfirm={date => {
               setOpen(false);
               setDob(date);
-              console.log('njb', date);
             }}
             onCancel={() => {
               setOpen(false);

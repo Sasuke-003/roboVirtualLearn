@@ -62,7 +62,7 @@ const VIR_MyCourses = ({
         if (error.response.status === 409) {
           dispatch(clearEnrolledCourses());
         } else if (error.response.status === 401) {
-          console.warn('Authentication failed');
+          console.log('Authentication failed');
         } else {
           console.log('Internal server error');
         }

@@ -30,7 +30,6 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   const today = new Date();
   const [URI, setURI] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  // console.log(userDetails.data);
   const {
     completed = null,
     courseLength = null,
@@ -74,7 +73,7 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
       );
       console.log(response.data);
     } catch (e) {
-      console.log('dvhfvsjh', e);
+      console.log(e);
     }
   };
 
@@ -159,9 +158,7 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   };
 
   const onDownloadPress = async () => {
-    console.log('Downloading...', URI);
     try {
-      // const imageURI = await viewShotRef.current.capture();
       checkPermission(URI);
       //   myAsyncPDFFunction();
     } catch (e) {

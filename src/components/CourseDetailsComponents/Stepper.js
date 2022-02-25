@@ -206,7 +206,6 @@ const Stepper = ({
   ...props
 }) => {
   const navigation = useNavigation();
-  // console.log('dsd', chapter);
   const gotoTest = data => {
     navigation.navigate(NAVIGATION_ROUTES.MODULE_TEST_SCREEN, {data});
   };
@@ -238,7 +237,6 @@ const Stepper = ({
           order: chapter.order,
           totalChapter: totalChapter,
         };
-  // console.log(chapter.order);
   return !isEnrolled ? (
     <LessonCardNotEnrolled
       courseId={courseId}

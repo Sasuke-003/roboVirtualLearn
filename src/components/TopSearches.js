@@ -32,7 +32,7 @@ const TopSearches = () => {
           setIsLoading(false);
         }
       } catch (error) {
-        console.warn(error);
+        console.log(error);
         setIsLoading(false);
       }
     };

@@ -69,7 +69,7 @@ const DrawerNavigator = ({navigation}) => {
       try {
         const {data} = await api.course.getUserDetails();
         setmobNum(data.data.number);
-        // console.log('datatatata', data.data.number);
+
         utils.saveUserDetails(data);
       } catch (error) {
         logout();

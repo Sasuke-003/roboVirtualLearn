@@ -62,7 +62,7 @@ const DisplayCourses = ({
         const {data} = await api();
         setCourses(data[searchKey]);
       } catch (error) {
-        console.warn(error);
+        console.log(error);
         setCourses([]);
       }
     };

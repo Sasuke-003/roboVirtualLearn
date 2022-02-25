@@ -26,7 +26,7 @@ const HomeCategories = ({scrollDisabled = false, disableSeeAll = false}) => {
         } = await api.course.getAllCategories();
         setCategories(data);
       } catch (error) {
-        console.warn(error);
+        console.log(error);
         setCategories([]);
       }
     };

@@ -104,7 +104,7 @@ const Chapters = ({
   const [isLoading, setIsLoading] = useState(false);
   const {height, width} = useWindowDimensions();
   const [showModal, setShowModal] = useState(false);
-  // console.log(JSON.stringify(course, null, 2));
+
   useFocusEffect(
     React.useCallback(() => {
       const getData = async () => {
@@ -112,10 +112,10 @@ const Chapters = ({
           setIsLoading(true);
           const {data} = await api.course.getCourseVideoDetails(course?._id);
           setCourseVideoProgress(data);
-          console.log('Dataaa');
+
           setIsLoading(false);
         } catch (e) {
-          console.warn(e);
+          console.log(e);
           setIsLoading(false);
         }
       };
@@ -123,11 +123,6 @@ const Chapters = ({
         try {
           const progress = await api.course.getCourseProgress(course?._id);
           if (progress.status === 200) {
-            // console.log(
-            //   'Progress',
-            //   JSON.stringify(progress.data.progressData, null, 2),
-            // );
-            console.log('Progress', progress);
             setProgress(progress.data.progressData);
           }
         } catch (error) {
@@ -156,12 +151,6 @@ const Chapters = ({
       }
       let nextChapterNo = 0;
       for (let i = 0; i < chapters.length; i++) {
-        // console.warn(
-        //   checkIfChapterIsCompleted(
-        //     chapters[i].chapterID._id,
-        //     chapters[i].chapterID.videos[0].videoID,
-        //   ),
-        // );
         nextChapterNo = i;
         if (
           checkIfChapterIsCompleted(
@@ -298,7 +287,6 @@ const Chapters = ({
     );
     if (currentVideo.progressRate < 90) currentVideoOrder = index;
     else currentVideoOrder = index + 1;
-    // console.warn(currentVideo.videoID);
 
     // for (let i = 0; i < videos.length; i++) {
     //   if (videos[i].progressRate >= 99) currentVideo = videos[i].order;
@@ -363,7 +351,7 @@ const Chapters = ({
       .filter(video => video.chapterID === chapterId)
       .slice()
       .sort((a, b) => a.videoOrder - b.videoOrder);
-    // console.warn(currentVideos);
+
     return currentVideos;
   };
 
@@ -437,7 +425,6 @@ const Chapters = ({
   }
 
   const onDownloadPress = async () => {
-    console.log('Downloading...', progress?.courseCertificateUrl);
     try {
       checkPermission(progress?.courseCertificateUrl);
     } catch (e) {
@@ -484,7 +471,6 @@ const Chapters = ({
           ))}
         </View>
       </View>
-      {/* {console.log('dfdf', progress?.hasOwnProperty('completedOn'))} */}
       {progress?.hasOwnProperty('completedOn') && (
         <View style={styles.resultContainer}>
           <Text style={styles.resultTitle}>Course Result</Text>

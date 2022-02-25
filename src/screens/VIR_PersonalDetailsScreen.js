@@ -47,7 +47,7 @@ const VIR_PersonalDetailsScreen = ({
         email,
         pass,
       );
-      console.warn(res);
+
       if (res.status === 200) {
         setIsRegisterDisabled(false);
         goToNextScreen();

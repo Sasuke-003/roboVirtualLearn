@@ -173,7 +173,7 @@ const ModuleTest = ({
       );
 
       if (response.status === 200) {
-        if (approvalRate => 75) {
+        if (approvalRate > 75) {
           navigation.dispatch(
             StackActions.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, navData),
           );
@@ -189,9 +189,9 @@ const ModuleTest = ({
       }
     } catch (error) {
       if (error.response.status === 401) {
-        console.warn('Authentication Failed');
+        console.log('Authentication Failed');
       } else {
-        console.warn('Internal Server Error');
+        console.log('Internal Server Error');
       }
     }
   };
@@ -203,11 +203,6 @@ const ModuleTest = ({
   }, [timeLeft]);
 
   const onPressQuit = () => {
-    // navigation.dispatch(
-    //   StackActions.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
-    //     courseId: courseID,
-    //   }),
-    // );
     navigation.pop(1);
     dispatch(clearQuestionAnswer());
   };
