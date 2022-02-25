@@ -80,6 +80,7 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   let authToken = utils.getAuthToken();
 
   useEffect(() => {
+    //Initial condition checking for all parameter that api sends
     userDetails.data.hasOwnProperty('image')
       ? setProfileImage(userDetails.data.image)
       : setProfileImage(images.profileScreen.blankImage);
@@ -207,10 +208,11 @@ const VIR_ProfileEditScreen = ({navigation}) => {
   };
 
   const onPressCoverUpload = async () => {
+    //uploading the cover photo
     try {
       const cvrImage = await launchImageLibrary(options);
       if (cvrImage) {
-        setCoverImg(cvrImage.assets[0].uri.replace('file://', '')); //TODO: incomplete, pending to send image to api
+        setCoverImg(cvrImage.assets[0].uri.replace('file://', ''));
 
         utils.saveUserDetails({
           data: {
@@ -250,6 +252,7 @@ const VIR_ProfileEditScreen = ({navigation}) => {
 
   /******************************************** */
   const onPressImageUpload = async () => {
+    //uploading the profile photo
     try {
       const image = await launchImageLibrary(options);
       if (image) {
