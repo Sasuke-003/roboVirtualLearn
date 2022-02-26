@@ -79,7 +79,7 @@ const DrawerNavigator = ({navigation}) => {
   }, []);
 
   const logout = () => {
-    Alert.alert('Are you sure you want to quit the exam', '', [
+    Alert.alert('Are you sure you want to logout?', '', [
       {
         text: 'Cancel',
         onPress: () => {},
