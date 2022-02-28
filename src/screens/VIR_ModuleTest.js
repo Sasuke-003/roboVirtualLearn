@@ -203,11 +203,6 @@ const ModuleTest = ({
   }, [timeLeft]);
 
   const onPressQuit = () => {
-    // navigation.dispatch(
-    //   StackActions.replace(NAVIGATION_ROUTES.COURSE_DETAILS_SCREEN, {
-    //     courseId: courseID,
-    //   }),
-    // );
     navigation.pop(1);
     dispatch(clearQuestionAnswer());
   };
