@@ -42,8 +42,7 @@ const VIR_CourseDetails = ({
   const [progressData, setProgressData] = useState(null);
 
   const {height, width} = useWindowDimensions();
-  console.log(courseId);
-  // console.log('crseeee', JSON.stringify(courseData, null, 2));
+
   useEffect(() => {
     setIsLoading(true);
     const getCourseData = async () => {
@@ -52,13 +51,13 @@ const VIR_CourseDetails = ({
         const {
           data: {data},
         } = await api.course.getCourseDetails(courseId);
-        // console.log('dataaa', JSON.stringify(data, null, 2));
+
         setIsLoading(false);
         setCourseData(data);
         getProgress();
       } catch (error) {
         setIsLoading(false);
-        console.warn(error);
+        console.log(error);
         setCourseData([]);
       }
       return () => {
@@ -68,12 +67,8 @@ const VIR_CourseDetails = ({
     const getProgress = async () => {
       try {
         const progress = await api.course.getCourseProgress(courseId);
-        // console.warn(progress.data);
+
         if (progress.status === 200) {
-          // console.log(
-          //   'Progress',
-          //   JSON.stringify(progress.data.progressData, null, 2),
-          // );
           setProgressData(progress.data.progressData);
           setHideJoinCourseBtn(true);
           setIsEnrolled(true);

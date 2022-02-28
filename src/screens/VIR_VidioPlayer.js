@@ -9,7 +9,7 @@ import {api} from '../network';
 
 const VIR_VidioPlayer = ({
   route: {
-    params: {url = null, videoData, courseId, chapterId},
+    params: {url = null, videoData, courseId, chapterId, progressRate},
   },
   navigation,
 }) => {
@@ -17,24 +17,26 @@ const VIR_VidioPlayer = ({
   const dispatch = useDispatch();
 
   const onLoad = data => {
-    console.log('Data', data);
+    // console.log('Data', data);
   };
   const onProgress = data => {
-    console.log(data);
     dispatch(setTime(data.currentTime));
     dispatch(setMaxLength(data.seekableDuration));
   };
   const onBack = async () => {
-    // setSendProgress(true);
-    if (url) return;
+    if (url) {
+      navigation.goBack();
+      return;
+    }
+    if (progressRate >= 90) {
+      navigation.goBack();
+    }
     try {
       // const videoTime = Number.parseInt(
       //   videoData.timeDuration.slice(videoData.timeDuration.indexOf('.') + 1),
       // );
       const watchedTill = Math.trunc(utils.getVideoTime());
-      console.warn(watchedTill);
-      console.warn(utils.getVideoMaxLength());
-      console.warn((100 * watchedTill) / utils.getVideoMaxLength());
+
       const progressRate = (100 * watchedTill) / utils.getVideoMaxLength();
       const data = {
         courseID: courseId,
@@ -46,8 +48,8 @@ const VIR_VidioPlayer = ({
       };
       await api.course.updateVideoProgress(data);
     } catch (e) {
-      console.warn(e.response);
-      console.warn(e);
+      // console.log(e.response);
+      console.log(e);
     }
 
     navigation.goBack();

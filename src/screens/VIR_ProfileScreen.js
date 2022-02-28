@@ -47,8 +47,6 @@ const VIR_ProfileScreen = ({goToCreateNewPassword, navigation}) => {
   const userDetails = useSelector(getUserDetails);
   let authToken = utils.getAuthToken();
 
-  // console.log(userDetails);
-
   let occupation =
     userDetails.data.hasOwnProperty('occupation') &&
     userDetails.data.occupation.length > 0

@@ -19,7 +19,6 @@ const VIR_NotificationScreen = ({navigation}) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log('hello');
       const fetchNotification = async () => {
         try {
           const response = await api.course.getNotification();

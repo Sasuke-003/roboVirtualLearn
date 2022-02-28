@@ -47,7 +47,7 @@ const VIR_HomeScreen = ({
         } = await api.course.getTopSearchedCategories();
         setTopCategories(data);
       } catch (error) {
-        console.warn(error);
+        console.log(error);
         setTopCategories([]);
       }
     };
@@ -64,41 +64,31 @@ const VIR_HomeScreen = ({
   );
 
   const checkProfileCompleted = () => {
-    console.log(JSON.stringify(userDetails, null, 2));
     if (!userDetails) {
-      console.log('usd');
       return false;
     }
     if (!userDetails.data) {
-      console.log('usd data');
       return false;
     }
     if (userDetails.data.fullname === '') {
-      console.log('flnm');
       return false;
     }
     if (userDetails.data.username === '') {
-      console.log('usnm');
       return false;
     }
     if (userDetails.data.email === '') {
-      console.log('email');
       return false;
     }
     if (!userDetails.data.dateOfBirth) {
-      console.log('dob');
       return false;
     }
     if (userDetails.data.gender === '') {
-      console.log('gendr');
       return false;
     }
     if (userDetails.data.image === '') {
-      console.log('img');
       return false;
     }
     if (userDetails.data.coverImage === '') {
-      console.log('cvimg');
       return false;
     }
     return true;

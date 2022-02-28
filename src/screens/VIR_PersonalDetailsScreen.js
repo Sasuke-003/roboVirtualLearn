@@ -40,16 +40,20 @@ const VIR_PersonalDetailsScreen = ({
       return;
     }
     try {
-      const res = await api.user.register(
+      const {
+        data: {message, token},
+        status,
+      } = await api.user.register(
         '+91' + phoneNumber,
         fullName,
         userName,
         email,
         pass,
       );
-      console.warn(res);
-      if (res.status === 200) {
+
+      if (status === 200) {
         setIsRegisterDisabled(false);
+        utils.setAuthToken(token);
         goToNextScreen();
         return;
       }

@@ -30,7 +30,6 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   const today = new Date();
   const [URI, setURI] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  // console.log(userDetails.data);
   const {
     completed = null,
     courseLength = null,
@@ -42,7 +41,7 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   // uuid.v4().split('-').pop() (Optional Unique number)
   let authToken = utils.getAuthToken();
 
-  const certificateNo = today.getFullYear() + courseId.slice(-12).toUpperCase();
+  const certificateNo = today.getFullYear() + courseId.slice(-12).toUpperCase(); //Certificate No.
 
   let time = new Date(courseLength * 60 * 1000)
     .toISOString()
@@ -52,6 +51,7 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   let min = time[1] != '00' ? time[1] + 'm' : '';
   let sec = time[2] != '00' ? time[2] + 's' : '';
 
+  //Uploading The certificate to server
   const uploadCertificate = async url => {
     try {
       const response = await RNFetchBlob.fetch(
@@ -74,13 +74,13 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
       );
       console.log(response.data);
     } catch (e) {
-      console.log('dvhfvsjh', e);
+      console.log(e);
     }
   };
 
   useEffect(() => {
     const getImage = async () => {
-      const imageURI = await viewShotRef.current.capture();
+      const imageURI = await viewShotRef.current.capture(); //Capture the viewShot of the certificate
       imageURI && setURI(imageURI);
       uploadCertificate(imageURI);
     };
@@ -92,6 +92,7 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   }, []);
 
   const checkPermission = async imageURI => {
+    //Checking permission for android before storing certificate to gallery
     if (Platform.OS === 'ios') {
       //   downloadImage();
       savePicture(imageURI);
@@ -130,6 +131,8 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
     }
   }
 
+  /* Storing Certificate as a pdf.(optional case) */
+
   //   const myAsyncPDFFunction = async () => {
   //     const date = new Date();
   //     try {
@@ -159,9 +162,7 @@ const VIR_CertificateScreen = ({navigation, route: {params}}) => {
   };
 
   const onDownloadPress = async () => {
-    console.log('Downloading...', URI);
     try {
-      // const imageURI = await viewShotRef.current.capture();
       checkPermission(URI);
       //   myAsyncPDFFunction();
     } catch (e) {

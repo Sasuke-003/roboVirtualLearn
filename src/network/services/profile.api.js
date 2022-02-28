@@ -7,7 +7,7 @@ const config = () => {
   return {headers: {Authorization: token}};
 };
 let authToken = store.getState().userReducer.AuthorizationToken;
-// console.log(authToken);
+
 export const profile = {
   changePassword: async (oldpassword, newpassword) => {
     return await virtualLearn.patch(
@@ -25,7 +25,6 @@ export const profile = {
     facebookLink,
     email,
   ) => {
-    // console.log(dateOfBirth);
     return await virtualLearn.patch(
       URL.profile.updateDetails,
       {
@@ -41,8 +40,6 @@ export const profile = {
     );
   },
   uploadProfilePic: async image => {
-    console.log('api', image);
-    // console.log('token', authToken);
     return await virtualLearn.patch(URL.profile.uploadProfilePic, image, {
       headers: {
         Authorization: authToken,
@@ -50,13 +47,10 @@ export const profile = {
           'multipart/form-data;boundary=--------------------------299186221864974250459453',
       },
     });
-    // virtualLearn.interceptors.request.use(config => console.log(config));
-    // return res;
   },
   uploadCoverPic: async formData => {
     return await virtualLearn.patch(URL.profile.uploadCoverPic, formData, {
       headers: {
-        // Accept: 'application/json',
         'Content-Type': 'multipart/form-data',
         Authorization: authToken,
       },

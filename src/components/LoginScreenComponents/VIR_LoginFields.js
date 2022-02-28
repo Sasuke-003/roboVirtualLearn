@@ -50,11 +50,10 @@ const VIR_LoginFields = () => {
           utils.setAuthToken(token);
           goToHomeScreen();
         }
-        // console.warn(response);
       })
       .catch(error => {
         utils.showErrorMessage(error?.response?.data?.message);
-        console.warn(error);
+        console.log(error);
         setIsLoginDisabled(false);
       });
   };

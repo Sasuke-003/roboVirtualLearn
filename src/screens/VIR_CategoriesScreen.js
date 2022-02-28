@@ -83,7 +83,7 @@ const VIR_CategoriesScreen = ({navigation}) => {
         setCategories(data);
         setLoading(false);
       } catch (error) {
-        console.warn(error);
+        console.log(error);
         setCategories([]);
         setLoading(false);
       }

@@ -63,32 +63,19 @@ const ResultOptions = ({item, onPressCard}) => {
 const VIR_ResultScreen = ({navigation, route: {params}}) => {
   const data = params;
   const questionAnswers = data?.questionAnswers;
-  // const courseCompleted = true;
-  console.log(JSON.stringify(data, null, 2));
+
   const [showModal, setShowModal] = useState(false);
   const {height, width} = useWindowDimensions();
   const [modalData, setModalData] = useState(null);
   const [progressData, setProgressData] = useState(null);
   const portrait = height > width;
 
-  // const completedData = {
-  //   courseId: '61f9582925cc6ed00c14af41',
-  //   joinedOn: new Date(),
-  //   completedOn: new Date(),
-  //   totalCourseLength: 90,
-  //   courseCompleted: true,
-  // };
-
   useEffect(() => {
     const getProgress = async () => {
       try {
         const progress = await api.course.getCourseProgress(data.courseID);
-        // console.warn(progress.data);
+
         if (progress.status === 200) {
-          console.log(
-            'Progress',
-            JSON.stringify(progress.data.progressData, null, 2),
-          );
           setProgressData(progress.data.progressData);
         }
       } catch (error) {
@@ -97,7 +84,7 @@ const VIR_ResultScreen = ({navigation, route: {params}}) => {
     };
     getProgress();
   }, []);
-  // console.log('pppppppp', progressData);
+
   const onBackPress = () => {
     if (data.courseCompleted) {
       navigation.replace(NAVIGATION_ROUTES.SUCCESS_SCREEN, {

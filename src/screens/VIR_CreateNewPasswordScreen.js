@@ -30,8 +30,6 @@ const VIR_CreateNewPasswordScreen = ({navigation, route: {params}}) => {
   let phoneNumber = params?.phoneNumber ? params.phoneNumber : null;
   let authToken = params?.authToken ? params.authToken : null;
 
-  // console.log(phoneNumber);
-  // console.log('params', params.authToken);
   const onChangePassword = text => {
     setPassword(text);
     if (isValidPassword(text)) {

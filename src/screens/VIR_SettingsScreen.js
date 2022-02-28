@@ -29,16 +29,13 @@ const VIR_SettingsScreen = ({navigation, goToNextScreen, mobNum}) => {
   const [showSound, setShowSound] = useState(false);
   const togglePushSwitch = () => store.dispatch(setPushNotification(mobNum));
   const toggleSoundSwitch = () => store.dispatch(setNotificationSound(mobNum));
-  // const togglePushSwitch = () => store.dispatch(clearNotification());
-  // const showPushNotification = useSelector(getPushNotification);
-  // const showSound = useSelector(getNotificationSound);
 
   const {height, width} = useWindowDimensions();
   const portrait = height > width;
   const notificationData = useSelector(getNotificationData);
   useEffect(() => {
     let data = notificationData.find(item => item.hasOwnProperty(mobNum));
-    console.log(data);
+
     if (data) {
       setShowPushNotification(data[mobNum].pushNotification);
       setShowSound(data[mobNum].notificationSound);

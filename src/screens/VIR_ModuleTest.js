@@ -189,9 +189,9 @@ const ModuleTest = ({
       }
     } catch (error) {
       if (error.response.status === 401) {
-        console.warn('Authentication Failed');
+        console.log('Authentication Failed');
       } else {
-        console.warn('Internal Server Error');
+        console.log('Internal Server Error');
       }
     }
   };
